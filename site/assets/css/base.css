@@ -94,6 +94,10 @@ img {
   display: block;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 .pixel {
   image-rendering: pixelated;
 }

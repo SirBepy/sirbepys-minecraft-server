@@ -765,7 +765,7 @@
 }
 
 .pack-kind {
-  color: #5555ff;
+  color: #9a9aff;
   font-style: italic;
 }
 
@@ -983,7 +983,7 @@
 
   .splash {
     align-self: center;
-    margin: 8px 0 0;
+    margin: 24px 0 0;
   }
 
   .serverlist {

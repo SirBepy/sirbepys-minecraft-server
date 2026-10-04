@@ -116,6 +116,9 @@ body.mapapp {
 
 /* F3-style readout. */
 .coords {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
   margin: 0;
   padding: 6px 10px;
   background: rgba(0, 0, 0, 0.6);
@@ -200,11 +203,12 @@ body.mapapp {
   overflow-y: auto;
   flex: 1;
   min-height: 0;
-  background: var(--slot);
+  /* Dark like the creative-inventory list, so white names and tags clear 4.5:1. */
+  background: #262626;
   box-shadow:
-    inset var(--px) var(--px) 0 var(--slot-dark),
+    inset var(--px) var(--px) 0 #111,
     inset calc(var(--px) * -1) calc(var(--px) * -1) 0 var(--gui-light);
-  scrollbar-color: #555 var(--slot);
+  scrollbar-color: #666 #262626;
 }
 
 .biome {
@@ -241,7 +245,7 @@ body.mapapp {
 
 .biome__src {
   font-size: 12px;
-  color: #e7e7ff;
+  color: var(--mc-gray);
 }
 
 .biome__src--mod {
@@ -439,5 +443,14 @@ body.mapapp {
 
   .coords {
     font-size: 13px;
+    align-self: flex-start;
+    max-width: 100%;
+  }
+
+  /* Coordinates above, controls below: one row is too narrow for both. */
+  .bar--bottom {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
   }
 }

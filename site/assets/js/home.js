@@ -46,7 +46,7 @@ for (const btn of document.querySelectorAll('[data-copy]')) {
       return;
     }
     ping.dataset.state = 'online';
-    players.textContent = `${s.players.online}/${s.players.max}`;
+    players.textContent = `${s.players.online}/${s.players.max} online`;
     const names = (s.players.list || []).map((p) => p.name);
     players.title = names.length ? `Online: ${names.join(', ')}` : 'Nobody online';
     players.setAttribute('aria-label', `${s.players.online} of ${s.players.max} players online`);
