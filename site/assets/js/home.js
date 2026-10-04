@@ -9,28 +9,21 @@ const SPLASHES = [
 ];
 document.getElementById('splash').textContent = SPLASHES[Math.floor(Math.random() * SPLASHES.length)];
 
-// ---------- Copy buttons ----------
-
-for (const btn of document.querySelectorAll('[data-copy]')) {
-  const label = btn.querySelector('span');
-  const original = label.textContent;
-  const icon = btn.querySelector('i');
-  btn.addEventListener('click', async () => {
-    try {
-      await navigator.clipboard.writeText(btn.dataset.copy);
-      label.textContent = 'Copied!';
-      icon.className = 'ph-bold ph-check';
-      btn.dataset.copied = '';
-    } catch {
-      label.textContent = 'Select & copy it';
-    }
-    setTimeout(() => {
-      label.textContent = original;
-      icon.className = 'ph-bold ph-copy';
-      delete btn.dataset.copied;
-    }, 2000);
-  });
+function el(tag, props = {}, ...children) {
+  const node = Object.assign(document.createElement(tag), props);
+  node.append(...children.filter((c) => c != null));
+  return node;
 }
+
+// Theme A digs the page into the ground; the strata canvas sits behind everything.
+if (document.documentElement.dataset.theme === 'a') {
+  const strata = el('div', { className: 'strata', ariaHidden: 'true' }, el('canvas'));
+  document.body.append(strata);
+  import('./strata.js').then((m) => m.paintStrata(strata.firstChild, document.querySelector('main')));
+}
+
+const icon = (name) => el('i', { className: `ph-bold ph-${name}`, ariaHidden: 'true' });
+const pageLink = (href, label) => el('a', { className: 'page-link', href }, label, icon('arrow-square-out'));
 
 // ---------- Live server status (mcsrvstat.us, free, caches ~5 min) ----------
 
@@ -57,26 +50,123 @@ for (const btn of document.querySelectorAll('[data-copy]')) {
   }
 })();
 
-// ---------- Toasts slide in once ----------
+// ---------- Hero carousel ----------
 
-const toasts = document.querySelector('.toasts');
-new IntersectionObserver((entries, obs) => {
-  if (entries.some((e) => e.isIntersecting)) {
-    toasts.classList.add('is-in');
-    obs.disconnect();
+// Squarespace's CDN resizes on request via ?format=<width>w.
+const SQ = 'https://images.squarespace-cdn.com/content/v1/6240c1f3e10b50416d969a84/';
+const sq = (path, w) => `${SQ}${path}?format=${w}w`;
+const srcset = (url) => [1000, 1500, 2500].map((w) => `${url}?format=${w}w ${w}w`).join(', ');
+
+(() => {
+  const slides = [...document.querySelectorAll('#carousel .slide')];
+  const credit = document.getElementById('slide-credit');
+  const dotsWrap = document.getElementById('slide-dots');
+  const pauseBtn = document.getElementById('slide-pause');
+  const DELAY = 6500;
+  let current = 0;
+  let timer = 0;
+  let paused = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const load = (i) => {
+    const img = slides[i].querySelector('img');
+    if (img.srcset) return;
+    img.sizes = '100vw';
+    img.srcset = srcset(img.dataset.src);
+    img.src = `${img.dataset.src}?format=1500w`;
+  };
+
+  const dots = slides.map((_, i) => {
+    const b = el('button', { type: 'button', className: 'dot', ariaLabel: `Show screenshot ${i + 1}` });
+    b.addEventListener('click', () => { show(i); restart(); });
+    dotsWrap.append(b);
+    return b;
+  });
+
+  function show(i) {
+    current = (i + slides.length) % slides.length;
+    load(current);
+    load((current + 1) % slides.length);
+    slides.forEach((s, k) => {
+      s.classList.toggle('is-active', k === current);
+      s.setAttribute('aria-hidden', String(k !== current));
+    });
+    dots.forEach((d, k) => d.setAttribute('aria-current', String(k === current)));
+    credit.textContent = slides[current].dataset.pack;
+    credit.href = slides[current].dataset.url;
   }
-}, { threshold: 0.3 }).observe(toasts);
+
+  function restart() {
+    clearTimeout(timer);
+    if (!paused && !document.hidden) timer = setTimeout(() => { show(current + 1); restart(); }, DELAY);
+  }
+
+  function setPaused(p) {
+    paused = p;
+    pauseBtn.ariaLabel = p ? 'Play slideshow' : 'Pause slideshow';
+    pauseBtn.querySelector('i').className = `ph-bold ph-${p ? 'play' : 'pause'}`;
+    restart();
+  }
+
+  document.getElementById('slide-prev').addEventListener('click', () => { show(current - 1); restart(); });
+  document.getElementById('slide-next').addEventListener('click', () => { show(current + 1); restart(); });
+  pauseBtn.addEventListener('click', () => setPaused(!paused));
+  document.addEventListener('visibilitychange', restart);
+
+  show(0);
+  setPaused(paused);
+})();
+
+// ---------- Worldgen paintings ----------
+
+const SD = 'https://www.stardustlabs.net/';
+const MR = 'https://cdn.modrinth.com/data/';
+const PAINTINGS = [
+  { size: 'big', pack: 'Terralith', where: 'Overworld', url: `${SD}terralith`, w: 1000,
+    src: '0f931c73-3ba9-409e-a05c-2e299d8f6872/2022-02-20_20.04.24.png', alt: 'Snowy Terralith mountains around turquoise lakes and orange slopes' },
+  { size: 'wide', pack: 'Structory', where: 'Overworld', url: `${SD}structory`, w: 750,
+    src: '028745c6-5ff8-481c-8a5a-e752f74b3065/2022-06-22_20.54.30.png', alt: 'A mossy Structory ruin with a campfire at dusk' },
+  { pack: 'Terralith', where: 'Overworld', url: `${SD}terralith`, w: 500,
+    src: 'c83364e8-c73d-48e6-9f5e-2708dbc85130/2022-02-22_13.40.40.png', alt: 'A Terralith volcano with lava running down black rock' },
+  { pack: 'Terralith', where: 'Overworld', url: `${SD}terralith`, w: 500,
+    src: '7e37a263-dd2a-4787-9258-0452e6707707/2021-11-23_15.29.37.png', alt: 'Blue ice caves carved into a Terralith glacier' },
+  { size: 'wide', pack: 'Incendium', where: 'Nether', url: `${SD}incendium`, w: 750,
+    src: 'b7a40aa0-b514-4b8b-9059-66d9cf3a255b/NkxSscQ.jpeg', alt: 'An Incendium Nether landscape of lava lakes and towering ruins' },
+  { pack: 'Structory: Towers', where: 'Overworld', url: 'https://modrinth.com/datapack/structory-towers',
+    full: `${MR}j3FONRYr/images/b4f8eb693c6679fa4dc075028fff5b3b19c5fdb8.png`, alt: 'A Structory: Towers mirage outpost in the desert' },
+  { pack: 'Dungeons and Taverns', where: 'Overworld', url: 'https://modrinth.com/datapack/dungeons-and-taverns',
+    full: `${MR}tpehi7ww/images/93dc2790ee15a172f5e7a9100790dedde9ea6b35.webp`, alt: 'A cosy Dungeons and Taverns tavern' },
+  { pack: 'Terralith', where: 'Overworld', url: `${SD}terralith`, w: 500,
+    src: '53d1319a-a523-4256-a0f1-e878134e7d6f/2022-02-26_01.37.41.png', alt: 'A village in a green Terralith valley under dark peaks' },
+  { pack: 'Nullscape', where: 'The End', url: `${SD}nullscape`, w: 500,
+    src: '59dda74f-102f-4f93-9939-2af33c3f4761/2022-06-08_14.32.22.png', alt: 'A glowing island floating over the Nullscape void' },
+  { size: 'big', pack: 'Incendium', where: 'Nether', url: `${SD}incendium`, w: 1000,
+    src: 'f33a23d1-246a-4c03-a889-88104df3978c/2022-02-19_16.04.52.png', alt: 'A pale Incendium palace standing in a lava sea' },
+  { size: 'wide', pack: 'Structory', where: 'Overworld', url: `${SD}structory`, w: 750,
+    src: '6fc81043-d875-4969-a043-fe4f189cb0da/2022-06-22_17.04.38.png', alt: 'Sandstone Structory ruins across desert dunes' },
+  { pack: 'Terralith', where: 'Overworld', url: `${SD}terralith`, w: 500,
+    src: 'e206d910-ed25-415e-87ba-be5d79ea5bc9/2021-11-20_19.10.53.png', alt: 'A dim Terralith swamp under tall rock spires' },
+  { pack: 'Incendium', where: 'Nether', url: `${SD}incendium`, w: 500,
+    src: '492b3acf-a23b-46a6-8184-ed1ce8e8014d/ehxNxVv.jpeg', alt: 'A huge red Incendium cavern hung with crimson vines' },
+  { size: 'wide', pack: 'Nullscape', where: 'The End', url: `${SD}nullscape`, w: 750,
+    src: '71e9df8a-e8a3-4ac0-9879-5fa42c8bfe8a/2022-06-08_14.49.16.png', alt: 'Purple crystal cliffs in the Nullscape End' },
+];
+
+document.getElementById('paintings').append(...PAINTINGS.map((p) => el('li', { className: `painting${p.size ? ` painting--${p.size}` : ''}` },
+  el('img', { src: p.full || sq(p.src, p.w), alt: p.alt, loading: 'lazy', decoding: 'async' }),
+  el('a', { className: 'painting__tag', href: p.url },
+    el('b', {}, p.pack), el('span', {}, p.where), icon('arrow-square-out')),
+)));
 
 // ---------- Datapack inventory ----------
 
-const MR = 'https://cdn.modrinth.com/data/';
 const VT = 'https://vanillatweaks.net/assets/resources/icons/datapacks/26.3/';
+const VT_PAGE = 'https://vanillatweaks.net/picker/datapacks/';
 const PACKS = [
-  { name: 'Terralith', kind: 'World generation', by: 'Stardust Labs', url: 'https://modrinth.com/datapack/terralith',
+  { name: 'Terralith', kind: 'World generation', by: 'Stardust Labs', url: `${SD}terralith`,
     icon: `${MR}8oi3bsk5/1959d924a1088944bbf07a06ba523726112d7e7a_96.webp`,
     shot: `${MR}8oi3bsk5/images/4957da7c3da1386fb12b76001a2321be7b2ff9bc_350.webp`,
     desc: 'Almost 100 new biomes, realism with a dash of fantasy, all from vanilla blocks.' },
-  { name: 'Structory', kind: 'Structures', by: 'Stardust Labs', url: 'https://modrinth.com/datapack/structory',
+  { name: 'Structory', kind: 'Structures', by: 'Stardust Labs', url: `${SD}structory`,
     icon: `${MR}aKCwCJlY/81c79a9d58c605ad79c4a8da15c865902bec8d42_96.webp`,
     shot: `${MR}aKCwCJlY/images/009e986b0e796b249ce8ad7d894c4271af32d901_350.webp`,
     desc: 'Atmospheric ruins and buildings with a little lore.' },
@@ -88,14 +178,16 @@ const PACKS = [
     icon: `${MR}tpehi7ww/429ba22d212868940cdd82465df949ac51c9791e_96.webp`,
     shot: `${MR}tpehi7ww/images/048b4a06f670fb68af5071cc20a957e2ad06dc55_350.webp`,
     desc: 'Dungeons, taverns and other places to find while you explore.' },
-  { name: 'Incendium', kind: 'Nether generation', by: 'Stardust Labs', url: 'https://modrinth.com/datapack/incendium',
+  { name: 'Incendium', kind: 'Nether generation', by: 'Stardust Labs', url: `${SD}incendium`,
     icon: `${MR}ZVzW5oNS/65c8dcaaf260e5b2182c228a1a442c792a7c4782.jpeg`,
+    shot: sq('62cdcc04-8b69-4359-ad85-3196b4401f55/2022-06-10_13.42.10.png', 500),
     desc: 'Nether biomes overhauled, with tough structures, unique weapons and tricky mobs.' },
   { name: 'Amplified Nether', kind: 'Nether generation', by: 'Stardust Labs', url: 'https://modrinth.com/datapack/amplified-nether',
     icon: `${MR}wXiGiyGX/6673676af05cb98985909f2378ff0f87ee951401_96.webp`,
     desc: 'Double-height, amplified Nether terrain.' },
-  { name: 'Nullscape', kind: 'End generation', by: 'Stardust Labs', url: 'https://modrinth.com/datapack/nullscape',
+  { name: 'Nullscape', kind: 'End generation', by: 'Stardust Labs', url: `${SD}nullscape`,
     icon: `${MR}LPjGiSO4/30249e0548b8643b1559889eab585683cb397f3a_96.webp`,
+    shot: sq('a335f8f9-e4d9-4bd3-987b-21761a2f9b74/2022-06-08_14.32.22.png', 500),
     desc: 'Surreal alien terrain for the End. Waiting for the day the End opens.' },
   { name: 'Backpacks & More', kind: 'Items', by: 'UltroGhast', url: 'https://modrinth.com/datapack/backpacksdp',
     icon: `${MR}mbRlC0kb/4f0958246ea4868d75aa479c45c49879dedefd02.png`,
@@ -108,91 +200,103 @@ const PACKS = [
   { name: 'MasterCutter', kind: 'Recipes', by: 'Nico4play', url: 'https://modrinth.com/datapack/mastercutter',
     icon: `${MR}DuUMFIfX/d8a4745d2baf7525dcea2c00dccdd557f3b26e70_96.webp`,
     desc: '500+ stonecutter recipes: woodcutting, more stone cuts, recycling.' },
-  { name: 'Graves', kind: 'Vanilla Tweaks', by: 'Vanilla Tweaks', url: 'https://vanillatweaks.net/picker/datapacks/',
+  { name: 'Graves', kind: 'Vanilla Tweaks', by: 'Vanilla Tweaks', url: VT_PAGE,
     icon: `${VT}graves.png`, desc: 'Dying leaves a grave holding everything you dropped. Click it to get it all back.' },
-  { name: 'More Mob Heads', kind: 'Vanilla Tweaks', by: 'Vanilla Tweaks', url: 'https://vanillatweaks.net/picker/datapacks/',
+  { name: 'More Mob Heads', kind: 'Vanilla Tweaks', by: 'Vanilla Tweaks', url: VT_PAGE,
     icon: `${VT}more%20mob%20heads.png`, desc: 'Mobs sometimes drop their head.' },
-  { name: 'Player Head Drops', kind: 'Vanilla Tweaks', by: 'Vanilla Tweaks', url: 'https://vanillatweaks.net/picker/datapacks/',
+  { name: 'Player Head Drops', kind: 'Vanilla Tweaks', by: 'Vanilla Tweaks', url: VT_PAGE,
     icon: `${VT}player%20head%20drops.png`, desc: 'Players drop their head when killed by another player.' },
-  { name: 'Armor Statues', kind: 'Vanilla Tweaks', by: 'Vanilla Tweaks', url: 'https://vanillatweaks.net/picker/datapacks/',
+  { name: 'Armor Statues', kind: 'Vanilla Tweaks', by: 'Vanilla Tweaks', url: VT_PAGE,
     icon: `${VT}armor%20statues.png`, desc: 'A book that lets you pose armor stands in survival.' },
-  { name: 'Fast Leaf Decay', kind: 'Vanilla Tweaks', by: 'Vanilla Tweaks', url: 'https://vanillatweaks.net/picker/datapacks/',
+  { name: 'Fast Leaf Decay', kind: 'Vanilla Tweaks', by: 'Vanilla Tweaks', url: VT_PAGE,
     icon: `${VT}fast%20leaf%20decay.png`, desc: 'Leaves vanish quickly once you chop a tree.' },
-  { name: 'Track Statistics', kind: 'Vanilla Tweaks', by: 'Vanilla Tweaks', url: 'https://vanillatweaks.net/picker/datapacks/',
+  { name: 'Track Statistics', kind: 'Vanilla Tweaks', by: 'Vanilla Tweaks', url: VT_PAGE,
     icon: `${VT}track%20statistics.png`, desc: 'Extra stats like kilometres swum and flown.' },
 ];
 
-const grid = document.getElementById('pack-grid');
-const detail = document.getElementById('pack-detail');
+// vanillatweaks.net refuses hotlinks that send a Referer.
+const packIcon = (p, size) => el('img', { src: p.icon, alt: '', width: size, height: size, loading: 'lazy', referrerPolicy: 'no-referrer' });
 
-function showPack(i) {
-  const p = PACKS[i];
-  for (const s of grid.children) s.setAttribute('aria-selected', String(s.dataset.i === String(i)));
-  detail.replaceChildren();
-  const title = Object.assign(document.createElement('p'), { className: 'tooltip__title', textContent: p.name });
-  const kind = Object.assign(document.createElement('p'), { className: 'pack-kind', textContent: p.kind });
-  const desc = Object.assign(document.createElement('p'), { className: 'pack-desc', textContent: p.desc });
-  detail.append(title, kind, desc);
-  if (p.shot) {
-    detail.append(Object.assign(document.createElement('img'), {
-      className: 'pack-shot', src: p.shot, alt: `${p.name} screenshot`, loading: 'lazy', decoding: 'async',
-    }));
-  }
-  const credit = document.createElement('p');
-  credit.className = 'pack-credit';
-  credit.append('By ', Object.assign(document.createElement('a'), { href: p.url, textContent: p.by }));
-  detail.append(credit);
+/**
+ * Click-to-select slots driving a detail area. Every card is rendered up front and stacked
+ * in one grid cell, so the area is always as tall as its tallest card and never shifts.
+ */
+function selectable(slots, cards, detail, { toggle = false, fallback = null } = {}) {
+  // With a fallback, it sits at index 0 and shows while nothing is selected (-1).
+  const all = fallback ? [fallback, ...cards] : cards;
+  const offset = fallback ? 1 : 0;
+  detail.append(...all);
+  let selected = -1;
+  const select = (i) => {
+    selected = toggle && i === selected ? -1 : i;
+    slots.forEach((s, k) => s.setAttribute('aria-pressed', String(k === selected)));
+    all.forEach((c, k) => {
+      const on = k === selected + offset;
+      c.classList.toggle('is-shown', on);
+      c.inert = !on;
+    });
+  };
+  slots.forEach((s, i) => s.addEventListener('click', () => select(i)));
+  return select;
 }
 
-PACKS.forEach((p, i) => {
-  const b = document.createElement('button');
-  b.type = 'button';
-  b.className = 'pack-slot slot';
-  b.dataset.i = i;
-  b.setAttribute('role', 'option');
-  b.setAttribute('aria-label', p.name);
-  b.title = p.name;
-  // vanillatweaks.net refuses hotlinks that send a Referer.
-  b.append(Object.assign(document.createElement('img'), { src: p.icon, alt: '', width: 54, height: 54, loading: 'lazy', referrerPolicy: 'no-referrer' }));
-  b.addEventListener('click', () => showPack(i));
-  b.addEventListener('mouseenter', () => showPack(i));
-  b.addEventListener('focus', () => showPack(i));
-  grid.append(b);
+const packGrid = document.getElementById('pack-grid');
+const packDetail = document.getElementById('pack-detail');
+const packSlots = PACKS.map((p) => {
+  const b = el('button', { type: 'button', className: 'pack-slot slot', ariaLabel: p.name, title: p.name }, packIcon(p, 54),
+    el('span', { className: 'pack-slot__text' }, el('b', {}, p.name), el('span', {}, p.desc)));
+  b.setAttribute('aria-controls', 'pack-detail');
+  packGrid.append(b);
+  return b;
 });
-showPack(0);
+const packCards = PACKS.map((p) => el('div', { className: 'card' },
+  el('p', { className: 'tooltip__title' }, p.name),
+  el('p', { className: 'pack-kind' }, p.kind),
+  el('p', { className: 'pack-desc' }, p.desc),
+  p.shot
+    ? el('img', { className: 'pack-shot', src: p.shot, alt: `${p.name} screenshot`, loading: 'lazy', decoding: 'async' })
+    : el('div', { className: 'pack-shot pack-shot--icon' }, packIcon(p, 96)),
+  el('p', { className: 'pack-credit' }, `By ${p.by} · `, pageLink(p.url, p.by === 'Vanilla Tweaks' ? 'Vanilla Tweaks picker' : 'Pack page')),
+));
+selectable(packSlots, packCards, packDetail)(0);
 
 // ---------- Modpack crafting grid ----------
 
+const MOD = 'https://modrinth.com/mod/';
 const MODS = [
-  ['Simple Voice Chat', 'Proximity voice chat. Press V in game.', `${MR}9eGKb6K1/icon.png`],
-  ['Sodium', 'A much faster renderer: more FPS.', `${MR}AANobbMI/295862f4724dc3f78df3447ad6072b2dcd3ef0c9_96.webp`],
-  ['Iris Shaders', 'Shaders, off by default. K toggles them.', `${MR}YL57xq9U/18d0e7f076d3d6ed5bedd472b853909aac5da202_96.webp`],
-  ['Complementary Reimagined', 'The shader pack Iris uses when you turn it on.', `${MR}HVnmMxH1/79cb7c8123bbc54945305b2ebad6b8881efdf5f8_96.webp`],
-  ['LambDynamicLights', 'Torches in your hand light up the area.', `${MR}yBW8D80W/d4f5c3ff8df7caf024178b04eca6d69f95979cfe_96.webp`],
-  ['Inventory Profiles Next', 'Sort your inventory with one button.', `${MR}O7RBXm3n/04cdecd37b4c7409f70d36fcdc85722ebf14aab8_96.webp`],
-  ['AppleSkin', 'Shows food and saturation values.', `${MR}EsAfCjCV/icon.png`],
-  ['Jade', 'Hover a block or mob to see what it is.', `${MR}nvQzSEkH/b04217bc2b7dc524c4d12f81ff42cc1cefb9b0fc_96.webp`],
-  ['Continuity', 'Connected glass and bookshelf textures.', `${MR}1IjD5062/icon.png`],
+  ['Simple Voice Chat', 'Proximity voice chat. Press V in game.', `${MR}9eGKb6K1/icon.png`, `${MOD}simple-voice-chat`],
+  ['Sodium', 'A much faster renderer: more FPS.', `${MR}AANobbMI/295862f4724dc3f78df3447ad6072b2dcd3ef0c9_96.webp`, `${MOD}sodium`],
+  ['Iris Shaders', 'Shaders, off by default. K toggles them.', `${MR}YL57xq9U/18d0e7f076d3d6ed5bedd472b853909aac5da202_96.webp`, `${MOD}iris`],
+  ['Complementary Reimagined', 'The shader pack Iris uses when you turn it on.', `${MR}HVnmMxH1/79cb7c8123bbc54945305b2ebad6b8881efdf5f8_96.webp`, 'https://modrinth.com/shader/complementary-reimagined'],
+  ['LambDynamicLights', 'Torches in your hand light up the area.', `${MR}yBW8D80W/d4f5c3ff8df7caf024178b04eca6d69f95979cfe_96.webp`, `${MOD}lambdynamiclights`],
+  ['Inventory Profiles Next', 'Sort your inventory with one button.', `${MR}O7RBXm3n/04cdecd37b4c7409f70d36fcdc85722ebf14aab8_96.webp`, `${MOD}inventory-profiles-next`],
+  ['AppleSkin', 'Shows food and saturation values.', `${MR}EsAfCjCV/icon.png`, `${MOD}appleskin`],
+  ['Jade', 'Hover a block or mob to see what it is.', `${MR}nvQzSEkH/b04217bc2b7dc524c4d12f81ff42cc1cefb9b0fc_96.webp`, `${MOD}jade`],
+  ['Continuity', 'Connected glass and bookshelf textures.', `${MR}1IjD5062/icon.png`, `${MOD}continuity`],
 ];
+const EXTRAS = [
+  ['Lithium', 'lithium'], ['FerriteCore', 'ferrite-core'], ['Entity Culling', 'entityculling'],
+  ['ImmediatelyFast', 'immediatelyfast'], ['Mod Menu', 'modmenu'], ['Mouse Tweaks', 'mouse-tweaks'],
+];
+
 const modGrid = document.getElementById('mod-grid');
-const caption = document.getElementById('mod-caption');
-const defaultCaption = 'Plus Lithium, FerriteCore, Entity Culling, ImmediatelyFast, Mod Menu, Mouse Tweaks and the food and dungeon textures.';
-caption.textContent = defaultCaption;
-for (const [name, what, icon] of MODS) {
-  const li = document.createElement('li');
-  const b = document.createElement('button');
-  b.type = 'button';
-  b.className = 'mod-slot slot';
-  b.setAttribute('aria-label', `${name}: ${what}`);
-  b.append(Object.assign(document.createElement('img'), { src: icon, alt: '', width: 44, height: 44, loading: 'lazy' }));
-  const show = () => { caption.textContent = `${name}: ${what}`; };
-  b.addEventListener('mouseenter', show);
-  b.addEventListener('focus', show);
-  b.addEventListener('click', show);
-  b.addEventListener('mouseleave', () => { caption.textContent = defaultCaption; });
-  li.append(b);
-  modGrid.append(li);
-}
+const modSlots = MODS.map(([name, , src]) => {
+  const b = el('button', { type: 'button', className: 'mod-slot slot', ariaLabel: name, title: name },
+    el('img', { src, alt: '', width: 44, height: 44, loading: 'lazy' }));
+  b.setAttribute('aria-controls', 'mod-caption');
+  modGrid.append(el('li', {}, b));
+  return b;
+});
+const extras = [];
+EXTRAS.forEach(([name, slug], i) => {
+  extras.push(el('a', { href: `${MOD}${slug}` }, name), i < EXTRAS.length - 2 ? ', ' : i === EXTRAS.length - 2 ? ' and ' : '');
+});
+const modFallback = el('p', { className: 'card' }, 'Plus ', ...extras, ', and the food and dungeon textures.');
+const modCards = MODS.map(([name, what, , url]) => el('div', { className: 'card' },
+  el('p', {}, el('b', {}, name), ` · ${what}`),
+  pageLink(url, 'Modrinth page'),
+));
+selectable(modSlots, modCards, document.getElementById('mod-caption'), { toggle: true, fallback: modFallback })(-1);
 
 // ---------- Map teaser ----------
 

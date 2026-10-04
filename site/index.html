@@ -4,8 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SirBepys Minecraft Server</title>
-  <meta name="description" content="Los Pollos MineHermanos: a friends survival server for Java and Bedrock. Address, live biome map of our real world, datapacks and the optional modpack.">
-  <meta name="theme-color" content="#6f9cf2">
+  <meta name="description" content="Los Pollos MineHermanos: a friends survival server for Java and Bedrock. How to join, live biome map of our real world, datapacks and the optional modpack.">
+  <meta name="color-scheme" content="dark">
+  <meta name="darkreader-lock">
+  <meta name="theme-color" content="#1c1c1c">
   <meta property="og:title" content="SirBepys Minecraft Server">
   <meta property="og:description" content="Friends survival for Java and Bedrock. Join with sirbepy.mcserver.host">
   <meta property="og:type" content="website">
@@ -13,21 +15,58 @@
   <link rel="icon" type="image/png" href="assets/server-icon.png">
   <link rel="preload" href="assets/fonts/Monocraft.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/Monocraft-Bold.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preconnect" href="https://images.squarespace-cdn.com">
   <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.2/src/bold/style.css">
   <link rel="stylesheet" href="assets/css/base.css">
-  <link rel="stylesheet" href="assets/css/home.css">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <link rel="stylesheet" href="assets/css/theme-a.css">
+  <link rel="stylesheet" href="assets/css/theme-b.css">
+  <link rel="stylesheet" href="assets/css/theme-c.css">
+  <script src="assets/js/style-pick.js"></script>
   <script type="module" src="assets/js/home.js"></script>
 </head>
 <body>
   <!-- impeccable seed 7b74c4f6, contract in DESIGN.md -->
   <a class="skip-link" href="#join">Skip to joining</a>
 
-  <header class="sky" id="top">
-    <div class="clouds" aria-hidden="true">
-      <span class="cloud cloud--a"></span>
-      <span class="cloud cloud--b"></span>
-      <span class="cloud cloud--c"></span>
-    </div>
+  <header class="hero" id="top">
+    <section class="carousel" id="carousel" aria-roledescription="carousel" aria-label="Screenshots of the world generation datapacks">
+      <div class="carousel__slides" aria-live="off">
+        <figure class="slide is-active" aria-roledescription="slide" aria-label="1 of 6"
+          data-pack="Terralith" data-url="https://www.stardustlabs.net/terralith">
+          <img src="https://images.squarespace-cdn.com/content/v1/6240c1f3e10b50416d969a84/45c5d625-285c-4477-974e-771012c8e23a/2022-05-27_23.40.23.jpg?format=1500w"
+            srcset="https://images.squarespace-cdn.com/content/v1/6240c1f3e10b50416d969a84/45c5d625-285c-4477-974e-771012c8e23a/2022-05-27_23.40.23.jpg?format=1000w 1000w, https://images.squarespace-cdn.com/content/v1/6240c1f3e10b50416d969a84/45c5d625-285c-4477-974e-771012c8e23a/2022-05-27_23.40.23.jpg?format=1500w 1500w, https://images.squarespace-cdn.com/content/v1/6240c1f3e10b50416d969a84/45c5d625-285c-4477-974e-771012c8e23a/2022-05-27_23.40.23.jpg?format=2500w 2500w"
+            sizes="100vw"
+            data-src="https://images.squarespace-cdn.com/content/v1/6240c1f3e10b50416d969a84/45c5d625-285c-4477-974e-771012c8e23a/2022-05-27_23.40.23.jpg"
+            alt="A huge Terralith rock arch over red and yellow badlands" fetchpriority="high" decoding="async">
+        </figure>
+        <figure class="slide" aria-roledescription="slide" aria-label="2 of 6"
+          data-pack="Structory" data-url="https://www.stardustlabs.net/structory">
+          <img data-src="https://images.squarespace-cdn.com/content/v1/6240c1f3e10b50416d969a84/e3f92201-525f-4bd4-b0df-13488a6d62a0/2022-06-23_14.04.54.png"
+            alt="Structory ruins in a sunlit valley" decoding="async">
+        </figure>
+        <figure class="slide" aria-roledescription="slide" aria-label="3 of 6"
+          data-pack="Incendium" data-url="https://www.stardustlabs.net/incendium">
+          <img data-src="https://images.squarespace-cdn.com/content/v1/6240c1f3e10b50416d969a84/0ed2d733-4ccd-4114-9a4f-07f94d3e0159/forbidden_castle_tera_8.png"
+            alt="Incendium's Forbidden Castle rising over a lava sea in the Nether" decoding="async">
+        </figure>
+        <figure class="slide" aria-roledescription="slide" aria-label="4 of 6"
+          data-pack="Terralith" data-url="https://www.stardustlabs.net/terralith">
+          <img data-src="https://images.squarespace-cdn.com/content/v1/6240c1f3e10b50416d969a84/9fdb5205-8374-49ca-b63b-a79a244ccc17/2021-11-20_22.46.23.png"
+            alt="Red-leaved trees below jagged snowy Terralith peaks" decoding="async">
+        </figure>
+        <figure class="slide" aria-roledescription="slide" aria-label="5 of 6"
+          data-pack="Nullscape" data-url="https://www.stardustlabs.net/nullscape">
+          <img data-src="https://images.squarespace-cdn.com/content/v1/6240c1f3e10b50416d969a84/202ea09c-0ba5-4e63-91a4-38c9ac3f4db7/kIrVP9w.jpg"
+            alt="A glowing Nullscape island floating in the purple End sky" decoding="async">
+        </figure>
+        <figure class="slide" aria-roledescription="slide" aria-label="6 of 6"
+          data-pack="Structory" data-url="https://www.stardustlabs.net/structory">
+          <img data-src="https://images.squarespace-cdn.com/content/v1/6240c1f3e10b50416d969a84/9c471519-dc7b-4399-8be1-6a9d2de09ec4/2022-06-16_15.48.10.png"
+            alt="A Structory lookout tower above an autumn forest at sunset" decoding="async">
+        </figure>
+      </div>
+    </section>
 
     <nav class="topnav wrap" aria-label="Main">
       <a class="topnav__home mc-text" href="#top">
@@ -36,13 +75,14 @@
       </a>
       <div class="topnav__links">
         <a class="mc-text" href="#features">Features</a>
+        <a class="mc-text" href="#worldgen">World</a>
         <a class="mc-text" href="#datapacks">Datapacks</a>
         <a class="mc-text" href="#modpack">Modpack</a>
         <a class="btn btn--small" href="map/"><i class="ph-bold ph-map-trifold" aria-hidden="true"></i>Map</a>
       </div>
     </nav>
 
-    <div class="hero wrap">
+    <div class="hero__inner wrap">
       <h1 class="logo">
         <span class="logo__line logo__line--big" data-text="SirBepys">SirBepys</span>
         <span class="logo__line" data-text="Minecraft Server">Minecraft Server</span>
@@ -50,7 +90,6 @@
       <p class="splash" aria-hidden="true"><span id="splash">Los Pollos MineHermanos!</span></p>
 
       <section class="serverlist" id="join" aria-labelledby="join-title">
-        <h2 class="sr-only" id="join-title">Join the server</h2>
         <div class="entry">
           <img class="entry__icon pixel" src="assets/server-icon.png" alt="Server icon" width="64" height="64">
           <div class="entry__body">
@@ -62,60 +101,56 @@
               </span>
             </div>
             <p class="entry__motd mc-text" id="motd">Los Pollos MineHermanos</p>
-            <p class="entry__meta">Friends survival &middot; Java &amp; Bedrock &middot; Minecraft 26.3</p>
+            <p class="entry__meta">Friends survival &middot; Minecraft 26.3</p>
           </div>
         </div>
 
-        <div class="addresses">
-          <div class="address address--java">
-            <span class="address__label mc-text">Java</span>
-            <code class="address__value" id="java-address">sirbepy.mcserver.host</code>
-            <button class="btn btn--green copy" type="button" data-copy="sirbepy.mcserver.host">
-              <i class="ph-bold ph-copy" aria-hidden="true"></i><span>Copy address</span>
-            </button>
-          </div>
-          <div class="address address--bedrock">
-            <span class="address__label mc-text">Bedrock</span>
-            <code class="address__value">eu-de-p59-a6-cg.kineticpanel.net</code>
-            <span class="address__port"><span class="mc-text">Port</span> <code>25572</code></span>
-            <button class="btn copy" type="button" data-copy="eu-de-p59-a6-cg.kineticpanel.net">
-              <i class="ph-bold ph-copy" aria-hidden="true"></i><span>Copy</span>
-            </button>
-          </div>
+        <h2 class="sr-only" id="join-title">Join the server</h2>
+        <div class="editions">
+          <a class="edition btn btn--green" href="java/">
+            <i class="ph-bold ph-desktop-tower" aria-hidden="true"></i>
+            <span class="edition__text">
+              <span class="edition__name">Join on Java Edition</span>
+              <span class="edition__meta">PC, Mac, Linux</span>
+            </span>
+            <i class="ph-bold ph-caret-right edition__go" aria-hidden="true"></i>
+          </a>
+          <a class="edition btn" href="bedrock/">
+            <i class="ph-bold ph-device-mobile" aria-hidden="true"></i>
+            <span class="edition__text">
+              <span class="edition__name">Join on Bedrock Edition</span>
+              <span class="edition__meta">Phone, tablet, Windows</span>
+            </span>
+            <i class="ph-bold ph-caret-right edition__go" aria-hidden="true"></i>
+          </a>
         </div>
+        <nav class="hero__menu" aria-label="More">
+          <a class="btn" href="map/"><i class="ph-bold ph-map-trifold" aria-hidden="true"></i>World Map</a>
+          <a class="btn" href="#datapacks">Datapacks...</a>
+          <a class="btn" href="#modpack">Modpack...</a>
+        </nav>
       </section>
+    </div>
+
+    <div class="carousel__bar wrap">
+      <p class="carousel__credit mc-text">
+        <i class="ph-bold ph-camera" aria-hidden="true"></i>
+        <a id="slide-credit" href="https://www.stardustlabs.net/terralith">Terralith</a>
+        <span>by Stardust Labs</span>
+      </p>
+      <div class="carousel__controls" role="group" aria-label="Slideshow controls">
+        <button class="cbtn" type="button" id="slide-prev" aria-label="Previous screenshot" aria-controls="carousel"><i class="ph-bold ph-caret-left" aria-hidden="true"></i></button>
+        <div class="carousel__dots" id="slide-dots"></div>
+        <button class="cbtn" type="button" id="slide-next" aria-label="Next screenshot" aria-controls="carousel"><i class="ph-bold ph-caret-right" aria-hidden="true"></i></button>
+        <button class="cbtn" type="button" id="slide-pause" aria-label="Pause slideshow"><i class="ph-bold ph-pause" aria-hidden="true"></i></button>
+      </div>
     </div>
   </header>
 
   <main>
-    <section class="layer layer--grass" aria-labelledby="how-title">
+    <section class="layer layer--grass" aria-labelledby="map-title">
       <div class="wrap">
-        <h2 class="section-title mc-text" id="how-title">Jump in</h2>
-        <ol class="toasts">
-          <li class="toast">
-            <i class="ph-bold ph-desktop-tower toast__icon" aria-hidden="true"></i>
-            <div>
-              <p class="toast__title">Java Edition</p>
-              <p class="toast__text">Multiplayer &rarr; Add Server &rarr; paste the address. No mods needed.</p>
-            </div>
-          </li>
-          <li class="toast">
-            <i class="ph-bold ph-device-mobile toast__icon" aria-hidden="true"></i>
-            <div>
-              <p class="toast__title">Bedrock Edition</p>
-              <p class="toast__text">Play &rarr; Servers &rarr; Add Server. Address plus port <span class="kbd">25572</span>.</p>
-            </div>
-          </li>
-          <li class="toast">
-            <i class="ph-bold ph-microphone toast__icon" aria-hidden="true"></i>
-            <div>
-              <p class="toast__title">Voice chat</p>
-              <p class="toast__text">Hear players near you. Java only, with the <a href="#modpack">modpack</a>.</p>
-            </div>
-          </li>
-        </ol>
-
-        <div class="teaser" aria-labelledby="map-title">
+        <div class="teaser">
           <div class="teaser__copy">
             <h2 class="section-title mc-text" id="map-title">Our real world, mapped</h2>
             <p class="lede mc-text">Every biome and every build, read from the server's own world files. Seed maps get it wrong: Terralith reshapes everything.</p>
@@ -210,7 +245,7 @@
                 <span class="frame"><i class="ph-bold ph-microphone" aria-hidden="true"></i></span>
                 <div class="adv__body">
                   <p class="adv__title">Proximity voice</p>
-                  <p class="adv__text">Voices get quieter with distance. Needs the voice chat mod.</p>
+                  <p class="adv__text">Voices get quieter with distance. Java only, with the <a href="#modpack">modpack</a>.</p>
                 </div>
               </li>
               <li class="adv">
@@ -236,43 +271,37 @@
     <section class="layer layer--stone" id="worldgen" aria-labelledby="worldgen-title">
       <div class="wrap">
         <h2 class="section-title mc-text" id="worldgen-title">A world you haven't seen</h2>
-        <p class="lede mc-text">New biomes, towers, ruins, dungeons and taverns, all generated with vanilla blocks.</p>
-        <div class="gallery">
-          <figure class="frame-item frame-item--wide">
-            <img src="https://cdn.modrinth.com/data/8oi3bsk5/images/e66c54081b2abbdeb6dfdb0bde26123f8641176c.jpeg" alt="A Terralith landscape" loading="lazy" decoding="async">
-            <figcaption><b>Terralith</b> &middot; almost 100 new biomes &middot; <a href="https://modrinth.com/datapack/terralith">Stardust Labs</a></figcaption>
-          </figure>
-          <figure class="frame-item">
-            <img src="https://cdn.modrinth.com/data/aKCwCJlY/images/45b042b8b47a8884b54c5ae7a35b17773cbe44d8.jpeg" alt="A Structory firetower" loading="lazy" decoding="async">
-            <figcaption><b>Structory</b> &middot; ruins with lore &middot; <a href="https://modrinth.com/datapack/structory">Stardust Labs</a></figcaption>
-          </figure>
-          <figure class="frame-item">
-            <img src="https://cdn.modrinth.com/data/j3FONRYr/images/b4f8eb693c6679fa4dc075028fff5b3b19c5fdb8.png" alt="A Structory: Towers mirage outpost" loading="lazy" decoding="async">
-            <figcaption><b>Structory: Towers</b> &middot; biome towers &middot; <a href="https://modrinth.com/datapack/structory-towers">Stardust Labs</a></figcaption>
-          </figure>
-          <figure class="frame-item">
-            <img src="https://cdn.modrinth.com/data/tpehi7ww/images/93dc2790ee15a172f5e7a9100790dedde9ea6b35.webp" alt="A Dungeons and Taverns tavern" loading="lazy" decoding="async">
-            <figcaption><b>Dungeons and Taverns</b> &middot; <a href="https://modrinth.com/datapack/dungeons-and-taverns">NovaWostra</a></figcaption>
-          </figure>
-          <figure class="frame-item">
-            <img src="https://cdn.modrinth.com/data/8oi3bsk5/images/8eb1319d93336ca3ac29578e029459c3c0ec5132.jpeg" alt="Another Terralith landscape" loading="lazy" decoding="async">
-            <figcaption><b>Terralith</b> &middot; realism and light fantasy &middot; <a href="https://modrinth.com/datapack/terralith">Stardust Labs</a></figcaption>
-          </figure>
-        </div>
-        <p class="footnote mc-text">Also installed: <b>Incendium</b> and <b>Amplified Nether</b> remake the Nether, <b>Nullscape</b> waits in the End.</p>
+        <p class="lede mc-text">New biomes, towers, ruins, dungeons and taverns, in all three dimensions, built from vanilla blocks.</p>
+        <ul class="paintings" id="paintings"></ul>
       </div>
     </section>
 
     <section class="layer layer--stone layer--stone-deep" id="datapacks" aria-labelledby="datapacks-title">
       <div class="wrap">
         <h2 class="section-title mc-text" id="datapacks-title">Datapacks</h2>
-        <p class="lede mc-text">Everything the server runs on top of vanilla. Pick a slot.</p>
+        <p class="lede mc-text">Everything the server runs on top of vanilla.</p>
 
         <div class="inventory gui-panel">
           <p class="inventory__title">Installed</p>
-          <div class="inventory__grid" role="listbox" aria-label="Datapacks" id="pack-grid"></div>
+          <div class="inventory__grid" role="group" aria-label="Datapacks" id="pack-grid"></div>
           <div class="inventory__detail tooltip" id="pack-detail" aria-live="polite"></div>
         </div>
+
+        <p class="credits mc-text">
+          Made by
+          <b>Stardust Labs</b> (<a href="https://www.stardustlabs.net/terralith">Terralith</a>,
+          <a href="https://www.stardustlabs.net/incendium">Incendium</a>,
+          <a href="https://www.stardustlabs.net/nullscape">Nullscape</a>,
+          <a href="https://www.stardustlabs.net/structory">Structory</a>,
+          <a href="https://modrinth.com/datapack/structory-towers">Structory: Towers</a>,
+          <a href="https://modrinth.com/datapack/amplified-nether">Amplified Nether</a>),
+          <b>NovaWostra</b> (<a href="https://modrinth.com/datapack/dungeons-and-taverns">Dungeons and Taverns</a>),
+          <b>UltroGhast</b> (<a href="https://modrinth.com/datapack/backpacksdp">Backpacks &amp; More</a>),
+          <b>regfunkid</b> (<a href="https://modrinth.com/datapack/reg-more-foods">Reg's More Foods</a>),
+          <b>Nico4play</b> (<a href="https://modrinth.com/datapack/mastercutter">MasterCutter</a>)
+          and <a href="https://vanillatweaks.net/picker/datapacks/">Vanilla Tweaks</a>.
+          Screenshots by their makers.
+        </p>
       </div>
     </section>
 
@@ -280,25 +309,18 @@
       <div class="wrap modpack">
         <div class="modpack__copy">
           <h2 class="section-title mc-text" id="modpack-title">The optional modpack</h2>
-          <p class="lede mc-text">Plain Minecraft works fine. The pack adds voice chat, more FPS and nicer looks, set up in one import.</p>
-          <ul class="perks">
-            <li><i class="ph-bold ph-microphone" aria-hidden="true"></i>Voice chat</li>
-            <li><i class="ph-bold ph-gauge" aria-hidden="true"></i>More FPS, less RAM</li>
-            <li><i class="ph-bold ph-sun-horizon" aria-hidden="true"></i>Shaders, toggle with <span class="kbd">K</span></li>
-            <li><i class="ph-bold ph-flashlight" aria-hidden="true"></i>Held torches light up</li>
-            <li><i class="ph-bold ph-sort-ascending" aria-hidden="true"></i>Inventory sorting</li>
-            <li><i class="ph-bold ph-info" aria-hidden="true"></i>Food values, block info, mod menu</li>
-            <li><i class="ph-bold ph-squares-four" aria-hidden="true"></i>Connected textures</li>
-            <li><i class="ph-bold ph-hamburger" aria-hidden="true"></i>Textures for the new foods</li>
-          </ul>
-          <ol class="steps mc-text">
-            <li>Install the free <a href="https://modrinth.com/app">Modrinth App</a> or <a href="https://prismlauncher.org">Prism Launcher</a>.</li>
-            <li>Import the <span class="kbd">.mrpack</span> file.</li>
-            <li>Play. Fabric, Minecraft 26.3.</li>
-          </ol>
+          <p class="lede mc-text">Plain Minecraft works fine. Java players get voice chat, more FPS and nicer looks in one import.</p>
           <a class="btn btn--green" href="downloads/Los-Pollos-MineHermanos-26.3.mrpack" download>
             <i class="ph-bold ph-download-simple" aria-hidden="true"></i>Download modpack
           </a>
+          <details class="more">
+            <summary class="mc-text"><i class="ph-bold ph-caret-right" aria-hidden="true"></i>How to install</summary>
+            <ol class="steps mc-text">
+              <li>Install the free <a href="https://modrinth.com/app">Modrinth App</a> or <a href="https://prismlauncher.org">Prism Launcher</a>.</li>
+              <li>Import the <span class="kbd">.mrpack</span> file.</li>
+              <li>Play. Fabric, Minecraft 26.3.</li>
+            </ol>
+          </details>
         </div>
 
         <div class="crafting gui-panel" aria-label="Mods in the pack, shown as a crafting recipe">
@@ -310,22 +332,21 @@
               <img class="pixel" src="assets/server-icon.png" alt="Download the modpack" width="64" height="64">
             </a>
           </div>
-          <p class="crafting__caption" id="mod-caption">Hover a mod to see what it does.</p>
+          <div class="crafting__caption" id="mod-caption" aria-live="polite"></div>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="layer layer--bedrock">
+  <footer class="site-footer">
     <div class="wrap footer">
       <div>
         <p class="footer__title mc-text">SirBepys Minecraft Server</p>
-        <p class="footer__text">Los Pollos MineHermanos &middot; <a href="map/">World map</a> &middot; <a href="https://github.com/SirBepy/sirbepys-minecraft-server">Source</a></p>
+        <p class="footer__text">Los Pollos MineHermanos &middot; <a href="https://github.com/SirBepy/sirbepys-minecraft-server">Source</a></p>
       </div>
       <div class="footer__credits">
-        <p>Datapacks: <a href="https://modrinth.com/organization/stardust-labs">Stardust Labs</a> (Terralith, Incendium, Nullscape, Structory, Structory: Towers, Amplified Nether), <a href="https://modrinth.com/datapack/dungeons-and-taverns">NovaWostra</a>, <a href="https://modrinth.com/datapack/mastercutter">Nico4play</a>, <a href="https://modrinth.com/datapack/reg-more-foods">regfunkid</a>, <a href="https://modrinth.com/datapack/backpacksdp">UltroGhast</a>, <a href="https://vanillatweaks.net">Vanilla Tweaks</a>.</p>
-        <p>Font <a href="https://github.com/IdreesInc/Monocraft">Monocraft</a> (OFL). Icons <a href="https://phosphoricons.com">Phosphor</a>.</p>
-        <p>Not an official Minecraft product. Not approved by or associated with Mojang or Microsoft.</p>
+        <p>Font <a href="https://github.com/IdreesInc/Monocraft">Monocraft</a> (OFL). Icons <a href="https://phosphoricons.com">Phosphor</a>. Live status <a href="https://mcsrvstat.us">mcsrvstat.us</a>.</p>
+        <p class="footer__legal">Not an official Minecraft product. Not approved by or associated with Mojang or Microsoft.</p>
       </div>
     </div>
   </footer>
