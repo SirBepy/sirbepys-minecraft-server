@@ -68,3 +68,11 @@ export function readNbt(buf) {
   str();
   return payload(COMPOUND);
 }
+
+// Palette entries come as a bare id string, or (26.x) a compound whose id sits under `Name`,
+// `id`, or an empty-string key.
+export function paletteName(entry) {
+  if (typeof entry === 'string') return entry;
+  if (!entry || typeof entry !== 'object') return null;
+  return entry.Name ?? entry.id ?? entry[''] ?? null;
+}

@@ -7,7 +7,10 @@ import { readNbt } from '../tools/lib/nbt.mjs';
 import { extractRegionBiomes, CELLS, readSpawn } from '../tools/lib/biomes.mjs';
 import { biomeColor, biomeName, biomeSource } from '../tools/lib/biome-colors.mjs';
 import { findAreas } from '../site/assets/js/biome-map.js';
+import { extractRegionTerrain, BLOCKS, SHADE } from '../tools/lib/terrain.mjs';
+import { paletteName } from '../tools/lib/nbt.mjs';
 import { tag, writeNbt, pack, writeRegion } from './helpers.mjs';
+import { readRegionChunks } from '../tools/lib/region.mjs';
 
 test('readNbt round-trips nested compounds, lists and long arrays', () => {
   const buf = writeNbt({
@@ -91,4 +94,59 @@ test('findAreas joins one biome across a region seam and splits separate patches
   assert.equal(areas.length, 2);
   assert.equal(areas[0].cells, 8);
   assert.equal(areas[1].cells, 1);
+});
+
+test('paletteName reads every 26.x palette entry shape', () => {
+  assert.equal(paletteName('minecraft:stone'), 'minecraft:stone');
+  assert.equal(paletteName({ Name: 'minecraft:dirt' }), 'minecraft:dirt');
+  assert.equal(paletteName({ id: 'minecraft:tall_seagrass', properties: {} }), 'minecraft:tall_seagrass');
+  assert.equal(paletteName({ '': 'minecraft:water' }), 'minecraft:water');
+});
+
+// Surface at y=70 on the west half and y=72 on the east half; grass everywhere except one
+// water column whose ocean floor is 6 blocks down.
+function terrainChunk() {
+  const surface = [];
+  const floor = [];
+  for (let z = 0; z < 16; z++) for (let x = 0; x < 16; x++) {
+    const top = x < 8 ? 70 : 72;
+    surface.push(top + 64 + 1);
+    floor.push(x === 3 && z === 3 ? top + 64 + 1 - 6 : top + 64 + 1);
+  }
+  // Section 4 covers y 64..79: grass at local y 6 (y=70) and 8 (y=72), water at (3, 6, 3).
+  const states = new Array(4096).fill(0);
+  for (let z = 0; z < 16; z++) for (let x = 0; x < 16; x++) {
+    const ly = x < 8 ? 6 : 8;
+    states[(ly << 8) | (z << 4) | x] = x === 3 && z === 3 ? 2 : 1;
+  }
+  return tag.compound({
+    Status: tag.string('minecraft:full'),
+    yPos: tag.int(-4),
+    Heightmaps: tag.compound({ WORLD_SURFACE: tag.longArray(pack(surface, 9)), OCEAN_FLOOR: tag.longArray(pack(floor, 9)) }),
+    sections: tag.list(10, [{ v: { Y: tag.byte(4), block_states: tag.compound({
+      palette: tag.list(10, [{ v: { '': tag.string('minecraft:air') } }, { v: { '': tag.string('minecraft:grass_block') } },
+        { v: { '': tag.string('minecraft:water') } }]),
+      data: tag.longArray(pack(states, 4)),
+    }) } }]),
+  }).v;
+}
+
+test('extractRegionTerrain finds the top block, slope shade and water depth', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'mapt-'));
+  try {
+    const file = join(dir, 'r.0.0.mca');
+    writeFileSync(file, writeRegion([{ cx: 0, cz: 0, nbt: terrainChunk() }]));
+    const chunks = [...readRegionChunks(file)];
+    const { palette, blocks, shade } = extractRegionTerrain(chunks);
+    const at = (x, z) => palette[blocks[z * BLOCKS + x] - 1];
+    assert.equal(at(0, 0), 'minecraft:grass_block');
+    assert.equal(at(3, 3), 'minecraft:water');
+    assert.equal(blocks[20], 0, 'columns of missing chunks stay empty');
+    assert.equal(shade[3 * BLOCKS + 3], SHADE.flat, 'water 6 deep shades mid');
+    // Same-height neighbour to the north: flat. The comparison is north-south, so the
+    // east/west step does not shade.
+    assert.equal(shade[5 * BLOCKS + 10], SHADE.flat);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
 });

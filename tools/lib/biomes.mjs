@@ -1,8 +1,9 @@
 import { readRegionChunks } from './region.mjs';
+import { paletteName } from './nbt.mjs';
 
 export const CELLS = 128; // biome cells per region side: 512 blocks / 4
 // Bump when extraction logic changes so every cached grid is rebuilt.
-export const EXTRACTOR_VERSION = 3;
+export const EXTRACTOR_VERSION = 4;
 export const gridKey = (remote) => `${EXTRACTOR_VERSION}:${remote.size}:${remote.mtime}`;
 const SEA_LEVEL = 63;
 const CAVE = /(^|:)cave\/|_caves$|:deep_dark$/;
@@ -29,7 +30,8 @@ const bitsFor = (n) => (n <= 1 ? 0 : Math.ceil(Math.log2(n)));
 // Surface biome per 4x4 column for one region file. Grid value 0 = no data, otherwise
 // index + 1 into the returned palette. "Surface" = the 4x4x4 cell containing the topmost block
 // (WORLD_SURFACE heightmap), so cave biomes underneath never show.
-export function extractRegionBiomes(path, onError) {
+// `source` is a region file path or an already-read array of its chunks.
+export function extractRegionBiomes(source, onError) {
   const palette = [];
   const paletteIndex = new Map();
   const grid = new Uint8Array(CELLS * CELLS);
@@ -46,7 +48,8 @@ export function extractRegionBiomes(path, onError) {
     return i + 1;
   };
 
-  for (const { cx, cz, nbt } of readRegionChunks(path, onError)) {
+  const chunkList = typeof source === 'string' ? readRegionChunks(source, onError) : source;
+  for (const { cx, cz, nbt } of chunkList) {
     if (NO_BIOMES.has(nbt.Status) || !Array.isArray(nbt.sections)) continue;
     const minSectionY = typeof nbt.yPos === 'number' ? nbt.yPos : -4;
     const minY = minSectionY * 16;
@@ -83,8 +86,7 @@ export function extractRegionBiomes(path, onError) {
           const s = sectionBiomes(Math.floor(yy / 16));
           if (!s) return null;
           const qy = (((yy % 16) + 16) % 16) >> 2;
-          const n = s.palette[s.values[(qy << 4) | (qz << 2) | qx]] ?? s.palette[0];
-          return typeof n === 'string' ? n : n.Name;
+          return paletteName(s.palette[s.values[(qy << 4) | (qz << 2) | qx]] ?? s.palette[0]);
         };
         let name = at(y);
         // Cave biomes are 3D noise that can poke up into the top cell; the cell above shows
