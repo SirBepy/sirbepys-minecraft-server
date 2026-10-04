@@ -91,6 +91,13 @@ components:
 
 # Design System: SirBepys Minecraft Server
 
+> **In flux (2026-10-04).** The owner is choosing between three styles that are all live behind a
+> temporary A/B/C picker (`site/assets/js/style-pick.js`, `?style=a|b|c`): **A** dig down through
+> real strata (`theme-a.css`, `strata.js`), **B** Incendium / Stardust Labs page language
+> (`theme-b.css`), **C** the game's title screen and menus (`theme-c.css`). Shared layout lives in
+> `site.css`. Once one is picked, delete the other two plus the picker and rewrite this file from
+> the built result. The sections below describe the previous single style.
+
 ## Overview
 
 The home page is a vertical slice through a grass block: daylight sky with drifting flat

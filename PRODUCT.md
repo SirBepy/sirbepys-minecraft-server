@@ -71,11 +71,15 @@ only place that shows the real biomes of this world.
 - Owner-pinned visual direction: Minecraft-y (blocky pixel accents, Minecraft-like heading font,
   grass/dirt palette, playful). Phosphor icons.
 - Server icon: `mc_plugins_tag/client/icon.png` *(inferred to be the server/modpack icon)*.
+- Real vanilla block and GUI textures are allowed (owner, 2026-10-04), so the footer keeps a small
+  "Not an official Minecraft product" line, as Mojang's usage guidelines ask.
 
 ## Evidence on Hand
 
 - Real world data (biomes from region files) via the map pipeline in `tools/`.
 - Datapack projects' own Modrinth icons/gallery images, credited and linked.
+- Stardust Labs' screenshots from their own pack pages (stardustlabs.net), hotlinked and credited
+  where they appear (hero carousel, gallery, join pages).
 - No player count, uptime stats, testimonials or screenshots of builds exist yet: do not invent
   them.
 
@@ -85,6 +89,9 @@ only place that shows the real biomes of this world.
 2. Show, don't tell: images and the map over paragraphs; every text block earns its place.
 3. Real data only: the map and every feature claim trace back to the live server or its repo.
 4. Free and self-maintaining: nightly refresh, nothing paid, nothing that needs babysitting.
+5. Less text up front: show the short version first and put the rest behind a click (owner,
+   2026-10-04: "we should always initially show less text, but if a user clicks on something, he
+   can get more"). Info that swaps on interaction works on click/tap, never on hover alone.
 
 ## Accessibility & Inclusion
 
