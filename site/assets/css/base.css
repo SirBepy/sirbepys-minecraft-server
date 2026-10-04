@@ -13,6 +13,8 @@
 }
 
 :root {
+  color-scheme: dark;
+
   /* One GUI pixel. Every bevel, border and shadow is a multiple so edges stay crisp. */
   --px: 3px;
 
