@@ -3,63 +3,139 @@ name: SirBepys Minecraft Server
 description: The friends server's website as the game's own title screen and menu screens, plus a live biome map of the real world.
 colors:
   page: "#101010"
-  menu-list: "rgba(0,0,0,0.66)"
-  gui: "#c6c6c6"
-  gui-light: "#ffffff"
-  gui-shade: "#555555"
-  slot-dark: "#373737"
-  ink: "#3f3f3f"
-  tooltip: "#100010"
-  tooltip-edge-a: "#5000ff"
-  tooltip-edge-b: "#28007f"
-  button-hover-text: "#ffffa0"
-  splash: "#ffff00"
+  text: "#ffffff"
+  text-soft: "#f0f0f0"
+  text-dim: "#e8e8e8"
+  text-hero-sub: "#e6e6e6"
+  text-field: "#e0e0e0"
+  text-credit: "#dddddd"
+  text-footer: "#cfcfcf"
+  text-locked: "#bbbbbb"
+  text-meta: "#8f8f8f"
+  mc-gray: "#aaaaaa"
   mc-yellow: "#ffff55"
   mc-green: "#55ff55"
   mc-gold: "#ffaa00"
   mc-aqua: "#55ffff"
-  mc-gray: "#aaaaaa"
   mc-red: "#ff5555"
+  splash: "#ffff00"
+  splash-shadow: "#3f3f00"
+  button-hover-text: "#ffffa0"
+  text-shadow: "#3f3f3f"
+  green-shadow: "#153f15"
   challenge-purple: "#e48aff"
+  challenge-shadow: "#3a1650"
   pack-kind: "#9a9aff"
-  text: "#ffffff"
+  panel-link: "#2a2ad0"
+  gui: "#c6c6c6"
+  gui-light: "#ffffff"
+  gui-shade: "#555555"
+  slot-gray: "#8b8b8b"
+  slot-dark: "#373737"
+  ink: "#3f3f3f"
+  black: "#000000"
+  near-black: "#111111"
+  tooltip: "#100010"
+  tooltip-edge-a: "#5000ff"
+  tooltip-edge-b: "#28007f"
+  logo-side: "#3a3a3a"
+  logo-ramp-1: "#343434"
+  logo-ramp-2: "#303030"
+  logo-ramp-3: "#2c2c2c"
+  logo-ramp-4: "#282828"
+  logo-ramp-5: "#232323"
+  logo-ramp-6: "#1e1e1e"
+  logo-stroke: "#2a2a2a"
+  ping-on: "#3ad13a"
+  ping-on-shadow: "#0f4f0f"
+  ping-off: "#bb3333"
+  ping-scan: "#9a9a9a"
   map-parchment: "#e7d9b4"
+  map-parchment-mid: "#c9b386"
+  map-parchment-dark: "#8a6d43"
+  map-frame: "#3b2a18"
+  map-void: "#15131a"
 typography:
   logo:
     fontFamily: "Monocraft, ui-monospace, Consolas, monospace"
-    fontSize: "128px / 96px / 64px / 52px (desktop / <=900 / <=600 / <=380)"
+    fontSize: "128px"
     fontWeight: 700
     lineHeight: 1
+  logo-tablet:
+    fontFamily: "Monocraft"
+    fontSize: "96px"
+    fontWeight: 700
+  logo-phone:
+    fontFamily: "Monocraft"
+    fontSize: "64px"
+    fontWeight: 700
+  logo-small-phone:
+    fontFamily: "Monocraft"
+    fontSize: "52px"
+    fontWeight: 700
   logo-sub:
     fontFamily: "Monocraft"
-    fontSize: "56px / 40px / 28px / 24px"
+    fontSize: "56px"
     fontWeight: 700
-  screen-title:
+  logo-sub-tablet:
     fontFamily: "Monocraft"
-    fontSize: "28px / 22px (<=600)"
-    fontWeight: 400
+    fontSize: "40px"
   page-title:
     fontFamily: "Monocraft"
-    fontSize: "44px / 26px (<=600)"
+    fontSize: "44px"
     fontWeight: 700
+  page-title-icon-phone:
+    fontFamily: "Monocraft"
+    fontSize: "36px"
+  heading-32:
+    fontFamily: "Monocraft"
+    fontSize: "32px"
+  screen-title:
+    fontFamily: "Monocraft"
+    fontSize: "28px"
+    fontWeight: 400
+  page-title-phone:
+    fontFamily: "Monocraft"
+    fontSize: "26px"
+    fontWeight: 700
+  splash:
+    fontFamily: "Monocraft"
+    fontSize: "24px"
+    fontWeight: 700
+  screen-title-phone:
+    fontFamily: "Monocraft"
+    fontSize: "22px"
+  heading-20:
+    fontFamily: "Monocraft"
+    fontSize: "20px"
   button:
     fontFamily: "Monocraft"
-    fontSize: "18px / 16px (<=600)"
+    fontSize: "18px"
     fontWeight: 400
   body:
     fontFamily: "Monocraft"
     fontSize: "16px"
     fontWeight: 400
     lineHeight: 1.5
+  detail:
+    fontFamily: "Monocraft"
+    fontSize: "15px"
   small:
     fontFamily: "Monocraft"
     fontSize: "14px"
+  caption:
+    fontFamily: "Monocraft"
+    fontSize: "13px"
+  legal:
+    fontFamily: "Monocraft"
+    fontSize: "12px"
 rounded:
   none: "0px"
 spacing:
-  px: "3px (2px at <=600)"
-  screen-gap: "104px (88px at <=600)"
-  list-padding: "40px 0 48px"
+  px: "3px"
+  px-phone: "2px"
+  screen-gap: "104px"
+  screen-gap-phone: "88px"
 components:
   button:
     sprite: "textures/mc/button.png, 9-slice border 3, scaled by --px"
