@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SirBepys Minecraft Server</title>
+  <meta name="description" content="Los Pollos MineHermanos: a friends survival server for Java and Bedrock. Address, live biome map of our real world, datapacks and the optional modpack.">
+  <meta name="theme-color" content="#6f9cf2">
+  <meta property="og:title" content="SirBepys Minecraft Server">
+  <meta property="og:description" content="Friends survival for Java and Bedrock. Join with sirbepy.mcserver.host">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/server-icon.png">
+  <link rel="icon" type="image/png" href="assets/server-icon.png">
+  <link rel="preload" href="assets/fonts/Monocraft.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/Monocraft-Bold.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.2/src/bold/style.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/home.css">
+  <script type="module" src="assets/js/home.js"></script>
+</head>
+<body>
+  <!-- impeccable seed 7b74c4f6, contract in DESIGN.md -->
+  <a class="skip-link" href="#join">Skip to joining</a>
+
+  <header class="sky" id="top">
+    <div class="clouds" aria-hidden="true">
+      <span class="cloud cloud--a"></span>
+      <span class="cloud cloud--b"></span>
+      <span class="cloud cloud--c"></span>
+    </div>
+
+    <nav class="topnav wrap" aria-label="Main">
+      <a class="topnav__home mc-text" href="#top">
+        <img class="pixel" src="assets/server-icon.png" alt="" width="32" height="32">
+        SirBepys
+      </a>
+      <div class="topnav__links">
+        <a class="mc-text" href="#features">Features</a>
+        <a class="mc-text" href="#datapacks">Datapacks</a>
+        <a class="mc-text" href="#modpack">Modpack</a>
+        <a class="btn btn--small" href="map/"><i class="ph-bold ph-map-trifold" aria-hidden="true"></i>Map</a>
+      </div>
+    </nav>
+
+    <div class="hero wrap">
+      <h1 class="logo">
+        <span class="logo__line logo__line--big" data-text="SirBepys">SirBepys</span>
+        <span class="logo__line" data-text="Minecraft Server">Minecraft Server</span>
+      </h1>
+      <p class="splash" aria-hidden="true"><span id="splash">Los Pollos MineHermanos!</span></p>
+
+      <section class="serverlist" id="join" aria-labelledby="join-title">
+        <h2 class="sr-only" id="join-title">Join the server</h2>
+        <div class="entry">
+          <img class="entry__icon pixel" src="assets/server-icon.png" alt="Server icon" width="64" height="64">
+          <div class="entry__body">
+            <div class="entry__top">
+              <span class="entry__name mc-text">SirBepys Minecraft Server</span>
+              <span class="entry__status" id="status" aria-live="polite">
+                <span class="entry__players mc-text" id="players">26.3</span>
+                <span class="ping" id="ping" data-state="unknown" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+              </span>
+            </div>
+            <p class="entry__motd mc-text" id="motd">Los Pollos MineHermanos</p>
+            <p class="entry__meta">Friends survival &middot; Java &amp; Bedrock &middot; Minecraft 26.3</p>
+          </div>
+        </div>
+
+        <div class="addresses">
+          <div class="address address--java">
+            <span class="address__label mc-text">Java</span>
+            <code class="address__value" id="java-address">sirbepy.mcserver.host</code>
+            <button class="btn btn--green copy" type="button" data-copy="sirbepy.mcserver.host">
+              <i class="ph-bold ph-copy" aria-hidden="true"></i><span>Copy address</span>
+            </button>
+          </div>
+          <div class="address address--bedrock">
+            <span class="address__label mc-text">Bedrock</span>
+            <code class="address__value">eu-de-p59-a6-cg.kineticpanel.net</code>
+            <span class="address__port"><span class="mc-text">Port</span> <code>25572</code></span>
+            <button class="btn copy" type="button" data-copy="eu-de-p59-a6-cg.kineticpanel.net">
+              <i class="ph-bold ph-copy" aria-hidden="true"></i><span>Copy</span>
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </header>
+
+  <main>
+    <section class="layer layer--grass" aria-labelledby="how-title">
+      <div class="wrap">
+        <h2 class="section-title mc-text" id="how-title">Jump in</h2>
+        <ol class="toasts">
+          <li class="toast">
+            <i class="ph-bold ph-desktop-tower toast__icon" aria-hidden="true"></i>
+            <div>
+              <p class="toast__title">Java Edition</p>
+              <p class="toast__text">Multiplayer &rarr; Add Server &rarr; paste the address. No mods needed.</p>
+            </div>
+          </li>
+          <li class="toast">
+            <i class="ph-bold ph-device-mobile toast__icon" aria-hidden="true"></i>
+            <div>
+              <p class="toast__title">Bedrock Edition</p>
+              <p class="toast__text">Play &rarr; Servers &rarr; Add Server. Address plus port <span class="kbd">25572</span>.</p>
+            </div>
+          </li>
+          <li class="toast">
+            <i class="ph-bold ph-microphone toast__icon" aria-hidden="true"></i>
+            <div>
+              <p class="toast__title">Voice chat</p>
+              <p class="toast__text">Hear players near you. Java only, with the <a href="#modpack">modpack</a>.</p>
+            </div>
+          </li>
+        </ol>
+
+        <div class="teaser" aria-labelledby="map-title">
+          <div class="teaser__copy">
+            <h2 class="section-title mc-text" id="map-title">Our real world, mapped</h2>
+            <p class="lede mc-text">Every biome, read from the server's own world files. Seed maps get it wrong: Terralith reshapes everything.</p>
+            <p class="teaser__stats" id="map-stats">Loading the map&hellip;</p>
+            <a class="btn btn--green" href="map/"><i class="ph-bold ph-map-trifold" aria-hidden="true"></i>Open the full map</a>
+          </div>
+          <a class="mapitem" href="map/" aria-label="Open the full biome map">
+            <canvas class="mapitem__canvas" id="teaser-map" aria-hidden="true"></canvas>
+            <span class="mapitem__hover tooltip" id="teaser-hover" hidden></span>
+            <i class="ph-bold ph-house-line mapitem__spawn" id="teaser-spawn" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="layer layer--dirt" id="features" aria-labelledby="features-title">
+      <div class="wrap">
+        <h2 class="section-title mc-text" id="features-title">What's different</h2>
+        <p class="lede mc-text">Survival like you know it, plus a few friendly extras.</p>
+
+        <div class="tree">
+          <div class="branch">
+            <h3 class="branch__title mc-text">Settle</h3>
+            <ul class="adv-list">
+              <li class="adv">
+                <span class="frame frame--goal"><i class="ph-bold ph-castle-turret" aria-hidden="true"></i></span>
+                <div class="adv__body">
+                  <p class="adv__title">Towns</p>
+                  <p class="adv__text">Found a town and claim land. Free: no fees, no upkeep.</p>
+                  <p class="adv__cmd"><span class="kbd">/town new</span></p>
+                </div>
+              </li>
+              <li class="adv">
+                <span class="frame"><i class="ph-bold ph-house-line" aria-hidden="true"></i></span>
+                <div class="adv__body">
+                  <p class="adv__title">Homes &amp; teleports</p>
+                  <p class="adv__text">Save 3 homes. Ask a friend to teleport over.</p>
+                  <p class="adv__cmd"><span class="kbd">/sethome</span> <span class="kbd">/home</span> <span class="kbd">/tpa</span></p>
+                </div>
+              </li>
+              <li class="adv">
+                <span class="frame"><i class="ph-bold ph-lock-key" aria-hidden="true"></i></span>
+                <div class="adv__body">
+                  <p class="adv__title">Locked chests</p>
+                  <p class="adv__text">Chests lock to whoever placed them. Others can ask for access.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="branch">
+            <h3 class="branch__title mc-text">Grow</h3>
+            <ul class="adv-list">
+              <li class="adv">
+                <span class="frame frame--goal"><i class="ph-bold ph-chart-line-up" aria-hidden="true"></i></span>
+                <div class="adv__body">
+                  <p class="adv__title">Skills</p>
+                  <p class="adv__text">Mining, farming, fighting: level skills just by playing.</p>
+                  <p class="adv__cmd"><span class="kbd">/skills</span></p>
+                </div>
+              </li>
+              <li class="adv">
+                <span class="frame"><i class="ph-bold ph-storefront" aria-hidden="true"></i></span>
+                <div class="adv__body">
+                  <p class="adv__title">Chest shops</p>
+                  <p class="adv__text">Turn a chest into a shop and trade with everyone.</p>
+                </div>
+              </li>
+              <li class="adv">
+                <span class="frame"><i class="ph-bold ph-palette" aria-hidden="true"></i></span>
+                <div class="adv__body">
+                  <p class="adv__title">Name colors</p>
+                  <p class="adv__text">Pick a color or gradient for your name.</p>
+                  <p class="adv__cmd"><span class="kbd">/color</span></p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="branch">
+            <h3 class="branch__title mc-text">Play</h3>
+            <ul class="adv-list">
+              <li class="adv">
+                <span class="frame frame--challenge"><i class="ph-bold ph-sneaker-move" aria-hidden="true"></i></span>
+                <div class="adv__body">
+                  <p class="adv__title adv__title--challenge">Tag, you're it</p>
+                  <p class="adv__text">An always-on game of tag. IT wears a sheep head. Lowest score wins.</p>
+                  <p class="adv__cmd"><span class="kbd">/tag optout</span> to sit out</p>
+                </div>
+              </li>
+              <li class="adv">
+                <span class="frame"><i class="ph-bold ph-microphone" aria-hidden="true"></i></span>
+                <div class="adv__body">
+                  <p class="adv__title">Proximity voice</p>
+                  <p class="adv__text">Voices get quieter with distance. Needs the voice chat mod.</p>
+                </div>
+              </li>
+              <li class="adv">
+                <span class="frame"><i class="ph-bold ph-skull" aria-hidden="true"></i></span>
+                <div class="adv__body">
+                  <p class="adv__title">Graves</p>
+                  <p class="adv__text">No keep-inventory. Your stuff waits in a grave where you died.</p>
+                </div>
+              </li>
+              <li class="adv adv--locked">
+                <span class="frame frame--locked"><i class="ph-bold ph-lock" aria-hidden="true"></i></span>
+                <div class="adv__body">
+                  <p class="adv__title">The End</p>
+                  <p class="adv__text">Closed for now.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="layer layer--stone" id="worldgen" aria-labelledby="worldgen-title">
+      <div class="wrap">
+        <h2 class="section-title mc-text" id="worldgen-title">A world you haven't seen</h2>
+        <p class="lede mc-text">New biomes, towers, ruins, dungeons and taverns, all generated with vanilla blocks.</p>
+        <div class="gallery">
+          <figure class="frame-item frame-item--wide">
+            <img src="https://cdn.modrinth.com/data/8oi3bsk5/images/e66c54081b2abbdeb6dfdb0bde26123f8641176c.jpeg" alt="A Terralith landscape" loading="lazy" decoding="async">
+            <figcaption><b>Terralith</b> &middot; almost 100 new biomes &middot; <a href="https://modrinth.com/datapack/terralith">Stardust Labs</a></figcaption>
+          </figure>
+          <figure class="frame-item">
+            <img src="https://cdn.modrinth.com/data/aKCwCJlY/images/45b042b8b47a8884b54c5ae7a35b17773cbe44d8.jpeg" alt="A Structory firetower" loading="lazy" decoding="async">
+            <figcaption><b>Structory</b> &middot; ruins with lore &middot; <a href="https://modrinth.com/datapack/structory">Stardust Labs</a></figcaption>
+          </figure>
+          <figure class="frame-item">
+            <img src="https://cdn.modrinth.com/data/j3FONRYr/images/b4f8eb693c6679fa4dc075028fff5b3b19c5fdb8.png" alt="A Structory: Towers mirage outpost" loading="lazy" decoding="async">
+            <figcaption><b>Structory: Towers</b> &middot; biome towers &middot; <a href="https://modrinth.com/datapack/structory-towers">Stardust Labs</a></figcaption>
+          </figure>
+          <figure class="frame-item">
+            <img src="https://cdn.modrinth.com/data/tpehi7ww/images/93dc2790ee15a172f5e7a9100790dedde9ea6b35.webp" alt="A Dungeons and Taverns tavern" loading="lazy" decoding="async">
+            <figcaption><b>Dungeons and Taverns</b> &middot; <a href="https://modrinth.com/datapack/dungeons-and-taverns">NovaWostra</a></figcaption>
+          </figure>
+          <figure class="frame-item">
+            <img src="https://cdn.modrinth.com/data/8oi3bsk5/images/8eb1319d93336ca3ac29578e029459c3c0ec5132.jpeg" alt="Another Terralith landscape" loading="lazy" decoding="async">
+            <figcaption><b>Terralith</b> &middot; realism and light fantasy &middot; <a href="https://modrinth.com/datapack/terralith">Stardust Labs</a></figcaption>
+          </figure>
+        </div>
+        <p class="footnote mc-text">Also installed: <b>Incendium</b> and <b>Amplified Nether</b> remake the Nether, <b>Nullscape</b> waits in the End.</p>
+      </div>
+    </section>
+
+    <section class="layer layer--stone layer--stone-deep" id="datapacks" aria-labelledby="datapacks-title">
+      <div class="wrap">
+        <h2 class="section-title mc-text" id="datapacks-title">Datapacks</h2>
+        <p class="lede mc-text">Everything the server runs on top of vanilla. Pick a slot.</p>
+
+        <div class="inventory gui-panel">
+          <p class="inventory__title">Installed</p>
+          <div class="inventory__grid" role="listbox" aria-label="Datapacks" id="pack-grid"></div>
+          <div class="inventory__detail tooltip" id="pack-detail" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="layer layer--deepslate" id="modpack" aria-labelledby="modpack-title">
+      <div class="wrap modpack">
+        <div class="modpack__copy">
+          <h2 class="section-title mc-text" id="modpack-title">The optional modpack</h2>
+          <p class="lede mc-text">Plain Minecraft works fine. The pack adds voice chat, more FPS and nicer looks, set up in one import.</p>
+          <ul class="perks">
+            <li><i class="ph-bold ph-microphone" aria-hidden="true"></i>Voice chat</li>
+            <li><i class="ph-bold ph-gauge" aria-hidden="true"></i>More FPS, less RAM</li>
+            <li><i class="ph-bold ph-sun-horizon" aria-hidden="true"></i>Shaders, toggle with <span class="kbd">K</span></li>
+            <li><i class="ph-bold ph-flashlight" aria-hidden="true"></i>Held torches light up</li>
+            <li><i class="ph-bold ph-sort-ascending" aria-hidden="true"></i>Inventory sorting</li>
+            <li><i class="ph-bold ph-info" aria-hidden="true"></i>Food values, block info, mod menu</li>
+            <li><i class="ph-bold ph-squares-four" aria-hidden="true"></i>Connected textures</li>
+            <li><i class="ph-bold ph-hamburger" aria-hidden="true"></i>Textures for the new foods</li>
+          </ul>
+          <ol class="steps mc-text">
+            <li>Install the free <a href="https://modrinth.com/app">Modrinth App</a> or <a href="https://prismlauncher.org">Prism Launcher</a>.</li>
+            <li>Import the <span class="kbd">.mrpack</span> file.</li>
+            <li>Play. Fabric, Minecraft 26.3.</li>
+          </ol>
+          <a class="btn btn--green" href="downloads/Los-Pollos-MineHermanos-26.3.mrpack" download>
+            <i class="ph-bold ph-download-simple" aria-hidden="true"></i>Download modpack
+          </a>
+        </div>
+
+        <div class="crafting gui-panel" aria-label="Mods in the pack, shown as a crafting recipe">
+          <p class="inventory__title">Crafting</p>
+          <div class="crafting__row">
+            <ul class="crafting__grid" id="mod-grid"></ul>
+            <i class="ph-bold ph-arrow-fat-right crafting__arrow" aria-hidden="true"></i>
+            <a class="crafting__result slot" href="downloads/Los-Pollos-MineHermanos-26.3.mrpack" download title="Los Pollos MineHermanos modpack">
+              <img class="pixel" src="assets/server-icon.png" alt="Download the modpack" width="64" height="64">
+            </a>
+          </div>
+          <p class="crafting__caption" id="mod-caption">Hover a mod to see what it does.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="layer layer--bedrock">
+    <div class="wrap footer">
+      <div>
+        <p class="footer__title mc-text">SirBepys Minecraft Server</p>
+        <p class="footer__text">Los Pollos MineHermanos &middot; <a href="map/">World map</a> &middot; <a href="https://github.com/SirBepy/sirbepys-minecraft-server">Source</a></p>
+      </div>
+      <div class="footer__credits">
+        <p>Datapacks: <a href="https://modrinth.com/organization/stardust-labs">Stardust Labs</a> (Terralith, Incendium, Nullscape, Structory, Structory: Towers, Amplified Nether), <a href="https://modrinth.com/datapack/dungeons-and-taverns">NovaWostra</a>, <a href="https://modrinth.com/datapack/mastercutter">Nico4play</a>, <a href="https://modrinth.com/datapack/reg-more-foods">regfunkid</a>, <a href="https://modrinth.com/datapack/backpacksdp">UltroGhast</a>, <a href="https://vanillatweaks.net">Vanilla Tweaks</a>.</p>
+        <p>Font <a href="https://github.com/IdreesInc/Monocraft">Monocraft</a> (OFL). Icons <a href="https://phosphoricons.com">Phosphor</a>.</p>
+        <p>Not an official Minecraft product. Not approved by or associated with Mojang or Microsoft.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
