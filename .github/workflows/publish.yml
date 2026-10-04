@@ -42,8 +42,12 @@ jobs:
           key: map-cache-${{ github.run_id }}
           restore-keys: map-cache-
 
+      # A failed pull (key revoked, server down) still publishes the site with the current live
+      # map data; the last step then marks the run failed so it shows up red.
       - name: Pull changed regions and rebuild the map (read-only SFTP)
+        id: refresh
         if: env.HAS_SFTP == 'true'
+        continue-on-error: true
         env:
           MC_SFTP_USER: ${{ secrets.MC_SFTP_USER }}
           MC_SFTP_KEY: ${{ secrets.MC_SFTP_KEY }}
@@ -67,3 +71,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: node tools/publish.mjs
+
+      - name: Report a failed map refresh
+        if: steps.refresh.outcome == 'failure'
+        run: |
+          echo "::error::Map refresh failed (see the 'Pull changed regions' step). The site was published with the previous map data."
+          exit 1
