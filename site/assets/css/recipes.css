@@ -170,19 +170,3 @@
     font-size: 24px;
   }
 }
-
-/* ---------- B: Incendium ---------- */
-
-[data-theme='b'] .rslot {
-  border-radius: 12px;
-  background: #14161a;
-}
-
-[data-theme='b'] .rslot i {
-  color: #9aa0aa;
-}
-
-[data-theme='b'] .rstation,
-[data-theme='b'] .recipe__arrow {
-  color: var(--lava);
-}

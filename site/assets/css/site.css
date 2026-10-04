@@ -775,43 +775,6 @@ main {
   opacity: 0.6;
 }
 
-/* ---------- Preview-only style picker ---------- */
-
-.stylepick {
-  position: fixed;
-  right: 12px;
-  bottom: 12px;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 6px;
-  background: rgba(0, 0, 0, 0.85);
-  border: 2px solid #ffe600;
-  font: 700 13px var(--font);
-  color: #ffe600;
-}
-
-.stylepick span {
-  padding: 0 6px;
-}
-
-.stylepick button {
-  width: 32px;
-  height: 32px;
-  border: 2px solid #555;
-  background: #222;
-  color: #fff;
-  font: inherit;
-  cursor: pointer;
-}
-
-.stylepick button[aria-pressed='true'] {
-  background: #ffe600;
-  border-color: #ffe600;
-  color: #000;
-}
-
 /* ---------- Responsive ---------- */
 
 @media (max-width: 900px) {

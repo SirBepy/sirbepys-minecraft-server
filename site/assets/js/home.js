@@ -15,13 +15,6 @@ function el(tag, props = {}, ...children) {
   return node;
 }
 
-// Theme A digs the page into the ground; the strata canvas sits behind everything.
-if (document.documentElement.dataset.theme === 'a') {
-  const strata = el('div', { className: 'strata', ariaHidden: 'true' }, el('canvas'));
-  document.body.append(strata);
-  import('./strata.js').then((m) => m.paintStrata(strata.firstChild, document.querySelector('main')));
-}
-
 const icon = (name) => el('i', { className: `ph-bold ph-${name}`, ariaHidden: 'true' });
 const pageLink = (href, label) => el('a', { className: 'page-link', href }, label, icon('arrow-square-out'));
 

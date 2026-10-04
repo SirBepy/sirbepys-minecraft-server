@@ -1,0 +1,567 @@
+/* The game's own look: Mojang's button, slot, frame, separator and stone sprites. The home page
+   is the Java title screen; every section below it is an in-game menu screen over the blurred
+   panorama. Monocraft is a pixel font, so every size here is a whole pixel and steps per
+   breakpoint instead of scaling with the viewport (fractional sizes blur the glyphs). */
+
+body {
+  background: #101010;
+}
+
+/* Menus sit on the blurred panorama, as in game since 1.20.5. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: -40px;
+  z-index: -2;
+  background: url('https://images.squarespace-cdn.com/content/v1/6240c1f3e10b50416d969a84/0f931c73-3ba9-409e-a05c-2e299d8f6872/2022-02-20_20.04.24.png?format=1000w') center / cover;
+  filter: blur(14px) brightness(0.5);
+}
+
+/* ---------- Sprites ---------- */
+
+.btn {
+  min-height: calc(var(--px) * 20);
+  padding: 0 16px;
+  font-weight: 400;
+  background: none;
+  box-shadow: none;
+  border: calc(var(--px) * 3) solid transparent;
+  border-image: url('../textures/mc/button.png') 3 fill / calc(var(--px) * 3) stretch;
+  image-rendering: pixelated;
+  transition: none;
+}
+
+.btn:hover {
+  color: #ffffa0;
+  background: none;
+  box-shadow: none;
+  border-image-source: url('../textures/mc/button_highlighted.png');
+}
+
+.btn--small {
+  min-height: calc(var(--px) * 14);
+}
+
+.slot {
+  background: url('../textures/mc/slot.png') 0 0 / 100% 100%;
+  box-shadow: none;
+  image-rendering: pixelated;
+}
+
+:is(button, a).slot:hover,
+.slot[aria-pressed='true'] {
+  box-shadow: inset 0 0 0 100px rgba(255, 255, 255, 0.42);
+}
+
+.slot[aria-pressed='true'] {
+  outline: var(--px) solid #fff;
+  outline-offset: calc(var(--px) * -1);
+}
+
+/* ---------- Title screen ---------- */
+
+.topnav {
+  display: none;
+}
+
+.hero {
+  grid-template-rows: 1fr auto;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(ellipse at 50% 40%, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
+  pointer-events: none;
+}
+
+/* The panorama drifts sideways instead of zooming. */
+.slide.is-active img {
+  animation: pan 40s linear infinite alternate;
+}
+
+@keyframes pan {
+  from { transform: scale(1.15) translateX(5%); }
+  to { transform: scale(1.15) translateX(-5%); }
+}
+
+.hero__inner {
+  position: static;
+  justify-content: flex-start;
+  padding-top: max(48px, 11vh);
+}
+
+/* Stone-filled, extruded logo; the copy in ::before draws the dark sides behind the face. */
+.logo__line {
+  font-size: 56px;
+  color: transparent;
+  background: url('../textures/mc/stone.png') 0 0 / 48px 48px;
+  background-clip: text;
+  -webkit-background-clip: text;
+  image-rendering: pixelated;
+  -webkit-text-stroke: 2px #2a2a2a;
+}
+
+.logo__line--big {
+  font-size: 128px;
+  margin-bottom: 8px;
+}
+
+.logo__line::before {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  color: #3a3a3a;
+  -webkit-text-stroke: 2px #1e1e1e;
+  text-shadow:
+    0 2px 0 #343434, 0 4px 0 #303030, 0 6px 0 #2c2c2c, 0 8px 0 #282828,
+    0 10px 0 #232323, 0 12px 0 #1e1e1e, 0 16px 24px rgba(0, 0, 0, 0.6);
+  background: none;
+}
+
+/* Centred on the big logo line's right end, like the game's splash text. The zero-width box
+   keeps any length of text centred on that point. */
+.splash {
+  width: 0;
+  display: flex;
+  justify-content: center;
+  white-space: nowrap;
+  transform: translate(390px, -118px) rotate(-18deg);
+}
+
+.splash span {
+  font-size: 24px;
+}
+
+.serverlist {
+  width: min(100%, calc(var(--px) * 200));
+  margin-top: 40px;
+  gap: calc(var(--px) * 4);
+}
+
+/* The server entry shrinks to the title screen's bottom-left corner text. */
+.entry {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  z-index: 2;
+  display: block;
+  padding: 0;
+  text-shadow: 2px 2px 0 #3f3f3f;
+}
+
+.entry__icon,
+.entry__motd,
+.entry__meta {
+  display: none;
+}
+
+.entry__top {
+  justify-content: flex-start;
+  font-size: 14px;
+}
+
+.entry__name {
+  font-weight: 400;
+}
+
+.entry__players {
+  color: #fff;
+}
+
+.editions {
+  grid-template-columns: 1fr;
+  gap: calc(var(--px) * 4);
+}
+
+.edition {
+  justify-content: center;
+  min-height: calc(var(--px) * 20);
+  font-size: 18px;
+}
+
+.edition > i:first-child {
+  font-size: 22px;
+}
+
+.edition__text {
+  flex: none;
+}
+
+.edition__meta,
+.edition__go {
+  display: none;
+}
+
+.hero__menu {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(var(--px) * 4);
+}
+
+.hero__menu .btn {
+  font-size: 18px;
+}
+
+.hero__menu .btn:first-child {
+  grid-column: 1 / -1;
+}
+
+.carousel__bar {
+  width: auto;
+  margin: 0 14px 0 auto;
+  justify-content: flex-end;
+  padding-bottom: 10px;
+  text-shadow: 2px 2px 0 #3f3f3f;
+}
+
+.carousel__credit a {
+  color: #fff;
+}
+
+.cbtn {
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+}
+
+/* ---------- Menu screens ---------- */
+
+.layer {
+  margin-top: 104px;
+  padding: 40px 0 48px;
+  background:
+    url('../textures/mc/header_separator.png') top / 64px 6px repeat-x,
+    url('../textures/mc/footer_separator.png') bottom / 64px 6px repeat-x,
+    url('../textures/mc/menu_list_background.png') 0 0 / 64px 64px;
+  image-rendering: pixelated;
+}
+
+/* The screen title sits above the list, centred, like any in-game menu title. */
+.layer .section-title {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(100% + 40px + 24px);
+  font-size: 28px;
+  font-weight: 400;
+  text-align: center;
+  color: #fff;
+  text-shadow: var(--px) var(--px) 0 #3f3f3f;
+}
+
+.layer > .wrap > .lede {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.lede {
+  color: #aaa;
+}
+
+.teaser__stats {
+  text-shadow: var(--px) var(--px) 0 #153f15;
+}
+
+.adv {
+  grid-template-columns: calc(var(--px) * 26) 1fr;
+}
+
+.adv-list::before {
+  content: '';
+  position: absolute;
+  left: calc(var(--px) * 13 - 3px);
+  top: 30px;
+  bottom: 30px;
+  width: 6px;
+  background: #fff;
+  box-shadow: 0 0 0 var(--px) #000;
+}
+
+.frame {
+  width: calc(var(--px) * 26);
+  height: calc(var(--px) * 26);
+  font-size: calc(var(--px) * 11);
+  background: url('../textures/mc/frame_task.png') 0 0 / 100% 100%;
+  image-rendering: pixelated;
+}
+
+.frame i {
+  filter: drop-shadow(2px 2px 0 rgba(0, 0, 0, 0.5));
+}
+
+.frame--goal { background-image: url('../textures/mc/frame_goal.png'); }
+.frame--challenge { background-image: url('../textures/mc/frame_challenge.png'); }
+.frame--locked { background-image: url('../textures/mc/frame_locked.png'); color: #bbb; }
+
+.adv__body {
+  padding-top: 6px;
+}
+
+.adv__title {
+  color: var(--mc-green);
+  text-shadow: var(--px) var(--px) 0 #153f15;
+}
+
+.adv__title--challenge {
+  color: #e48aff;
+  text-shadow: var(--px) var(--px) 0 #3a1650;
+}
+
+.adv--locked .adv__title {
+  color: var(--mc-gray);
+  text-shadow: var(--px) var(--px) 0 #2a2a2a;
+}
+
+.adv__text { color: #f0f0f0; }
+.adv__cmd { color: var(--mc-gray); }
+.branch__title { color: var(--mc-yellow); }
+
+.painting {
+  border: var(--px) solid #000;
+}
+
+.painting__tag {
+  color: #fff;
+  background: rgba(16, 0, 16, 0.94);
+  box-shadow: inset 0 0 0 var(--px) var(--tooltip-edge-b);
+}
+
+.painting__tag:hover {
+  color: var(--mc-yellow);
+}
+
+/* The datapack inventory is the Data Packs screen: a scrolling list and a side panel. */
+.inventory {
+  max-width: none;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 24px 40px;
+  padding: 0;
+  background: none;
+  border: 0;
+  box-shadow: none;
+}
+
+.inventory > .inventory__title {
+  display: none;
+}
+
+.inventory__grid {
+  grid-template-columns: 1fr;
+  gap: 2px;
+  max-height: 560px;
+  overflow-y: auto;
+  padding-right: 6px;
+  scrollbar-color: #8b8b8b #000;
+}
+
+.pack-slot {
+  width: 100%;
+  height: auto;
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 14px;
+  justify-items: start;
+  padding: 6px;
+  text-align: left;
+  color: #fff;
+  background: none;
+  border: var(--px) solid transparent;
+  box-shadow: none;
+}
+
+.pack-slot img {
+  width: 48px;
+  height: 48px;
+}
+
+.pack-slot:hover {
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: none;
+}
+
+.pack-slot[aria-pressed='true'] {
+  outline: 0;
+  border-color: #fff;
+  background: rgba(0, 0, 0, 0.6);
+  box-shadow: none;
+}
+
+.pack-slot__text {
+  display: grid;
+  min-width: 0;
+}
+
+.pack-slot__text b {
+  font-weight: 400;
+  text-shadow: 2px 2px 0 #3f3f3f;
+}
+
+.pack-slot__text span {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 14px;
+  color: var(--mc-gray);
+}
+
+.inventory__detail {
+  padding: 0;
+  background: none;
+  border: 0;
+  outline: 0;
+  box-shadow: none;
+}
+
+.inventory__detail::before {
+  display: none;
+}
+
+.pack-kind { color: #9a9aff; }
+.pack-desc { color: #e8e8e8; }
+.pack-credit { color: var(--mc-gray); }
+.pack-shot { border: var(--px) solid #000; }
+.pack-shot--icon { background: var(--slot-dark); }
+
+.credits {
+  color: #aaa;
+  text-align: center;
+  margin-inline: auto;
+}
+
+.crafting__arrow { color: #8b8b8b; }
+.crafting__caption { color: var(--ink); }
+.crafting__caption a { color: #2a2ad0; }
+.inventory__title { color: var(--ink); }
+
+.more summary {
+  color: #fff;
+}
+
+.site-footer {
+  margin-top: 104px;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.footer {
+  color: #cfcfcf;
+}
+
+/* ---------- Smaller screens ---------- */
+
+@media (max-width: 900px) {
+  .logo__line {
+    font-size: 40px;
+  }
+
+  .logo__line--big {
+    font-size: 96px;
+  }
+
+  /* Too little room beside the logo: the splash moves under it. */
+  .splash {
+    margin-top: 18px;
+    transform: rotate(-6deg);
+  }
+
+  .splash span {
+    font-size: 18px;
+  }
+
+  .entry {
+    left: 0;
+    right: 0;
+  }
+
+  .entry__top {
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Stack the corner texts: credit and controls above the player count. */
+  .carousel__bar {
+    margin-right: auto;
+    padding-bottom: 40px;
+  }
+}
+
+@media (max-width: 600px) {
+  .logo__line {
+    font-size: 28px;
+    background-size: 32px 32px;
+    -webkit-text-stroke-width: 1px;
+  }
+
+  .logo__line--big {
+    font-size: 64px;
+    margin-bottom: 4px;
+  }
+
+  .logo__line::before {
+    -webkit-text-stroke-width: 1px;
+    text-shadow:
+      0 2px 0 #303030, 0 4px 0 #282828, 0 6px 0 #1e1e1e, 0 10px 16px rgba(0, 0, 0, 0.6);
+  }
+
+  .splash span {
+    font-size: 16px;
+  }
+
+  .serverlist {
+    margin-top: 28px;
+  }
+
+  .edition,
+  .hero__menu .btn {
+    font-size: 16px;
+  }
+
+  .entry__name {
+    display: none;
+  }
+
+  .hero__inner {
+    justify-content: center;
+    padding-bottom: 120px;
+  }
+
+  .layer {
+    margin-top: 88px;
+    padding: 28px 0 36px;
+  }
+
+  .layer .section-title {
+    bottom: calc(100% + 28px + 20px);
+    font-size: 22px;
+  }
+
+  .inventory {
+    grid-template-columns: 1fr;
+  }
+
+  .inventory__grid {
+    max-height: 360px;
+  }
+
+  .site-footer {
+    margin-top: 88px;
+  }
+}
+
+@media (max-width: 380px) {
+  .logo__line {
+    font-size: 24px;
+  }
+
+  .logo__line--big {
+    font-size: 52px;
+  }
+}
