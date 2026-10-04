@@ -110,7 +110,9 @@ workflow still publishes site changes, keeping the current live map data.
 
 Datapack images and icons are hotlinked from each project's Modrinth page and Vanilla Tweaks;
 the hero, gallery and join-page screenshots are hotlinked from Stardust Labs' own pack pages. All
-are credited where they appear. Font: [Monocraft](https://github.com/IdreesInc/Monocraft) (OFL,
+are credited where they appear. `site/assets/og-image.png` (the Discord/link-preview card) is a
+1200x630 screenshot of the home page's title screen, so it contains a Terralith screenshot by
+Stardust Labs. Font: [Monocraft](https://github.com/IdreesInc/Monocraft) (OFL,
 license in `site/assets/fonts/`). Icons: [Phosphor](https://phosphoricons.com). Block and GUI
 textures in `site/assets/textures/mc/` are Mojang's, copied by `tools/extract-mc-textures.py`; the
 older original pixel art from `tools/make-textures.mjs` is still used by the map's loading screen.
