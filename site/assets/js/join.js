@@ -1,5 +1,11 @@
 document.documentElement.classList.add('js');
 
+// A link to a collapsed box (e.g. Voice chat -> "install the mods") opens it too.
+for (const link of document.querySelectorAll('a[href^="#"]')) {
+  const target = document.getElementById(link.getAttribute('href').slice(1));
+  if (target instanceof HTMLDetailsElement) link.addEventListener('click', () => { target.open = true; });
+}
+
 for (const btn of document.querySelectorAll('[data-copy]')) {
   const label = btn.querySelector('span');
   const original = label.textContent;
