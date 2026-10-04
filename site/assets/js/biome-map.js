@@ -4,14 +4,31 @@
 // nearest-neighbour sampling, so a frame is a few hundred drawImage calls.
 
 const REGION_BLOCKS = 512;
+// Below this many screen pixels per block the terrain layer shows its low-res overview;
+// at or above it, full-resolution region files are fetched for what's on screen.
+const TERRAIN_DETAIL_SCALE = 0.45;
+const TERRAIN_MAX_LOADED = 48;
+const TERRAIN_MAX_FETCHES = 6;
+
+const hexToRgb = (hex) => [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
+
+// The data files are plain .gz (GitHub Pages sends no Content-Encoding for them), so they are
+// decompressed here.
+async function fetchGzip(url) {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`${url}: ${res.status}`);
+  const stream = res.body.pipeThrough(new DecompressionStream('gzip'));
+  return new Uint8Array(await new Response(stream).arrayBuffer());
+}
+
+export function blockLabel(id) {
+  const path = id.includes(':') ? id.split(':')[1] : id;
+  return path.split('_').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+}
 
 export async function loadWorld(base) {
   const meta = await (await fetch(`${base}meta.json`, { cache: 'no-cache' })).json();
-  const res = await fetch(`${base}${meta.grid}`);
-  if (!res.ok) throw new Error(`map data ${res.status}`);
-  // Served as a plain .gz file (GitHub Pages sends no Content-Encoding for it), so decompress here.
-  const stream = res.body.pipeThrough(new DecompressionStream('gzip'));
-  const grid = new Uint8Array(await new Response(stream).arrayBuffer());
+  const grid = await fetchGzip(`${base}${meta.grid}`);
   const cells = meta.regionCells;
   const regionIndex = new Map(meta.regions.map(([rx, rz], i) => [`${rx},${rz}`, i]));
   const colors = [[0, 0, 0], ...meta.biomes.map((b) => [1, 3, 5].map((i) => parseInt(b.color.slice(i, i + 2), 16)))];
@@ -37,7 +54,104 @@ export async function loadWorld(base) {
     minZ: Math.min(...zs) * REGION_BLOCKS, maxZ: (Math.max(...zs) + 1) * REGION_BLOCKS,
   };
 
-  return { meta, grid, cells, regionIndex, colors, biomeAt, bounds };
+  return { meta, base, grid, cells, regionIndex, colors, biomeAt, bounds };
+}
+
+// Top-block layer: one low-res overview for everything, plus full 1-pixel-per-block region
+// canvases fetched on demand for what's on screen when zoomed in (least recently used dropped).
+export class TerrainLayer {
+  constructor(world, onUpdate) {
+    this.world = world;
+    this.t = world.meta.terrain;
+    this.onUpdate = onUpdate;
+    this.rgb = this.t.blocks.map((b) => hexToRgb(b.color));
+    this.overview = null;
+    this.detail = new Map();
+    this.pending = new Set();
+    this.failed = new Set();
+  }
+
+  async loadOverview() {
+    if (this.overview) return;
+    const n = this.t.overviewSize;
+    const data = await fetchGzip(`${this.world.base}${this.t.overview}`);
+    this.overview = this.world.meta.regions.map((_, r) => {
+      const c = document.createElement('canvas');
+      c.width = n;
+      c.height = n;
+      const ctx = c.getContext('2d');
+      const img = ctx.createImageData(n, n);
+      for (let j = 0; j < n * n; j++) {
+        const o = (r * n * n + j) * 3;
+        const [cr, cg, cb] = [data[o], data[o + 1], data[o + 2]];
+        img.data[j * 4] = cr; img.data[j * 4 + 1] = cg; img.data[j * 4 + 2] = cb;
+        img.data[j * 4 + 3] = cr || cg || cb ? 255 : 0;
+      }
+      ctx.putImageData(img, 0, 0);
+      return c;
+    });
+    this.onUpdate();
+  }
+
+  wantsDetail(scale) { return scale >= TERRAIN_DETAIL_SCALE; }
+
+  ensureDetail(r) {
+    const hit = this.detail.get(r);
+    if (hit) { hit.used = performance.now(); return; }
+    if (this.pending.has(r) || this.failed.has(r) || this.pending.size >= TERRAIN_MAX_FETCHES) return;
+    this.pending.add(r);
+    const [rx, rz] = this.world.meta.regions[r];
+    fetchGzip(`${this.world.base}terrain/r.${rx}.${rz}.bin.gz?v=${this.t.version}`).then((buf) => {
+      const size = this.t.blocksPerRegion;
+      const view = new DataView(buf.buffer, buf.byteOffset);
+      const n = view.getUint16(0, true);
+      const palette = Array.from({ length: n }, (_, i) => view.getUint16(2 + i * 2, true));
+      const blocks = buf.subarray(2 + n * 2, 2 + n * 2 + size * size);
+      const shade = buf.subarray(2 + n * 2 + size * size);
+      const c = document.createElement('canvas');
+      c.width = size;
+      c.height = size;
+      const ctx = c.getContext('2d');
+      const img = ctx.createImageData(size, size);
+      const mul = this.t.shade;
+      for (let k = 0; k < size * size; k++) {
+        const b = blocks[k];
+        if (!b || b > n) continue;
+        const [cr, cg, cb] = this.rgb[palette[b - 1]];
+        const m = mul[shade[k]] ?? mul[1];
+        img.data[k * 4] = cr * m; img.data[k * 4 + 1] = cg * m; img.data[k * 4 + 2] = cb * m; img.data[k * 4 + 3] = 255;
+      }
+      ctx.putImageData(img, 0, 0);
+      this.detail.set(r, { canvas: c, palette, blocks, used: performance.now() });
+      if (this.detail.size > TERRAIN_MAX_LOADED) {
+        const oldest = [...this.detail.entries()].sort((a, b) => a[1].used - b[1].used)[0][0];
+        this.detail.delete(oldest);
+      }
+    }).catch(() => this.failed.add(r)).finally(() => {
+      this.pending.delete(r);
+      this.onUpdate();
+    });
+  }
+
+  source(r, scale) {
+    if (this.wantsDetail(scale)) {
+      this.ensureDetail(r);
+      const d = this.detail.get(r);
+      if (d) return d.canvas;
+    }
+    return this.overview?.[r] || null;
+  }
+
+  // Block id at a position, or null when that region's detail isn't loaded.
+  blockAt(x, z) {
+    const rx = Math.floor(x / REGION_BLOCKS);
+    const rz = Math.floor(z / REGION_BLOCKS);
+    const r = this.world.regionIndex.get(`${rx},${rz}`);
+    const d = r === undefined ? null : this.detail.get(r);
+    if (!d) return null;
+    const b = d.blocks[(z - rz * REGION_BLOCKS) * REGION_BLOCKS + (x - rx * REGION_BLOCKS)];
+    return b ? this.t.blocks[d.palette[b - 1]]?.id ?? null : null;
+  }
 }
 
 // Connected areas of one biome (4-neighbour flood fill across region seams), largest first.
@@ -94,6 +208,8 @@ export class MapView {
     this.z = 0;
     this.scale = 0.25;
     this.highlight = 0;
+    this.layer = 'biomes';
+    this.terrain = null;
     this.listeners = new Set();
     this.bitmaps = world.meta.regions.map(() => null);
     this.paintAll();
@@ -212,7 +328,10 @@ export class MapView {
       const y0 = Math.floor(p.y * dpr) / dpr;
       const x1 = Math.ceil((p.x + size) * dpr) / dpr;
       const y1 = Math.ceil((p.y + size) * dpr) / dpr;
-      ctx.drawImage(this.bitmaps[i], x0, y0, x1 - x0, y1 - y0);
+      const src = this.layer === 'terrain' && this.terrain
+        ? this.terrain.source(i, this.scale) || this.bitmaps[i]
+        : this.bitmaps[i];
+      ctx.drawImage(src, x0, y0, x1 - x0, y1 - y0);
     });
     for (const fn of this.listeners) fn(this);
   }

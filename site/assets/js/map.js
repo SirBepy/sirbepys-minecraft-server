@@ -1,4 +1,4 @@
-import { loadWorld, MapView, findAreas, biomeLabel } from './biome-map.js';
+import { loadWorld, MapView, TerrainLayer, findAreas, biomeLabel, blockLabel } from './biome-map.js';
 
 const $ = (id) => document.getElementById(id);
 const canvas = $('map');
@@ -9,7 +9,7 @@ const fmt = new Intl.NumberFormat('en-US');
 function parseHash() {
   const p = new URLSearchParams(location.hash.slice(1));
   const num = (k) => (p.has(k) && Number.isFinite(Number(p.get(k))) ? Number(p.get(k)) : null);
-  return { x: num('x'), z: num('z'), s: num('s'), b: p.get('b') };
+  return { x: num('x'), z: num('z'), s: num('s'), b: p.get('b'), l: p.get('l') };
 }
 
 function relTime(date) {
@@ -40,6 +40,8 @@ $('updated').textContent = `Updated ${relTime(updated)}`;
 $('updated').title = updated.toLocaleString();
 
 view = new MapView(canvas, world);
+const terrain = meta.terrain ? new TerrainLayer(world, () => view.draw()) : null;
+view.terrain = terrain;
 const initial = parseHash();
 view.setView(initial.x ?? spawn.x, initial.z ?? spawn.z, initial.s ?? view.width / 3000);
 $('loading').classList.add('is-done');
@@ -65,6 +67,7 @@ view.onChange((v) => {
   hashTimer = setTimeout(() => {
     const p2 = new URLSearchParams({ x: Math.round(v.x), z: Math.round(v.z), s: v.scale.toPrecision(3) });
     if (selected) p2.set('b', meta.biomes[selected - 1].id);
+    if (v.layer !== 'biomes') p2.set('l', v.layer);
     history.replaceState(null, '', `#${p2}`);
   }, 250);
 });
@@ -87,8 +90,10 @@ function showHover(clientX, clientY) {
   hover.replaceChildren(
     Object.assign(document.createElement('span'), { className: 'tooltip__title', textContent: b.name }),
     Object.assign(document.createElement('span'), { className: 'hover__mod', textContent: b.source }),
-    Object.assign(document.createElement('span'), { className: 'hover__pos', textContent: `X ${fmt.format(x)}  Z ${fmt.format(z)}` }),
   );
+  const block = view.layer === 'terrain' && terrain ? terrain.blockAt(x, z) : null;
+  if (block) hover.append(Object.assign(document.createElement('span'), { className: 'hover__block', textContent: `Top block: ${blockLabel(block)}` }));
+  hover.append(Object.assign(document.createElement('span'), { className: 'hover__pos', textContent: `X ${fmt.format(x)}  Z ${fmt.format(z)}` }));
   hover.hidden = false;
   const w = hover.offsetWidth;
   const h = hover.offsetHeight;
@@ -168,7 +173,8 @@ canvas.addEventListener('keydown', (e) => {
     ArrowUp: () => view.panBy(0, step), ArrowDown: () => view.panBy(0, -step),
     '+': () => view.zoomAt(1.5), '=': () => view.zoomAt(1.5), '-': () => view.zoomAt(1 / 1.5),
   };
-  if (keys[e.key]) { e.preventDefault(); keys[e.key](); describe(view.width / 2, view.height / 2); }
+  if (keys[e.key]) { e.preventDefault(); keys[e.key](); if (initial.l === 'terrain' && !initial.b) setLayer('terrain');
+describe(view.width / 2, view.height / 2); }
 });
 
 $('zoom-in').addEventListener('click', () => view.zoomAt(1.6));
@@ -233,7 +239,26 @@ function goToArea(i) {
   $('finder-area').textContent = `${areaIndex + 1} of ${areas.length} · ${fmt.format(a.maxX - a.minX)}×${fmt.format(a.maxZ - a.minZ)} · ${fmt.format(dist)} from spawn`;
 }
 
+async function setLayer(layer) {
+  if (layer === 'terrain' && !terrain) return;
+  for (const b of document.querySelectorAll('[data-layer]')) b.setAttribute('aria-pressed', String(b.dataset.layer === layer));
+  view.layer = layer;
+  if (layer === 'terrain') {
+    try {
+      await terrain.loadOverview();
+    } catch (err) {
+      console.error(err);
+    }
+  }
+  view.draw();
+}
+
+for (const b of document.querySelectorAll('[data-layer]')) b.addEventListener('click', () => setLayer(b.dataset.layer));
+if (!terrain) document.querySelector('[data-layer="terrain"]').hidden = true;
+
 function select(index) {
+  // Highlighting is a biome-layer feature.
+  if (index && view.layer !== 'biomes') setLayer('biomes');
   selected = index;
   view.setHighlight(index);
   renderList();
@@ -288,4 +313,5 @@ if (initial.b) {
     if (initial.x !== null) view.setView(initial.x, initial.z, initial.s ?? view.scale);
   }
 }
+if (initial.l === 'terrain' && !initial.b) setLayer('terrain');
 describe(view.width / 2, view.height / 2);

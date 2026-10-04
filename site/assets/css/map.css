@@ -114,6 +114,28 @@ body.mapapp {
   display: none;
 }
 
+.layers {
+  display: flex;
+  gap: 4px;
+}
+
+.layers .btn[aria-pressed='true'] {
+  color: var(--mc-yellow);
+  background: #3d8a25;
+  box-shadow:
+    inset var(--px) var(--px) 0 #7fd15b,
+    inset calc(var(--px) * -1) calc(var(--px) * -2) 0 #1f4f12;
+}
+
+.layers .btn i {
+  font-size: 18px;
+}
+
+.hover__block {
+  color: #e0e0e0;
+  font-size: 13px;
+}
+
 /* F3-style readout. */
 .coords {
   min-width: 0;
@@ -413,7 +435,21 @@ body.mapapp {
     justify-content: space-between;
   }
 
-  .brand__meta {
+  .brand__meta,
+  .brand__name {
+    display: none;
+  }
+
+  .brand {
+    padding: 6px;
+  }
+
+  .layers .btn {
+    min-width: 44px;
+    padding: 0 10px;
+  }
+
+  .layers .btn span {
     display: none;
   }
 

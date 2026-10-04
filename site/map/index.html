@@ -31,8 +31,12 @@
         <span class="brand__meta" id="updated">Loading&hellip;</span>
       </span>
     </a>
-    <button class="btn btn--small sheet-toggle" type="button" id="sheet-toggle" aria-expanded="false" aria-controls="panel">
-      <i class="ph-bold ph-magnifying-glass" aria-hidden="true"></i>Biomes
+    <div class="layers" role="group" aria-label="Map layer">
+      <button class="btn btn--small" type="button" data-layer="biomes" aria-pressed="true" aria-label="Biome layer"><i class="ph-bold ph-tree-evergreen" aria-hidden="true"></i><span>Biomes</span></button>
+      <button class="btn btn--small" type="button" data-layer="terrain" aria-pressed="false" aria-label="Terrain layer"><i class="ph-bold ph-mountains" aria-hidden="true"></i><span>Terrain</span></button>
+    </div>
+    <button class="btn btn--small sheet-toggle" type="button" id="sheet-toggle" aria-expanded="false" aria-controls="panel" aria-label="Search biomes">
+      <i class="ph-bold ph-magnifying-glass" aria-hidden="true"></i>
     </button>
   </header>
 
