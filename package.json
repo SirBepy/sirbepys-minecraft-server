@@ -1,0 +1,19 @@
+{
+  "name": "sirbepys-minecraft-server",
+  "private": true,
+  "description": "Public website and live biome map for the SirBepys (Los Pollos MineHermanos) Minecraft server.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "serve": "node tools/serve.mjs",
+    "map:sync": "node tools/sync-regions.mjs",
+    "map:build": "node tools/build-map.mjs",
+    "map:update": "node tools/update.mjs",
+    "map:preview": "node tools/update.mjs --no-publish",
+    "publish": "node tools/publish.mjs",
+    "textures": "node tools/make-textures.mjs",
+    "test": "node --test tests/map.test.mjs"
+  }
+}

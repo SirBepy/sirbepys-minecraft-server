@@ -1,0 +1,7 @@
+# Generated map data: published to the gh-pages branch, never committed to main.
+site/data/
+
+map.config.local.json
+.for_bepy/
+.portfolio-data/
+node_modules/
