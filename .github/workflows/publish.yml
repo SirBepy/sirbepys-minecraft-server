@@ -1,0 +1,69 @@
+name: Publish site and map
+
+on:
+  schedule:
+    # 03:17 UTC nightly (05:17 in Zagreb during summer time). Off the hour: GitHub delays
+    # top-of-the-hour cron runs the most.
+    - cron: '17 3 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['site/**', 'tools/**', '.github/workflows/publish.yml']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      HAS_SFTP: ${{ secrets.MC_SFTP_KEY != '' && secrets.MC_SFTP_USER != '' }}
+      MAP_CACHE_DIR: ${{ github.workspace }}/../map-cache
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      # Only the small per-region biome grids and the remote manifest are cached between runs
+      # (MAP_KEEP_RAW=0 deletes the raw region files), so each night downloads just the regions
+      # that changed.
+      - name: Restore map cache
+        if: env.HAS_SFTP == 'true'
+        uses: actions/cache@v6
+        with:
+          path: ${{ env.MAP_CACHE_DIR }}
+          key: map-cache-${{ github.run_id }}
+          restore-keys: map-cache-
+
+      - name: Pull changed regions and rebuild the map (read-only SFTP)
+        if: env.HAS_SFTP == 'true'
+        env:
+          MC_SFTP_USER: ${{ secrets.MC_SFTP_USER }}
+          MC_SFTP_KEY: ${{ secrets.MC_SFTP_KEY }}
+          MAP_KEEP_RAW: '0'
+        run: |
+          install -m 600 /dev/null "$RUNNER_TEMP/sftp_key"
+          printf '%s\n' "$MC_SFTP_KEY" > "$RUNNER_TEMP/sftp_key"
+          export MC_SFTP_KEY_FILE="$RUNNER_TEMP/sftp_key"
+          node tools/sync-regions.mjs
+          node tools/build-map.mjs
+          rm -f "$RUNNER_TEMP/sftp_key"
+
+      - name: No SFTP secrets, publishing site code with the current live map data
+        if: env.HAS_SFTP != 'true'
+        run: echo "MC_SFTP_KEY / MC_SFTP_USER not set; skipping the map refresh."
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Publish to gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node tools/publish.mjs
