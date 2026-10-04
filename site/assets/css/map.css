@@ -120,7 +120,7 @@ body.mapapp {
 }
 
 .layers .btn[aria-pressed='true'] {
-  color: var(--mc-yellow);
+  color: var(--text);
   background: #3d8a25;
   box-shadow:
     inset var(--px) var(--px) 0 #7fd15b,
@@ -246,7 +246,7 @@ body.mapapp {
   font-size: 14px;
   text-align: left;
   color: var(--text);
-  text-shadow: 2px 2px 0 #3f3f3f;
+  text-shadow: var(--text-shadow);
   cursor: pointer;
 }
 
@@ -285,7 +285,7 @@ body.mapapp {
 .empty {
   padding: 12px;
   color: var(--text);
-  text-shadow: 2px 2px 0 #3f3f3f;
+  text-shadow: var(--text-shadow);
   font-size: 14px;
 }
 
@@ -315,7 +315,7 @@ body.mapapp {
 .finder__name {
   font-weight: 700;
   color: var(--mc-yellow);
-  text-shadow: 2px 2px 0 #3f3f15;
+  text-shadow: var(--text-shadow);
 }
 
 .finder__count {

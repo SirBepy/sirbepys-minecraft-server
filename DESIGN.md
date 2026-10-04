@@ -19,12 +19,12 @@ colors:
   mc-aqua: "#55ffff"
   mc-red: "#ff5555"
   splash: "#ffff00"
-  splash-shadow: "#3f3f00"
   button-hover-text: "#ffffa0"
-  text-shadow: "#3f3f3f"
-  green-shadow: "#153f15"
+  text-shadow: "rgba(0, 0, 0, 0.55)"
+  button-grey: "#4a4a4a"
+  button-grey-light: "#7a7a7a"
+  button-grey-dark: "#262626"
   challenge-purple: "#e48aff"
-  challenge-shadow: "#3a1650"
   pack-kind: "#9a9aff"
   panel-link: "#2a2ad0"
   gui: "#c6c6c6"
@@ -138,10 +138,10 @@ spacing:
   screen-gap-phone: "88px"
 components:
   button:
-    sprite: "textures/mc/button.png, 9-slice border 3, scaled by --px"
+    sprite: "textures/mc/button_dark.png, 9-slice border 3, scaled by --px"
     height: "calc(var(--px) * 20)"
   button-hover:
-    sprite: "textures/mc/button_highlighted.png"
+    sprite: "textures/mc/button_highlighted_dark.png"
     textColor: "{colors.button-hover-text}"
   menu-screen:
     background: "textures/mc/menu_list_background.png tiled, header/footer_separator.png edges"
@@ -159,7 +159,7 @@ components:
 ## Overview
 
 The site is Minecraft Java's own menus. The home page opens on the **title screen**: a slowly
-panning panorama (a carousel of Stardust Labs screenshots), a stone-filled extruded logo, a
+panning panorama (a carousel of Stardust Labs screenshots), a white extruded logo, a
 yellow splash, a centred stack of real game buttons (Join on Java Edition, Join on Bedrock
 Edition, World Map, Datapacks..., Modpack...), the server name and live player count in the
 bottom-left corner and the screenshot credit with carousel controls in the bottom-right.
@@ -179,7 +179,7 @@ Refuses both the generic server landing page (hero, cards, CTA) and a dirt-tiled
 
 OWN-WORLD: Mojang's own sprites (`site/assets/textures/mc/`, copied by
 `tools/extract-mc-textures.py`): button and highlighted button, text field, slot, advancement
-frames, header/footer separators, menu list background, stone for the logo. Monocraft for every
+frames, header/footer separators, menu list background. Monocraft for every
 word. Chat colours for accents. Square corners. The blurred panorama behind everything.
 
 STORY: A friend opens the link, sees the title screen, presses "Join on Java Edition" or "Join on
@@ -192,8 +192,9 @@ below 900px), button stack centred under it at 200 game-pixels wide, corner text
 ## Colors
 
 Dark by construction: `color-scheme: dark` plus Dark Reader's lock meta on every page, so
-force-dark extensions leave it alone. Text is white with the game's hard drop shadow
-(`.mc-text`). Secondary text `mc-gray`. Accents are chat colours: yellow for disclosure labels
+force-dark extensions leave it alone. Text is white with one soft 1px shadow (`--text-shadow`,
+owner 2026-10-04: the game's hard GUI-pixel shadow read as muddy); every text shadow uses that
+token. Secondary text `mc-gray`. Accents are chat colours: yellow for disclosure labels
 and branch titles, green for advancement names and live stats, purple-edged tooltips for
 item-style detail, aqua links (yellow on hover). The datapack kind is a mod-name blue-violet
 italic. Third-party screenshots carry their own colour; never tint them.
@@ -215,8 +216,10 @@ unit `--px` is 3px, 2px at 600px and below; sprite sizes are multiples of it.
 
 ## Components
 
-- **Buttons**: the game's button sprite as a 9-slice `border-image`; hover swaps to the
-  highlighted sprite and pale-yellow text. No colour variants: the game has none.
+- **Buttons**: the game's button sprite as a 9-slice `border-image`, darkened (`button_dark.png`,
+  made by `tools/extract-mc-textures.py`) because white text read poorly on the vanilla grey;
+  hover swaps to the darkened highlighted sprite and pale-yellow text. The map's CSS-drawn
+  buttons use the same darker grey. No colour variants: the game has none.
 - **Title screen**: carousel slides pan sideways (40s), autoplay 6.5s with pause, prev/next and
   dots; reduced-motion starts paused.
 - **Menu screen** (`.layer`): menu list background, header/footer separators, absolutely placed

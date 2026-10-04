@@ -3,6 +3,8 @@ site/assets/textures/mc/. Rerun after a version bump (or to add a texture to the
 
     python tools/extract-mc-textures.py <path-to-client.jar>
 
+Also writes darkened copies of the two button sprites, which needs Pillow.
+
 Mojang's usage guidelines allow these on a non-commercial fan site as long as it says it is not an
 official Minecraft product; the footer carries that line.
 """
@@ -51,6 +53,29 @@ def main():
     print(f'wrote {len(wanted) - len(missing)} textures to {OUT}')
     if missing:
         sys.exit('missing in jar:\n  ' + '\n  '.join(missing))
+    darken_buttons()
+
+
+# The vanilla button's grey (mean #6d) is too light under white text, so the site uses a darker
+# copy (mean about #4a). The outer 1px ring is left alone: black on the normal button, the white
+# hover outline on the highlighted one.
+DARK = {'button.png': 'button_dark.png', 'button_highlighted.png': 'button_highlighted_dark.png'}
+DARK_FACTOR = 0.68
+
+
+def darken_buttons():
+    from PIL import Image  # only this step needs Pillow
+
+    for src, dst in DARK.items():
+        im = Image.open(OUT / src).convert('RGBA')
+        w, h = im.size
+        px = im.load()
+        for y in range(1, h - 1):
+            for x in range(1, w - 1):
+                r, g, b, a = px[x, y]
+                px[x, y] = (round(r * DARK_FACTOR), round(g * DARK_FACTOR), round(b * DARK_FACTOR), a)
+        im.save(OUT / dst, optimize=True)
+    print(f'wrote {len(DARK)} darkened button sprites')
 
 
 if __name__ == '__main__':

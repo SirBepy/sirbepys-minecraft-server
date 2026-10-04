@@ -26,7 +26,7 @@ body::before {
   background: none;
   box-shadow: none;
   border: calc(var(--px) * 3) solid transparent;
-  border-image: url('../textures/mc/button.png') 3 fill / calc(var(--px) * 3) stretch;
+  border-image: url('../textures/mc/button_dark.png') 3 fill / calc(var(--px) * 3) stretch;
   image-rendering: pixelated;
   transition: none;
 }
@@ -35,7 +35,7 @@ body::before {
   color: #ffffa0;
   background: none;
   box-shadow: none;
-  border-image-source: url('../textures/mc/button_highlighted.png');
+  border-image-source: url('../textures/mc/button_highlighted_dark.png');
 }
 
 .btn--small {
@@ -93,14 +93,10 @@ body::before {
   padding-top: max(48px, 11vh);
 }
 
-/* Stone-filled, extruded logo; the copy in ::before draws the dark sides behind the face. */
+/* White extruded logo; the copy in ::before draws the dark sides behind the face. */
 .logo__line {
   font-size: 56px;
-  color: transparent;
-  background: url('../textures/mc/stone.png') 0 0 / 48px 48px;
-  background-clip: text;
-  -webkit-background-clip: text;
-  image-rendering: pixelated;
+  color: #fff;
   -webkit-text-stroke: 2px #2a2a2a;
 }
 
@@ -150,7 +146,7 @@ body::before {
   z-index: 2;
   display: block;
   padding: 0;
-  text-shadow: 2px 2px 0 #3f3f3f;
+  text-shadow: var(--text-shadow);
 }
 
 .entry__icon,
@@ -215,7 +211,7 @@ body::before {
   margin: 0 14px 0 auto;
   justify-content: flex-end;
   padding-bottom: 10px;
-  text-shadow: 2px 2px 0 #3f3f3f;
+  text-shadow: var(--text-shadow);
 }
 
 .carousel__credit a {
@@ -245,17 +241,25 @@ body::before {
   image-rendering: pixelated;
 }
 
-/* The screen title sits above the list, centred, like any in-game menu title. */
+/* flow-root stops a first child's top margin collapsing through the wrap, so the title below is
+   placed from the same point in every screen. */
+.layer > .wrap {
+  display: flow-root;
+}
+
+/* The screen title sits above the list, centred, like any in-game menu title. It is centred in
+   the 104px gap between screens: 40px layer padding + (104 - 32px line) / 2. */
 .layer .section-title {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: calc(100% + 40px + 24px);
+  bottom: calc(100% + 40px + 36px);
   font-size: 28px;
+  line-height: 32px;
   font-weight: 400;
   text-align: center;
   color: #fff;
-  text-shadow: var(--px) var(--px) 0 #3f3f3f;
+  text-shadow: var(--text-shadow);
 }
 
 .layer > .wrap > .lede {
@@ -268,7 +272,7 @@ body::before {
 }
 
 .teaser__stats {
-  text-shadow: var(--px) var(--px) 0 #153f15;
+  text-shadow: var(--text-shadow);
 }
 
 .adv {
@@ -308,17 +312,17 @@ body::before {
 
 .adv__title {
   color: var(--mc-green);
-  text-shadow: var(--px) var(--px) 0 #153f15;
+  text-shadow: var(--text-shadow);
 }
 
 .adv__title--challenge {
   color: #e48aff;
-  text-shadow: var(--px) var(--px) 0 #3a1650;
+  text-shadow: var(--text-shadow);
 }
 
 .adv--locked .adv__title {
   color: var(--mc-gray);
-  text-shadow: var(--px) var(--px) 0 #2a2a2a;
+  text-shadow: var(--text-shadow);
 }
 
 .adv__text { color: #f0f0f0; }
@@ -402,7 +406,7 @@ body::before {
 
 .pack-slot__text b {
   font-weight: 400;
-  text-shadow: 2px 2px 0 #3f3f3f;
+  text-shadow: var(--text-shadow);
 }
 
 .pack-slot__text span {
@@ -496,7 +500,6 @@ body::before {
 @media (max-width: 600px) {
   .logo__line {
     font-size: 28px;
-    background-size: 32px 32px;
     -webkit-text-stroke-width: 1px;
   }
 
@@ -538,9 +541,11 @@ body::before {
     padding: 28px 0 36px;
   }
 
+  /* 28px padding + (88 - 26px line) / 2 */
   .layer .section-title {
-    bottom: calc(100% + 28px + 20px);
+    bottom: calc(100% + 28px + 31px);
     font-size: 22px;
+    line-height: 26px;
   }
 
   .inventory {

@@ -121,7 +121,7 @@ body {
   font-weight: 700;
   font-size: clamp(16px, 2.4vw, 24px);
   color: #ffff00;
-  text-shadow: var(--px) var(--px) 0 #3f3f00;
+  text-shadow: var(--text-shadow);
   animation: splash 0.5s ease-in-out infinite alternate;
 }
 

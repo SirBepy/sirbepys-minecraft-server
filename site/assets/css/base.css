@@ -48,7 +48,7 @@
   --mc-gray: #aaaaaa;
   --mc-red: #ff5555;
   --text: #ffffff;
-  --text-shadow: #3f3f3f;
+  --text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.55);
 
   --font: 'Monocraft', ui-monospace, 'Cascadia Mono', Consolas, monospace;
   --wrap: 1120px;
@@ -131,9 +131,10 @@ p {
   margin: 0;
 }
 
-/* Minecraft draws every line of GUI text with a 1-pixel drop shadow in a darker tone. */
+/* A soft 1px shadow instead of the game's hard GUI-pixel one (owner, 2026-10-04: the hard one
+   read as muddy). */
 .mc-text {
-  text-shadow: var(--px) var(--px) 0 var(--text-shadow);
+  text-shadow: var(--text-shadow);
 }
 
 .sr-only {
@@ -195,13 +196,13 @@ p {
   font-weight: 700;
   color: var(--text);
   text-decoration: none;
-  text-shadow: var(--px) var(--px) 0 var(--text-shadow);
+  text-shadow: var(--text-shadow);
   cursor: pointer;
-  background: #6f6f6f;
+  background: #4a4a4a;
   border: var(--px) solid #000;
   box-shadow:
-    inset var(--px) var(--px) 0 #aaaaaa,
-    inset calc(var(--px) * -1) calc(var(--px) * -2) 0 #3d3d3d;
+    inset var(--px) var(--px) 0 #7a7a7a,
+    inset calc(var(--px) * -1) calc(var(--px) * -2) 0 #262626;
   transition: background-color 120ms var(--ease-out);
 }
 
@@ -214,7 +215,7 @@ p {
 }
 
 .btn:active {
-  box-shadow: inset var(--px) var(--px) 0 #3d3d3d;
+  box-shadow: inset var(--px) var(--px) 0 #262626;
 }
 
 .btn--green {
@@ -259,7 +260,7 @@ p {
 .tooltip__title {
   font-weight: 700;
   color: var(--text);
-  text-shadow: var(--px) var(--px) 0 #3f3f3f;
+  text-shadow: var(--text-shadow);
 }
 
 .tooltip__lore {

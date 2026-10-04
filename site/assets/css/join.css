@@ -26,9 +26,21 @@
   background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.2) 40%, rgba(0, 0, 0, 0.7));
 }
 
+/* The title spans all three rows so it centres on the whole photo, not just the middle row. */
+.join-hero > .topnav {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.join-hero__credit {
+  grid-row: 3;
+  grid-column: 1;
+}
+
 .join-hero__inner {
-  align-self: end;
-  padding-block: 48px 12px;
+  grid-row: 1 / -1;
+  grid-column: 1;
+  align-self: center;
 }
 
 .join-hero__inner,
@@ -254,7 +266,7 @@
   background: url('../textures/mc/slot.png') 0 0 / 100% 100%;
   image-rendering: pixelated;
   color: #fff;
-  text-shadow: 2px 2px 0 #3f3f3f;
+  text-shadow: var(--text-shadow);
 }
 
 .more summary {
