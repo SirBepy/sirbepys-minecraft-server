@@ -1,0 +1,271 @@
+@font-face {
+  font-family: 'Monocraft';
+  src: url('../fonts/Monocraft.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Monocraft';
+  src: url('../fonts/Monocraft-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
+
+:root {
+  /* One GUI pixel. Every bevel, border and shadow is a multiple so edges stay crisp. */
+  --px: 3px;
+
+  --sky-top: #6f9cf2;
+  --sky-bottom: #b4d0ff;
+  --grass: #6aa33a;
+  --grass-dark: #4f7d29;
+  --dirt: #866043;
+  --dirt-dark: #4a3322;
+  --stone: #7f7f7f;
+  --deepslate: #3c3c44;
+  --bedrock: #1c1c1c;
+
+  --gui: #c6c6c6;
+  --gui-light: #ffffff;
+  --gui-shade: #555555;
+  --slot: #8b8b8b;
+  --slot-dark: #373737;
+  --ink: #3f3f3f;
+
+  --toast: #212121;
+  --tooltip: #100010;
+  --tooltip-edge-a: #5000ff;
+  --tooltip-edge-b: #28007f;
+
+  /* Minecraft chat colours */
+  --mc-yellow: #ffff55;
+  --mc-green: #55ff55;
+  --mc-gold: #ffaa00;
+  --mc-aqua: #55ffff;
+  --mc-gray: #aaaaaa;
+  --mc-red: #ff5555;
+  --text: #ffffff;
+  --text-shadow: #3f3f3f;
+
+  --font: 'Monocraft', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+  --wrap: 1120px;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--bedrock);
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.pixel {
+  image-rendering: pixelated;
+}
+
+a {
+  color: var(--mc-aqua);
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: var(--mc-yellow);
+}
+
+:focus-visible {
+  outline: var(--px) solid var(--mc-yellow);
+  outline-offset: var(--px);
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0;
+  text-wrap: balance;
+}
+
+p {
+  margin: 0;
+}
+
+/* Minecraft draws every line of GUI text with a 1-pixel drop shadow in a darker tone. */
+.mc-text {
+  text-shadow: var(--px) var(--px) 0 var(--text-shadow);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.wrap {
+  width: min(100% - 32px, var(--wrap));
+  margin-inline: auto;
+}
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -64px;
+  z-index: 50;
+  padding: 8px 12px;
+  background: var(--toast);
+  color: var(--text);
+}
+
+.skip-link:focus {
+  top: 16px;
+}
+
+/* ---------- GUI building blocks ---------- */
+
+/* Inventory-style panel: light top-left bevel, dark bottom-right, black outline. */
+.gui-panel {
+  background: var(--gui);
+  color: var(--ink);
+  border: var(--px) solid #000;
+  box-shadow:
+    inset var(--px) var(--px) 0 var(--gui-light),
+    inset calc(var(--px) * -1) calc(var(--px) * -1) 0 var(--gui-shade);
+  padding: calc(var(--px) * 5);
+}
+
+.slot {
+  background: var(--slot);
+  box-shadow:
+    inset var(--px) var(--px) 0 var(--slot-dark),
+    inset calc(var(--px) * -1) calc(var(--px) * -1) 0 var(--gui-light);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 20px;
+  font: inherit;
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+  text-shadow: var(--px) var(--px) 0 var(--text-shadow);
+  cursor: pointer;
+  background: #6f6f6f;
+  border: var(--px) solid #000;
+  box-shadow:
+    inset var(--px) var(--px) 0 #aaaaaa,
+    inset calc(var(--px) * -1) calc(var(--px) * -2) 0 #3d3d3d;
+  transition: background-color 120ms var(--ease-out);
+}
+
+.btn:hover {
+  color: var(--mc-yellow);
+  background: #7d86c6;
+  box-shadow:
+    inset var(--px) var(--px) 0 #bcc4ff,
+    inset calc(var(--px) * -1) calc(var(--px) * -2) 0 #3f4580;
+}
+
+.btn:active {
+  box-shadow: inset var(--px) var(--px) 0 #3d3d3d;
+}
+
+.btn--green {
+  background: #3d8a25;
+  box-shadow:
+    inset var(--px) var(--px) 0 #7fd15b,
+    inset calc(var(--px) * -1) calc(var(--px) * -2) 0 #1f4f12;
+}
+
+.btn--green:hover {
+  background: #49a32d;
+  box-shadow:
+    inset var(--px) var(--px) 0 #9be678,
+    inset calc(var(--px) * -1) calc(var(--px) * -2) 0 #255c16;
+}
+
+.btn i {
+  font-size: 22px;
+}
+
+/* Purple-edged item tooltip. */
+.tooltip {
+  background: color-mix(in srgb, var(--tooltip) 94%, transparent);
+  border: var(--px) solid var(--tooltip);
+  outline: var(--px) solid var(--tooltip);
+  box-shadow: inset 0 0 0 var(--px) var(--tooltip-edge-b);
+  background-image: linear-gradient(var(--tooltip), var(--tooltip));
+  padding: 10px 14px;
+  color: var(--text);
+  position: relative;
+}
+
+.tooltip::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: var(--px) solid transparent;
+  border-image: linear-gradient(var(--tooltip-edge-a), var(--tooltip-edge-b)) 1;
+  pointer-events: none;
+}
+
+.tooltip__title {
+  font-weight: 700;
+  color: var(--text);
+  text-shadow: var(--px) var(--px) 0 #3f3f3f;
+}
+
+.tooltip__lore {
+  color: var(--mc-gray);
+  font-size: 14px;
+}
+
+.kbd {
+  display: inline-block;
+  padding: 0 6px;
+  background: rgba(0, 0, 0, 0.45);
+  color: var(--mc-yellow);
+  font-size: 0.9em;
+  white-space: nowrap;
+}

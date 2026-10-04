@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>World map &middot; SirBepys Minecraft Server</title>
+  <meta name="description" content="Biome map of the real Los Pollos MineHermanos overworld, built from the server's own region files and refreshed nightly.">
+  <meta name="theme-color" content="#15131a">
+  <link rel="icon" type="image/png" href="../assets/server-icon.png">
+  <link rel="preload" href="../assets/fonts/Monocraft.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/Monocraft-Bold.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.2/src/bold/style.css">
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/map.css">
+  <script type="module" src="../assets/js/map.js"></script>
+</head>
+<body class="mapapp">
+  <!-- impeccable seed 7b74c4f6, contract in DESIGN.md -->
+  <canvas id="map" class="map-canvas" tabindex="0" aria-label="Biome map. Drag to pan, scroll or use plus and minus to zoom, arrow keys to move."></canvas>
+  <div class="marker" id="spawn-marker" hidden title="World spawn">
+    <i class="ph-bold ph-house-line" aria-hidden="true"></i>
+    <span class="marker__label">Spawn</span>
+  </div>
+  <div class="hover tooltip" id="hover" hidden></div>
+
+  <header class="bar bar--top">
+    <a class="brand" href="../">
+      <img class="pixel" src="../assets/server-icon.png" alt="" width="40" height="40">
+      <span>
+        <span class="brand__name mc-text">SirBepys World Map</span>
+        <span class="brand__meta" id="updated">Loading&hellip;</span>
+      </span>
+    </a>
+    <button class="btn btn--small sheet-toggle" type="button" id="sheet-toggle" aria-expanded="false" aria-controls="panel">
+      <i class="ph-bold ph-magnifying-glass" aria-hidden="true"></i>Biomes
+    </button>
+  </header>
+
+  <aside class="panel gui-panel" id="panel" aria-label="Find a biome">
+    <label class="panel__title" for="search">Search biomes</label>
+    <div class="search slot">
+      <i class="ph-bold ph-magnifying-glass" aria-hidden="true"></i>
+      <input id="search" type="search" placeholder="cherry, desert, peaks&hellip;" autocomplete="off" spellcheck="false">
+    </div>
+
+    <div class="finder" id="finder" hidden>
+      <div class="finder__head">
+        <span class="swatch" id="finder-swatch"></span>
+        <span class="finder__name" id="finder-name"></span>
+        <button class="icon-btn" type="button" id="finder-clear" aria-label="Clear highlight"><i class="ph-bold ph-x" aria-hidden="true"></i></button>
+      </div>
+      <p class="finder__count" id="finder-count"></p>
+      <div class="finder__nav">
+        <button class="btn btn--small" type="button" id="finder-prev" aria-label="Previous area"><i class="ph-bold ph-caret-left" aria-hidden="true"></i></button>
+        <span class="finder__area" id="finder-area" aria-live="polite"></span>
+        <button class="btn btn--small" type="button" id="finder-next" aria-label="Next area"><i class="ph-bold ph-caret-right" aria-hidden="true"></i></button>
+      </div>
+    </div>
+
+    <p class="panel__hint" id="list-hint">Biggest first. Pick one to light up everywhere it grows.</p>
+    <ul class="biomes" id="biomes" aria-label="Biomes in the world"></ul>
+  </aside>
+
+  <div class="bar bar--bottom">
+    <p class="coords mc-text" id="coords" aria-live="off">X: &ndash; &nbsp;Z: &ndash;</p>
+    <div class="controls">
+      <button class="btn btn--small" type="button" id="zoom-in" aria-label="Zoom in"><i class="ph-bold ph-plus" aria-hidden="true"></i></button>
+      <button class="btn btn--small" type="button" id="zoom-out" aria-label="Zoom out"><i class="ph-bold ph-minus" aria-hidden="true"></i></button>
+      <button class="btn btn--small" type="button" id="go-spawn"><i class="ph-bold ph-house-line" aria-hidden="true"></i><span>Spawn</span></button>
+      <button class="btn btn--small" type="button" id="go-fit" aria-label="Show the whole world"><i class="ph-bold ph-arrows-out" aria-hidden="true"></i></button>
+    </div>
+  </div>
+
+  <div class="loading" id="loading" role="status">
+    <p class="mc-text">Loading terrain&hellip;</p>
+  </div>
+</body>
+</html>
