@@ -29,6 +29,7 @@ Needs Node 20+ and OpenSSH's `sftp` on the PATH (both ship with Windows 10+ / Gi
 | `npm test` | Unit tests for the NBT/region reader, biome extraction, colours and area search. |
 | `npm run textures` | Regenerates the pixel textures in `site/assets/textures/` (seeded, deterministic). |
 | `python tools/extract-mc-textures.py <client.jar>` | Copies the vanilla block and GUI textures the site uses into `site/assets/textures/mc/`. Only after a Minecraft version bump. |
+| `python tools/make-recipe-icons.py <client.jar>` | Copies the item textures the recipes page uses into `site/assets/textures/items/` and draws the chest and ender chest icons. Needs Pillow. Only after a Minecraft version bump. |
 | `python tools/make-block-colors.py <client.jar>` | Regenerates `tools/data/block-colors.json` (terrain colours) from a Minecraft client jar. Needs Pillow. Only after a Minecraft version bump. |
 
 ### Local SFTP config

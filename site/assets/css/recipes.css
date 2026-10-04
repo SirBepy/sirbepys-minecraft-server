@@ -1,0 +1,188 @@
+/* Recipes page: the join pages' layout, with recipes drawn as crafting and smithing slots. */
+
+.rgroup {
+  display: grid;
+  gap: 16px;
+  padding: 20px 22px 24px;
+}
+
+.rgroup__head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.rgroup__head img {
+  width: 48px;
+  height: 48px;
+}
+
+.rgroup__title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  color: #fff;
+}
+
+.rgroup__by,
+.recipe__note {
+  font-size: 13px;
+  color: var(--mc-gray);
+}
+
+.rgroup > p,
+.rgroup .more p {
+  font-size: 16px;
+}
+
+.rstation {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mc-gray);
+}
+
+.recipe {
+  display: flex;
+  align-items: center;
+  gap: 12px 16px;
+}
+
+.recipe__grid,
+.recipe__line,
+.rstyles {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.recipe__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 48px);
+  gap: 3px;
+}
+
+.recipe__line {
+  display: flex;
+  gap: 3px;
+}
+
+/* 16px item textures at 2x; the result slot is the game's larger 26px output slot. */
+.rslot {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+
+.rslot img {
+  width: 32px;
+  height: 32px;
+}
+
+.rslot i {
+  font-size: 26px;
+  color: #3f3f3f;
+}
+
+.rslot--out {
+  width: 64px;
+  height: 64px;
+}
+
+.rslot--out img {
+  width: 44px;
+  height: 44px;
+}
+
+.recipe__arrow {
+  font-size: 32px;
+  color: var(--mc-gray);
+}
+
+.recipe__out {
+  display: grid;
+  gap: 4px;
+  justify-items: start;
+  min-width: 0;
+}
+
+.recipe__name {
+  font-weight: 700;
+  color: #fff;
+}
+
+.rstyles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 8px 16px;
+}
+
+.rstyles li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+}
+
+.rshot {
+  width: min(100%, 350px);
+  height: auto;
+}
+
+.rlink {
+  font-size: 16px;
+}
+
+@media (max-width: 600px) {
+  .rgroup {
+    padding: 16px 14px 20px;
+  }
+
+  .recipe {
+    gap: 10px;
+  }
+
+  .recipe__grid {
+    grid-template-columns: repeat(3, 40px);
+  }
+
+  .recipe__grid .rslot,
+  .recipe__line .rslot {
+    width: 40px;
+    height: 40px;
+  }
+
+  .recipe__grid .rslot img,
+  .recipe__line .rslot img {
+    width: 28px;
+    height: 28px;
+  }
+
+  .recipe__arrow {
+    font-size: 24px;
+  }
+}
+
+/* ---------- B: Incendium ---------- */
+
+[data-theme='b'] .rslot {
+  border-radius: 12px;
+  background: #14161a;
+}
+
+[data-theme='b'] .rslot i {
+  color: #9aa0aa;
+}
+
+[data-theme='b'] .rstation,
+[data-theme='b'] .recipe__arrow {
+  color: var(--lava);
+}
