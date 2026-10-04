@@ -2,7 +2,9 @@
 
 The public website for **Los Pollos MineHermanos**, a friends survival server (Java + Bedrock
 via Geyser): the join address, what's different from vanilla, the datapacks, the optional
-modpack, and a **biome map of our real world** built from the server's own region files.
+modpack, and a **map of our real world** built from the server's own region files, with a biome
+layer (search any biome, jump to the nearest patch) and a terrain layer showing the actual top
+blocks, builds included.
 
 Live: https://sirbepy.github.io/sirbepys-minecraft-server/
 
@@ -25,6 +27,7 @@ Needs Node 20+ and OpenSSH's `sftp` on the PATH (both ship with Windows 10+ / Gi
 | `npm run publish` | Publishes `site/` as-is (keeps the live map data if there's none locally). |
 | `npm test` | Unit tests for the NBT/region reader, biome extraction, colours and area search. |
 | `npm run textures` | Regenerates the pixel textures in `site/assets/textures/` (seeded, deterministic). |
+| `python tools/make-block-colors.py <client.jar>` | Regenerates `tools/data/block-colors.json` (terrain colours) from a Minecraft client jar. Needs Pillow. Only after a Minecraft version bump. |
 
 ### Local SFTP config
 
@@ -53,9 +56,16 @@ Or use env vars: `MC_SFTP_USER`, `MC_SFTP_KEY_FILE`, `MC_SFTP_HOST`, `MC_SFTP_PO
    show. Each region becomes a 128x128 grid, cached per region and only re-read when its file
    changed. Output: `site/data/map/meta.json` (biome legend, colours, region list, spawn) plus
    one gzipped byte grid, about 0.4 MB for the whole world.
+   The same pass reads the top block of every column (`block_states` at the heightmap) and a
+   shade code like in-game maps (lighter facing north-up slopes, water darker with depth):
+   `site/data/map/terrain/r.X.Z.bin.gz` per region (about 35 MB in total) plus a 1:8 overview
+   (about 3 MB). Block colours are the average of each block's top texture, precomputed from the
+   26.3 client jar into `tools/data/block-colors.json` (numbers only, no textures).
 3. **View** (`site/assets/js/biome-map.js`): the browser decompresses the grid and paints each
    region into a 128x128 canvas, scaled with nearest-neighbour sampling. Hover, search and the
-   "nearest area" finder all read the same grid.
+   "nearest area" finder all read the same grid. The terrain layer shows the overview when
+   zoomed out and fetches full-resolution regions for what's on screen once zoomed in (at most
+   48 kept in memory).
 
 Colours follow the Amidst/Chunkbase scheme for vanilla biomes, hand-picked ones for Terralith,
 and a stable hash-derived colour (nudged by name: "frozen" goes blue, "desert" goes sand) for any
@@ -86,14 +96,12 @@ read-only on their own; the read-only guarantee comes from the script (only `ls`
 Secrets the workflow reads: `MC_SFTP_KEY` (private key) and `MC_SFTP_USER`. Without them the
 workflow still publishes site changes, keeping the current live map data.
 
-## Next step: terrain layer
+## Ideas for later
 
-A second layer showing the actual top blocks (so builds are visible) fits the same pipeline:
-the extractor already finds the top block per column via the heightmap; it would read the
-section's `block_states` palette at that position, map block ids to colours, and emit per-region
-PNG tiles (one pixel per block, 512x512) rather than a byte grid. Expect roughly 100-300 KB per
-region, so tens of MB in total: fine for GitHub Pages, but those tiles should only be rebuilt
-for changed regions and could use a coarser zoom level for the zoomed-out view.
+- Grass and leaf colours use one fixed tint everywhere; per-biome tints (swamps darker, badlands
+  olive) would need each biome's colour from the vanilla and Terralith biome JSONs.
+- Every publish re-uploads all ~40 MB of map data (the gh-pages branch is one orphan commit);
+  fine at this size, worth revisiting if the explored world grows a lot.
 
 ## Credits
 

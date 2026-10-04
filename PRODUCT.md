@@ -61,7 +61,8 @@ only place that shows the real biomes of this world.
   (`/tag optout`), name colors (`/color`), Graves datapack, no keep-inventory, the End closed for
   now, Simple Voice Chat, Bedrock via Geyser + Floodgate.
 - Nothing paid, ever. GitHub Pages limits apply (1 GB site, soft 100 GB/month bandwidth).
-- Map: overworld only, biomes only (no structures).
+- Map: overworld only, no structures. Two layers: biomes (searchable) and terrain (real top
+  blocks, so builds show).
 - English only.
 
 ## Brand Commitments

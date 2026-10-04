@@ -215,7 +215,8 @@ icon, which downloads the `.mrpack`.
 
 ### Map chrome
 
-Brand chip top-left, search panel (inventory panel with a black search field and a dark biome
+Brand chip and a Biomes/Terrain toggle (pressed = green button, icon-only on phones) top-left,
+search panel (inventory panel with a black search field and a dark biome
 list) top-right, F3-style coordinate readout bottom-left, zoom/spawn/fit buttons bottom-right,
 cursor tooltip with biome name, source and coordinates, gold spawn marker, a stepping white
 target square on the selected area. On phones the panel becomes a bottom sheet.
