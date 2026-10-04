@@ -189,10 +189,10 @@ const PACKS = [
     icon: `${MR}LPjGiSO4/30249e0548b8643b1559889eab585683cb397f3a_96.webp`,
     shot: sq('a335f8f9-e4d9-4bd3-987b-21761a2f9b74/2022-06-08_14.32.22.png', 500),
     desc: 'Surreal alien terrain for the End. Waiting for the day the End opens.' },
-  { name: 'Backpacks & More', kind: 'Items', by: 'UltroGhast', url: 'https://modrinth.com/datapack/backpacksdp',
-    icon: `${MR}mbRlC0kb/4f0958246ea4868d75aa479c45c49879dedefd02.png`,
-    shot: `${MR}mbRlC0kb/images/96eda816d631b18de27c4dd8cfde4df333d21fc1_350.webp`,
-    desc: 'Craftable backpacks you can see on your back, 27 slots each.' },
+  { name: 'Backpacks!', kind: 'Items', by: 'Eclipse Studios', url: 'https://modrinth.com/datapack/vanilla-backpacks',
+    icon: `${MR}MGcd6kTf/92c378c17ca08571527577fa73309a6e962cbebd_96.webp`,
+    shot: `${MR}MGcd6kTf/images/bc442cc580c700102335cf07e826c1b354c3a3fc_350.webp`,
+    desc: 'Craftable backpacks, 3 slots up to 40 with smithing table upgrades. Dye them too.' },
   { name: 'Reg\'s More Foods', kind: 'Food', by: 'regfunkid', url: 'https://modrinth.com/datapack/reg-more-foods',
     icon: `${MR}2jidfU3A/bf7f815ab014d2464b64d6070f14a3e7e319939d_96.webp`,
     shot: `${MR}2jidfU3A/images/6aa162a82eb570097d64ae37e0d90f75fdf69868_350.webp`,
@@ -272,11 +272,12 @@ const MODS = [
   ['Inventory Profiles Next', 'Sort your inventory with one button.', `${MR}O7RBXm3n/04cdecd37b4c7409f70d36fcdc85722ebf14aab8_96.webp`, `${MOD}inventory-profiles-next`],
   ['AppleSkin', 'Shows food and saturation values.', `${MR}EsAfCjCV/icon.png`, `${MOD}appleskin`],
   ['Jade', 'Hover a block or mob to see what it is.', `${MR}nvQzSEkH/b04217bc2b7dc524c4d12f81ff42cc1cefb9b0fc_96.webp`, `${MOD}jade`],
-  ['Continuity', 'Connected glass and bookshelf textures.', `${MR}1IjD5062/icon.png`, `${MOD}continuity`],
+  ['Roughly Enough Items', 'Look up any vanilla recipe: hover an item, press R.', `${MR}nfn13YXA/54ac5daa4166011bae713448e84413987316433a_96.webp`, `${MOD}rei`],
 ];
 const EXTRAS = [
   ['Lithium', 'lithium'], ['FerriteCore', 'ferrite-core'], ['Entity Culling', 'entityculling'],
-  ['ImmediatelyFast', 'immediatelyfast'], ['Mod Menu', 'modmenu'], ['Mouse Tweaks', 'mouse-tweaks'],
+  ['ImmediatelyFast', 'immediatelyfast'], ['Continuity', 'continuity'], ['Mod Menu', 'modmenu'],
+  ['Mouse Tweaks', 'mouse-tweaks'],
 ];
 
 const modGrid = document.getElementById('mod-grid');
