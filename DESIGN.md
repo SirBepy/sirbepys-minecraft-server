@@ -1,245 +1,176 @@
 ---
 name: SirBepys Minecraft Server
-description: A friends-server homepage you dig down through, plus a live biome map of the real world.
+description: The friends server's website as the game's own title screen and menu screens, plus a live biome map of the real world.
 colors:
-  sky-top: "#6f9cf2"
-  sky-bottom: "#b4d0ff"
-  grass: "#6aa33a"
-  dirt: "#866043"
-  stone: "#7f7f7f"
-  deepslate: "#3c3c44"
-  bedrock: "#1c1c1c"
+  page: "#101010"
+  menu-list: "rgba(0,0,0,0.66)"
   gui: "#c6c6c6"
   gui-light: "#ffffff"
   gui-shade: "#555555"
-  slot: "#8b8b8b"
   slot-dark: "#373737"
   ink: "#3f3f3f"
-  toast: "#212121"
   tooltip: "#100010"
   tooltip-edge-a: "#5000ff"
   tooltip-edge-b: "#28007f"
+  button-hover-text: "#ffffa0"
+  splash: "#ffff00"
   mc-yellow: "#ffff55"
   mc-green: "#55ff55"
   mc-gold: "#ffaa00"
   mc-aqua: "#55ffff"
   mc-gray: "#aaaaaa"
   mc-red: "#ff5555"
+  challenge-purple: "#e48aff"
+  pack-kind: "#9a9aff"
   text: "#ffffff"
-  advancement-gold: "#c9a227"
-  challenge-purple: "#8a3fbf"
-  button: "#6f6f6f"
-  button-hover: "#7d86c6"
-  button-green: "#3d8a25"
+  map-parchment: "#e7d9b4"
 typography:
-  display:
+  logo:
     fontFamily: "Monocraft, ui-monospace, Consolas, monospace"
-    fontSize: "clamp(56px, 13vw, 128px)"
+    fontSize: "128px / 96px / 64px / 52px (desktop / <=900 / <=600 / <=380)"
     fontWeight: 700
     lineHeight: 1
-    letterSpacing: "-0.02em"
-  section-title:
-    fontFamily: "Monocraft, ui-monospace, Consolas, monospace"
-    fontSize: "clamp(28px, 4vw, 44px)"
+  logo-sub:
+    fontFamily: "Monocraft"
+    fontSize: "56px / 40px / 28px / 24px"
     fontWeight: 700
-    lineHeight: 1.15
+  screen-title:
+    fontFamily: "Monocraft"
+    fontSize: "28px / 22px (<=600)"
+    fontWeight: 400
+  page-title:
+    fontFamily: "Monocraft"
+    fontSize: "44px / 26px (<=600)"
+    fontWeight: 700
+  button:
+    fontFamily: "Monocraft"
+    fontSize: "18px / 16px (<=600)"
+    fontWeight: 400
   body:
-    fontFamily: "Monocraft, ui-monospace, Consolas, monospace"
+    fontFamily: "Monocraft"
     fontSize: "16px"
     fontWeight: 400
     lineHeight: 1.5
   small:
-    fontFamily: "Monocraft, ui-monospace, Consolas, monospace"
+    fontFamily: "Monocraft"
     fontSize: "14px"
-    fontWeight: 400
-    lineHeight: 1.5
 rounded:
   none: "0px"
-  goal-frame: "16px"
 spacing:
-  px: "3px"
-  sm: "8px"
-  md: "16px"
-  lg: "32px"
-  section: "96px"
+  px: "3px (2px at <=600)"
+  screen-gap: "104px (88px at <=600)"
+  list-padding: "40px 0 48px"
 components:
   button:
-    backgroundColor: "{colors.button}"
-    textColor: "{colors.text}"
-    rounded: "{rounded.none}"
-    height: "48px"
-    padding: "0 20px"
+    sprite: "textures/mc/button.png, 9-slice border 3, scaled by --px"
+    height: "calc(var(--px) * 20)"
   button-hover:
-    backgroundColor: "{colors.button-hover}"
-    textColor: "{colors.mc-yellow}"
-  button-green:
-    backgroundColor: "{colors.button-green}"
-    textColor: "{colors.text}"
-  gui-panel:
-    backgroundColor: "{colors.gui}"
-    textColor: "{colors.ink}"
-    padding: "15px"
-  toast:
-    backgroundColor: "{colors.toast}"
-    textColor: "{colors.text}"
-    padding: "14px 18px"
+    sprite: "textures/mc/button_highlighted.png"
+    textColor: "{colors.button-hover-text}"
+  menu-screen:
+    background: "textures/mc/menu_list_background.png tiled, header/footer_separator.png edges"
+  text-field:
+    sprite: "textures/mc/text_field.png, 9-slice border 1"
+  slot:
+    sprite: "textures/mc/slot.png"
   tooltip:
     backgroundColor: "{colors.tooltip}"
     textColor: "{colors.text}"
-    padding: "10px 14px"
 ---
 
 # Design System: SirBepys Minecraft Server
 
-> **In flux (2026-10-04).** The owner is choosing between three styles that are all live behind a
-> temporary A/B/C picker (`site/assets/js/style-pick.js`, `?style=a|b|c`): **A** dig down through
-> real strata (`theme-a.css`, `strata.js`), **B** Incendium / Stardust Labs page language
-> (`theme-b.css`), **C** the game's title screen and menus (`theme-c.css`). Shared layout lives in
-> `site.css`. Once one is picked, delete the other two plus the picker and rewrite this file from
-> the built result. The sections below describe the previous single style.
-
 ## Overview
 
-The home page is a vertical slice through a grass block: daylight sky with drifting flat
-clouds and a pixel horizon of hills and oaks, then grass, dirt, stone, deepslate and bedrock
-strata, each separated by an uneven pixel seam. Every component speaks Minecraft's own GUI
-grammar (server-list entry, advancement toasts and frames, inventory slots, item tooltip,
-crafting grid, item frames, the filled-map item) instead of generic web cards. The map page
-is an Operate surface: the world fills the screen and the chrome stays in the same GUI
-vocabulary, with a dirt "Loading terrain" screen.
+The site is Minecraft Java's own menus. The home page opens on the **title screen**: a slowly
+panning panorama (a carousel of Stardust Labs screenshots), a stone-filled extruded logo, a
+yellow splash, a centred stack of real game buttons (Join on Java Edition, Join on Bedrock
+Edition, World Map, Datapacks..., Modpack...), the server name and live player count in the
+bottom-left corner and the screenshot credit with carousel controls in the bottom-right.
+Scrolling down passes through **menu screens**: each section is a centred screen title over a
+dark list band with the game's header and footer separators, all on a blurred copy of the
+panorama (the post-1.20.5 menu backdrop). The setup pages (`java/`, `bedrock/`) and the recipes
+page are the same screens: a photo header, then the game's Add Server form with real text fields.
+The map page (`map/`) is an Operate surface with its own GUI-grammar chrome (`map.css`).
 
-All textures are original 16px pixel art generated by `tools/make-textures.mjs`, shown at 4x
-with `image-rendering: pixelated`. No Mojang assets.
+Chosen 2026-10-04 by the owner from three built candidates (dig-down strata, an Incendium-style
+page, this title screen); the other two were deleted.
 
-## Direction contract (pre-build)
+## Direction contract
 
-THESIS: Scrolling the home page digs down through a grass block: sky, grass, dirt, stone,
-deepslate, bedrock. Features are advancements on a tree, joining is a server-list entry you can
-copy from. Refuses the default Minecraft-server page: a dirt-tiled title screen with grey
-stone buttons and a wall of text.
+THESIS: The website is the game's menu system; every section is a screen a player already knows.
+Refuses both the generic server landing page (hero, cards, CTA) and a dirt-tiled imitation menu.
 
-OWN-WORLD: Original 16px block textures (grass, dirt, stone, deepslate, bedrock) at 4x,
-pixelated. Monocraft for every word. Minecraft GUI grammar: bevelled slot panels, dark
-advancement toasts with yellow titles, purple-edged tooltips, chat-colour accents (green
-#55ff55, yellow #ffff55, gold #ffaa00). Phosphor bold icons inside advancement frames.
+OWN-WORLD: Mojang's own sprites (`site/assets/textures/mc/`, copied by
+`tools/extract-mc-textures.py`): button and highlighted button, text field, slot, advancement
+frames, header/footer separators, menu list background, stone for the logo. Monocraft for every
+word. Chat colours for accents. Square corners. The blurred panorama behind everything.
 
-STORY: A friend opens the link from Discord, copies the address in one click, sees the real
-world map, skims what's different from vanilla, grabs the optional modpack.
+STORY: A friend opens the link, sees the title screen, presses "Join on Java Edition" or "Join on
+Bedrock Edition", copies the address from the Add Server form, joins. Curious players scroll
+through the map, features, world, datapacks and modpack screens.
 
-FIRST VIEWPORT: Daylight sky. Extruded stone-textured title, a yellow pulsing splash. Below it
-the server-list entry (server icon, name, MOTD, ping) with the Java address as the primary copy
-action and Bedrock beside it. The grass lip of the next layer shows at the fold.
-
-FORM: Advancement tree inside a dig-down strata page; candidate 5 of 7; seed key 7b74c4f6.
-
-FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
+FIRST VIEWPORT: Full-height title screen. Logo top-centre, splash off its right end (under it
+below 900px), button stack centred under it at 200 game-pixels wide, corner texts at the bottom.
 
 ## Colors
 
-### Strata
-
-Sky gradient `sky-top` to `sky-bottom`; then the textures. Each textured layer carries a dark
-translucent overlay (`rgba(14,34,6,.55)` on grass, `rgba(28,16,8,.45)` on dirt,
-`rgba(20,20,24,.55)` on stone) so white text holds 4.5:1 over the noise.
-
-### GUI
-
-`gui` grey panels with `gui-light` top-left and `gui-shade` bottom-right bevels, `slot` wells,
-`ink` text on panels. `toast` for advancement toasts and the area finder, `tooltip` with the
-`tooltip-edge-a` to `tooltip-edge-b` gradient border for every item-style tooltip.
-
-### Accents (Minecraft chat colours)
-
-`mc-yellow` for toast titles, branch titles and emphasis; `mc-green` for advancement names and
-live stats; `mc-gold` for toast icons; `mc-aqua` for links (yellow on hover); `mc-gray` for
-secondary lines. Mod-source tags (Terralith etc.) are blue-violet italic, like a mod name in an
-item tooltip.
-
-### Named Rules
-
-- Biome colours are data, not decoration: Amidst/Chunkbase colours for vanilla, hand-picked
-  near-relatives for Terralith, and a stable hash colour for anything unknown
-  (`tools/lib/biome-colors.mjs`). Never restyle them to match the page.
-- When a biome is highlighted, everything else drops to a dark desaturated copy of itself.
+Dark by construction: `color-scheme: dark` plus Dark Reader's lock meta on every page, so
+force-dark extensions leave it alone. Text is white with the game's hard drop shadow
+(`.mc-text`). Secondary text `mc-gray`. Accents are chat colours: yellow for disclosure labels
+and branch titles, green for advancement names and live stats, purple-edged tooltips for
+item-style detail, aqua links (yellow on hover). The datapack kind is a mod-name blue-violet
+italic. Third-party screenshots carry their own colour; never tint them.
 
 ## Typography
 
-Monocraft (OFL, self-hosted, subset to Latin) for every word, regular and bold. Sizes stay at
-whole pixels so the pixel font renders crisply. GUI text carries Minecraft's hard drop shadow
-(`.mc-text`: `--px --px 0 #3f3f3f`); this is the world's native text treatment, not a costume.
-
-### Hierarchy
-
-- Display: the stone-filled, extruded two-line logo.
-- Section titles: bold, white with shadow.
-- Body and lede: 16px, 60ch max.
-- Small: 14px for toast bodies, captions, commands; 12-13px only for tags and meta.
+Monocraft (OFL, self-hosted, Latin subset) for every word. **It is a pixel font: every size is a
+whole pixel and steps per breakpoint; never `clamp()`/`vw` sizes and never negative letter
+spacing, both of which land glyphs between pixels and blur them.** Steps are in the frontmatter.
+Screen titles are regular weight, centred, like in-game menu titles. Ledes under a screen title
+are centred; body copy, lists and steps stay left-aligned.
 
 ## Layout
 
-One centred column (`--wrap` 1120px). Sections pad 96px top, 112px bottom; the strata seam
-sits in the top 64px. Desktop uses 2-3 column grids (teaser, advancement tree, gallery,
-modpack); at 900px everything stacks to one column; at 600px the GUI pixel unit drops from
-3px to 2px.
-
-## Elevation & Depth
-
-Depth is bevels, not blur: inset light top-left, inset dark bottom-right, 3px black outlines.
-Soft drop shadows appear only under objects that float (toasts, the map item, item frames).
-
-## Shapes
-
-Square everywhere. The single exception is the advancement "goal" frame (16px radius) and the
-spiky "challenge" frame (clip-path star), both taken from the game.
+One centred column (`--wrap` 1120px; 820px on the setup pages). Screens are separated by 104px
+of blurred panorama where the next screen's title sits. Two-column inside screens on desktop
+(map teaser, modpack, Data Packs list + detail); one column at 900px and below. The GUI pixel
+unit `--px` is 3px, 2px at 600px and below; sprite sizes are multiples of it.
 
 ## Components
 
-### Buttons
-
-Minecraft button: grey with a light top bevel and dark bottom bevel, black outline, white
-shadowed bold label. Hover turns it blue-grey with a yellow label (the game's highlight).
-`btn--green` is the primary action (copy address, open map, download).
-
-### Server-list entry
-
-Server icon (64px, pixelated), name, live player count + five ping bars from mcsrvstat.us,
-MOTD and a meta line. Addresses sit below in dark rows with copy buttons that flip to
-"Copied!" with a check icon.
-
-### Advancement toasts and tree
-
-Toasts: dark panel, gold Phosphor icon, yellow title, white body, sliding in from the right
-once on scroll. Tree: three branches (Settle, Grow, Play) of frame + description panel joined
-by a white connector line; gold frames, purple challenge frame for Tag, grey locked frame for
-the closed End.
-
-### Inventory and crafting
-
-Datapacks: a 4x4 slot grid of Modrinth/Vanilla Tweaks icons; hovering, focusing or clicking a
-slot fills the tooltip panel with name, kind, description, screenshot and credit link.
-Modpack: a 3x3 crafting grid of mod icons, an arrow, and the result slot holding the server
-icon, which downloads the `.mrpack`.
-
-### Map chrome
-
-Brand chip and a Biomes/Terrain toggle (pressed = green button, icon-only on phones) top-left,
-search panel (inventory panel with a black search field and a dark biome
-list) top-right, F3-style coordinate readout bottom-left, zoom/spawn/fit buttons bottom-right,
-cursor tooltip with biome name, source and coordinates, gold spawn marker, a stepping white
-target square on the selected area. On phones the panel becomes a bottom sheet.
+- **Buttons**: the game's button sprite as a 9-slice `border-image`; hover swaps to the
+  highlighted sprite and pale-yellow text. No colour variants: the game has none.
+- **Title screen**: carousel slides pan sideways (40s), autoplay 6.5s with pause, prev/next and
+  dots; reduced-motion starts paused.
+- **Menu screen** (`.layer`): menu list background, header/footer separators, absolutely placed
+  centred title above the band.
+- **Features**: the advancement tree with real frame sprites (task, goal, challenge, locked).
+- **World gallery**: a dense grid of screenshots ("paintings") with a tooltip-style tag linking
+  to each pack's page.
+- **Data Packs screen**: a scrolling list (icon, name, one-line description) and a side panel;
+  click/tap selects, never hover. All detail cards are stacked in one grid cell so the panel
+  never changes height.
+- **Crafting**: the modpack as a 3x3 crafting grid in an inventory panel; clicking a mod shows
+  its card (toggle off returns to the default text), same no-shift stacking.
+- **Add Server form**: text-field sprites holding the address and port with copy buttons whose
+  label width is reserved so "Copied!" never shifts them.
+- **Disclosures**: `<details class="more">` for everything optional; less text up front.
 
 ## Do's and Don'ts
 
 ### Do:
 
-- Build every new element from the game's own GUI pieces: slots, panels, toasts, tooltips,
-  frames, signs, books.
-- Keep text short; let images, icons and the map carry the page.
-- Credit and link every third-party pack or image where it appears.
+- Build new UI from the game's own screens and sprites; extract any new sprite with
+  `tools/extract-mc-textures.py`.
+- Keep text short and put the rest behind a click.
+- Credit and link every third-party pack or screenshot where it appears.
+- Keep the "Not an official Minecraft product" line in every footer.
 
 ### Don't:
 
-- Don't use Mojang textures, the Minecraft logo, or the real Minecraft font files.
-- Don't round corners, add glass/blur, or use gradient text.
+- Don't use the Minecraft logo or the game's real font files.
+- Don't round corners, add glass, or use gradient text.
+- Don't size Monocraft fluidly.
 - Don't add a second icon set: Phosphor bold only.
 - Don't invent server facts: every claim traces to the server repo or the live server.
