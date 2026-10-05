@@ -1,6 +1,6 @@
-# SirBepys Minecraft Server
+# The Claude SMP
 
-The public website for **Los Pollos MineHermanos**, a friends survival server (Java + Bedrock
+The public website for **the Claude SMP**, a friends survival server (Java + Bedrock
 via Geyser): the join address, what's different from vanilla, the datapacks, the optional
 modpack, and a **map of our real world** built from the server's own region files, with a biome
 layer (search any biome, jump to the nearest patch) and a terrain layer showing the actual top

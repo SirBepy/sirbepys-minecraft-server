@@ -1,7 +1,7 @@
 {
   "name": "sirbepys-minecraft-server",
   "private": true,
-  "description": "Public website and live biome map for the SirBepys (Los Pollos MineHermanos) Minecraft server.",
+  "description": "Public website and live biome map for the Claude SMP Minecraft server.",
   "type": "module",
   "engines": {
     "node": ">=20"

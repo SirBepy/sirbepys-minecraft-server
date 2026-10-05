@@ -3,9 +3,9 @@ import { loadWorld, MapView, biomeLabel } from './biome-map.js';
 document.documentElement.classList.add('js');
 
 const SPLASHES = [
-  'Los Pollos MineHermanos!', 'Now with Terralith!', 'Tag, you\'re it!', 'Bedrock welcome!',
-  'Graves included!', 'No keep-inventory!', 'Free towns!', 'Proximity voice!', 'The End is closed!',
-  '100% real biomes!', 'Backpacks!', '200+ new foods!',
+  'The Claude SMP!', 'Los Pollos MineHermanos!', 'Now with Terralith!', 'Tag, you\'re it!',
+  'Bedrock welcome!', 'Graves included!', 'No keep-inventory!', 'Free towns!', 'Proximity voice!',
+  'The End is closed!', '100% real biomes!', 'Backpacks!', '200+ new foods!',
 ];
 document.getElementById('splash').textContent = SPLASHES[Math.floor(Math.random() * SPLASHES.length)];
 

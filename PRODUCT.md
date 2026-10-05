@@ -22,7 +22,7 @@ serves static files only, and zero dependencies means zero supply-chain surface.
 
 ## Users
 
-- **Friends of the owner (primary)**: people invited to "Los Pollos MineHermanos", on Java or
+- **Friends of the owner (primary)**: people invited to the Claude SMP, on Java or
   Bedrock, who want to know how to join, what's different from vanilla, and where things are in
   the world. Most will not read paragraphs *(owner: "most people won't read: images over text,
   short")*.
@@ -48,8 +48,10 @@ only place that shows the real biomes of this world.
 - Java address `sirbepy.mcserver.host` (SRV record, no port). Bedrock (via Geyser)
   `eu-de-p59-a6-cg.kineticpanel.net` port `25572`. Simple Voice Chat on the server; players need
   the client mod (included in the modpack).
-- Optional player modpack: `Los-Pollos-MineHermanos-26.3.mrpack` (Fabric 26.3), imported via
-  Modrinth App or Prism Launcher.
+- Optional player modpack: `Claude-SMP-26.3.mrpack` (Fabric 26.3), imported via
+  Modrinth App or Prism Launcher. The pre-rename `Los-Pollos-MineHermanos-26.3.mrpack` and
+  `LosPollos-server-pack-26.3.zip` stay in `site/downloads/` as frozen copies so old links keep
+  working.
 - World pregenerated to about ±5000 blocks around 0,0 plus explored chunks beyond. Map data
   refreshes nightly and on demand from the live server, read-only.
 
@@ -67,7 +69,9 @@ only place that shows the real biomes of this world.
 
 ## Brand Commitments
 
-- Name: **SirBepys Minecraft Server**; the friend group/server name "Los Pollos MineHermanos".
+- Name: **the Claude SMP** ("The Claude SMP" at the start of a title or sentence), renamed
+  2026-10-05 from "SirBepys Minecraft Server" / "Los Pollos MineHermanos". The repo and URL keep
+  `sirbepys-minecraft-server`.
 - Owner-pinned visual direction: Minecraft-y (blocky pixel accents, Minecraft-like heading font,
   grass/dirt palette, playful). Phosphor icons.
 - Server icon: `mc_plugins_tag/client/icon.png` *(inferred to be the server/modpack icon)*.

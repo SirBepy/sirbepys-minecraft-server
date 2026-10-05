@@ -1,5 +1,5 @@
 ---
-name: SirBepys Minecraft Server
+name: The Claude SMP
 description: The friends server's website as the game's own title screen and menu screens, plus a live biome map of the real world.
 colors:
   page: "#101010"
@@ -154,7 +154,7 @@ components:
     textColor: "{colors.text}"
 ---
 
-# Design System: SirBepys Minecraft Server
+# Design System: The Claude SMP
 
 ## Overview
 
