@@ -2,6 +2,7 @@
 site/data/
 
 map.config.local.json
+.map-cache/
 .for_bepy/
 .portfolio-data/
 node_modules/

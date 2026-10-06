@@ -23,7 +23,8 @@ jobs:
     timeout-minutes: 45
     env:
       HAS_SFTP: ${{ secrets.MC_SFTP_KEY != '' && secrets.MC_SFTP_USER != '' }}
-      MAP_CACHE_DIR: ${{ github.workspace }}/../map-cache
+      # Inside the workspace: actions/cache rejects any path containing '..'.
+      MAP_CACHE_DIR: ${{ github.workspace }}/.map-cache
     steps:
       - uses: actions/checkout@v7
 
