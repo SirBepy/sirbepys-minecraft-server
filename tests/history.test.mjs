@@ -38,7 +38,8 @@ test('snapshotMap commits only changed regions and skips a refresh with no chang
     assert.equal(git(remote, 'ls-tree', '--name-only', `${BRANCH}:regions`), 'r.-1.0.terrain.gz\nr.0.0.terrain.gz');
     const snap = JSON.parse(git(remote, 'show', `${BRANCH}:snapshot.json`));
     assert.equal(snap.takenAt, '2026-10-06T19:17:00.000Z');
-    assert.equal(git(remote, 'log', '-1', '--format=%aI', BRANCH), '2026-10-06T19:17:00+00:00');
+    // %at, not %aI: git versions disagree on printing UTC as Z or +00:00.
+    assert.equal(Number(git(remote, 'log', '-1', '--format=%at', BRANCH)), Date.parse('2026-10-06T19:17:00Z') / 1000);
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }
