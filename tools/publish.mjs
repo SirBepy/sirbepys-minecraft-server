@@ -10,9 +10,9 @@ import { ROOT, SITE_DIR, MAP_DATA_DIR } from './lib/config.mjs';
 
 const BRANCH = 'gh-pages';
 
-const git = (cwd, ...args) => execFileSync('git', args, { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'inherit'] }).trim();
+export const git = (cwd, ...args) => execFileSync('git', args, { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'inherit'] }).trim();
 
-function remoteUrl() {
+export function remoteUrl() {
   const token = process.env.GITHUB_TOKEN;
   const repo = process.env.GITHUB_REPOSITORY;
   if (token && repo) return `https://x-access-token:${token}@github.com/${repo}.git`;

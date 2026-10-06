@@ -2,9 +2,9 @@ name: Publish site and map
 
 on:
   schedule:
-    # 03:17 UTC nightly (05:17 in Zagreb during summer time). Off the hour: GitHub delays
-    # top-of-the-hour cron runs the most.
-    - cron: '17 3 * * *'
+    # Every 8 hours: 03:17, 11:17 and 19:17 UTC. Off the hour: GitHub delays top-of-the-hour
+    # cron runs the most.
+    - cron: '17 3,11,19 * * *'
   workflow_dispatch:
   push:
     branches: [main]
@@ -33,10 +33,11 @@ jobs:
 
       # Only the small per-region biome grids and the remote manifest are cached between runs
       # (MAP_KEEP_RAW=0 deletes the raw region files), so each night downloads just the regions
-      # that changed.
+      # that changed. The cache is saved right after a good refresh, so a later failing step
+      # (snapshot) doesn't throw the work away and force a full re-download next run.
       - name: Restore map cache
         if: env.HAS_SFTP == 'true'
-        uses: actions/cache@v6
+        uses: actions/cache/restore@v6
         with:
           path: ${{ env.MAP_CACHE_DIR }}
           key: map-cache-${{ github.run_id }}
@@ -60,6 +61,13 @@ jobs:
           node tools/build-map.mjs
           rm -f "$RUNNER_TEMP/sftp_key"
 
+      - name: Save map cache
+        if: steps.refresh.outcome == 'success'
+        uses: actions/cache/save@v6
+        with:
+          path: ${{ env.MAP_CACHE_DIR }}
+          key: map-cache-${{ github.run_id }}
+
       - name: No SFTP secrets, publishing site code with the current live map data
         if: env.HAS_SFTP != 'true'
         run: echo "MC_SFTP_KEY / MC_SFTP_USER not set; skipping the map refresh."
@@ -71,6 +79,21 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: node tools/publish.mjs
+
+      # After publishing, so a failed snapshot never holds back the live map.
+      - name: Snapshot the map to map-history (timelapse)
+        id: snapshot
+        if: steps.refresh.outcome == 'success'
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node tools/snapshot-map.mjs
+
+      - name: Report a failed snapshot
+        if: steps.snapshot.outcome == 'failure'
+        run: |
+          echo "::error::Map snapshot failed (see the 'Snapshot the map' step). The site and map were published."
+          exit 1
 
       - name: Report a failed map refresh
         if: steps.refresh.outcome == 'failure'

@@ -12,8 +12,9 @@
     "map:build": "node tools/build-map.mjs",
     "map:update": "node tools/update.mjs",
     "map:preview": "node tools/update.mjs --no-publish",
+    "map:snapshot": "node tools/snapshot-map.mjs",
     "publish": "node tools/publish.mjs",
     "textures": "node tools/make-textures.mjs",
-    "test": "node --test tests/map.test.mjs"
+    "test": "node --test tests/map.test.mjs tests/history.test.mjs"
   }
 }

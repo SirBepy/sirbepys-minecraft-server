@@ -25,6 +25,7 @@ Needs Node 20+ and OpenSSH's `sftp` on the PATH (both ship with Windows 10+ / Gi
 | `npm run map:preview` | Same pull + rebuild, without publishing. Then `npm run serve` to look at it. |
 | `npm run serve` | Serves `site/` on http://127.0.0.1:8080/ (`PORT` env to change). |
 | `npm run map:sync` / `npm run map:build` | The two halves of the refresh, separately. |
+| `npm run map:snapshot` | Appends the last built map to the `map-history` branch (see "Map history" below). The workflow runs it after every refresh. |
 | `npm run publish` | Publishes `site/` as-is (keeps the live map data if there's none locally). |
 | `npm test` | Unit tests for the NBT/region reader, biome extraction, colours and area search. |
 | `npm run textures` | Regenerates the pixel textures in `site/assets/textures/` (seeded, deterministic). |
@@ -75,12 +76,12 @@ and a stable hash-derived colour (nudged by name: "frozen" goes blue, "desert" g
 biome nobody listed yet (`tools/lib/biome-colors.mjs`).
 
 The generated data is never committed to `main`: `tools/publish.mjs` copies `site/` into a
-temporary repo and force-pushes it to `gh-pages` as one orphan commit, so nightly updates don't
+temporary repo and force-pushes it to `gh-pages` as one orphan commit, so the scheduled updates don't
 grow the git history.
 
-## Nightly updates: GitHub Actions (chosen) vs a Windows scheduled task
+## Scheduled updates: GitHub Actions (chosen) vs a Windows scheduled task
 
-`.github/workflows/publish.yml` runs every night at 03:17 UTC, on every push to `main` that
+`.github/workflows/publish.yml` runs every 8 hours (03:17, 11:17 and 19:17 UTC), on every push to `main` that
 touches the site or tools, and on demand from the Actions tab ("Run workflow").
 
 | | GitHub Actions cron (chosen) | Windows scheduled task on this PC |
@@ -88,16 +89,26 @@ touches the site or tools, and on demand from the Actions tab ("Run workflow").
 | Runs when the PC is off | Yes | No |
 | Cost | Free (public repo) | Free |
 | Secret handling | SSH key stored as a GitHub secret | Key never leaves the PC |
-| Download per night | Changed regions only (grids cached between runs) | Changed regions only |
+| Download per run | Changed regions only (grids cached between runs) | Changed regions only |
 | Gotchas | Cron can run late at busy times; GitHub pauses schedules after 60 days without repo activity (re-enable in the Actions tab) | PC must be on and awake |
 
 Actions wins on reliability. To limit what the GitHub secret can do, it uses a **dedicated SSH
 key** (`~/.ssh/sirbepys_map_ed25519`) rather than your main one: remove it in the Kinetic panel
-and the nightly job loses access, nothing else changes. Note that Kinetic SFTP keys are not
+and the scheduled job loses access, nothing else changes. Note that Kinetic SFTP keys are not
 read-only on their own; the read-only guarantee comes from the script (only `ls`/`get`).
 
 Secrets the workflow reads: `MC_SFTP_KEY` (private key) and `MC_SFTP_USER`. Without them the
 workflow still publishes site changes, keeping the current live map data.
+
+## Map history (for a timelapse)
+
+After every successful refresh the workflow runs `tools/snapshot-map.mjs` (`npm run map:snapshot`),
+which appends one commit to the `map-history` branch: every region's terrain cache (top block +
+shade per column, 1 pixel per block) and a `snapshot.json` with the build time. Unlike `gh-pages`
+it is never force-pushed, since its history is the timelapse. Git stores an unchanged region
+once, so each snapshot only adds the regions that changed, and a refresh with no changed region
+adds no commit. The branch's own `README.md` documents the file format. To render a timelapse,
+walk the branch's commits oldest first and draw each snapshot's regions.
 
 ## Ideas for later
 

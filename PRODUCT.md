@@ -53,7 +53,7 @@ only place that shows the real biomes of this world.
   `LosPollos-server-pack-26.3.zip` stay in `site/downloads/` as frozen copies so old links keep
   working.
 - World pregenerated to about ±5000 blocks around 0,0 plus explored chunks beyond. Map data
-  refreshes nightly and on demand from the live server, read-only.
+  refreshes every 8 hours and on demand from the live server, read-only.
 
 ## Capabilities and Constraints
 
@@ -92,7 +92,7 @@ only place that shows the real biomes of this world.
 1. Address first: the join info is never more than one glance away.
 2. Show, don't tell: images and the map over paragraphs; every text block earns its place.
 3. Real data only: the map and every feature claim trace back to the live server or its repo.
-4. Free and self-maintaining: nightly refresh, nothing paid, nothing that needs babysitting.
+4. Free and self-maintaining: refresh every 8 hours, nothing paid, nothing that needs babysitting.
 5. Less text up front: show the short version first and put the rest behind a click (owner,
    2026-10-04: "we should always initially show less text, but if a user clicks on something, he
    can get more"). Info that swaps on interaction works on click/tap, never on hover alone.
