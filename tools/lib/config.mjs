@@ -20,6 +20,7 @@ export const sftp = {
   // Paper 26.3 keeps every dimension inside one world folder (dimensions/minecraft/<dim>/).
   regionDir: env.MC_REMOTE_REGION_DIR || local.regionDir || 'world/dimensions/minecraft/overworld/region',
   levelDat: env.MC_REMOTE_LEVEL_DAT || local.levelDat || 'world/level.dat',
+  wishesFile: env.MC_REMOTE_WISHES_FILE || local.wishesFile || 'plugins/DragonBalls/wishes.jsonl',
 };
 
 // Lives outside the repo: the raw region files are several GB.

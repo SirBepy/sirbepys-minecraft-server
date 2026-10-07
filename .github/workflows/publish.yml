@@ -59,6 +59,7 @@ jobs:
           printf '%s\n' "$MC_SFTP_KEY" > "$RUNNER_TEMP/sftp_key"
           export MC_SFTP_KEY_FILE="$RUNNER_TEMP/sftp_key"
           node tools/sync-regions.mjs
+          node tools/sync-wishes.mjs
           node tools/build-map.mjs
           rm -f "$RUNNER_TEMP/sftp_key"
 
@@ -71,7 +72,9 @@ jobs:
 
       - name: No SFTP secrets, publishing site code with the current live map data
         if: env.HAS_SFTP != 'true'
-        run: echo "MC_SFTP_KEY / MC_SFTP_USER not set; skipping the map refresh."
+        run: |
+          echo "MC_SFTP_KEY / MC_SFTP_USER not set; skipping the map refresh."
+          node tools/sync-wishes.mjs
 
       - name: Unit tests
         run: npm test
