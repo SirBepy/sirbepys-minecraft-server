@@ -2,8 +2,9 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readdirSync, readFileSync } from 'node:fs';
 import { join, extname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const SITE = new URL('../site/', import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1');
+const SITE = fileURLToPath(new URL('../site/', import.meta.url));
 const MC = join(SITE, 'assets', 'textures', 'mc');
 
 function siteSources(dir = SITE) {
