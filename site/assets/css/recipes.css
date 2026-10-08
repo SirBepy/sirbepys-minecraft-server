@@ -48,10 +48,22 @@
   color: var(--mc-gray);
 }
 
+.recipe-row {
+  display: grid;
+  gap: 6px;
+}
+
 .recipe {
   display: flex;
   align-items: center;
   gap: 12px 16px;
+}
+
+/* Visible caption under each recipe: same wording the <ul>'s aria-describedby already
+   points to, so touch users get the ingredient list without hovering a 16px icon. */
+.recipe__caption {
+  font-size: 14px;
+  color: var(--mc-gray);
 }
 
 .recipe__grid,
@@ -168,5 +180,9 @@
 
   .recipe__arrow {
     font-size: 24px;
+  }
+
+  .recipe__caption {
+    font-size: 13px;
   }
 }
