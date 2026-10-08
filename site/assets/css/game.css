@@ -306,6 +306,13 @@ body::before {
 .frame--challenge { background-image: url('../textures/mc/frame_challenge.png'); }
 .frame--locked { background-image: url('../textures/mc/frame_locked.png'); color: #bbb; }
 
+/* A player head sits where the advancement icon normally goes. */
+.frame--avatar img {
+  width: 60%;
+  height: 60%;
+  object-fit: cover;
+}
+
 .adv__body {
   padding-top: 6px;
 }
