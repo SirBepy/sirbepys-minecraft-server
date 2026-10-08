@@ -1,9 +1,9 @@
 // ---------- Wishes granted ----------
 // Renders site/data/wishes.json (generated at publish time) as compact advancement-style
-// cards. Hidden entirely on fetch failure or an empty list: no empty widget on the live page.
+// cards, one titled group per Dragon Ball set; a set with no wishes gets no group. Hidden
+// entirely on fetch failure or an empty list: no empty widget on the live page.
 import { el } from './dom.js';
-
-const SET_LABEL = { overworld: 'Overworld set', nether: 'Nether set', end: 'End set' };
+import { groupBySet } from './wish-groups.js';
 
 // The wish log always says "Shenron"; the Nether set's Shenron is named Nuova Shenron in game.
 function dragonLabel(dragon, set) {
@@ -37,8 +37,6 @@ function wishCard(w) {
     ' · ',
     dragonLabel(w.dragon, w.set),
     ' · ',
-    SET_LABEL[w.set] || w.set,
-    ' · ',
     dateLabel(w.granted),
   );
 
@@ -54,8 +52,8 @@ function wishCard(w) {
 
 (async () => {
   const section = document.getElementById('wishes');
-  const list = document.getElementById('wish-list');
-  if (!section || !list) return;
+  const groups = document.getElementById('wish-groups');
+  if (!section || !groups) return;
 
   try {
     const res = await fetch('data/wishes.json', { cache: 'no-cache' });
@@ -64,7 +62,10 @@ function wishCard(w) {
     const wishes = Array.isArray(data.wishes) ? data.wishes : [];
     if (!wishes.length) return;
 
-    list.append(...wishes.map(wishCard));
+    groups.append(...groupBySet(wishes).map((g) => el('div', { className: 'wish-group' },
+      el('h3', { className: 'branch__title mc-text' }, g.title),
+      el('ul', { className: 'wish-list' }, ...g.wishes.map(wishCard)),
+    )));
     section.hidden = false;
   } catch {
     // Fetch failed or malformed data: keep the section hidden, nothing to show.

@@ -280,14 +280,7 @@
                 <span class="frame frame--challenge"><i class="ph-bold ph-sneaker-move" aria-hidden="true"></i></span>
                 <div class="adv__body">
                   <p class="adv__title adv__title--challenge">Tag, you're it</p>
-                  <p class="adv__text">An always-on game of tag. IT wears a sheep head and carries a tracker compass that points at the nearest player (right-click to switch). Anyone idle for 5 minutes is AFK and can't be tagged. Lowest score wins.</p>
-                  <details class="more">
-                    <summary class="mc-text"><i class="ph-bold ph-caret-right" aria-hidden="true"></i>No escaping</summary>
-                    <ul class="steps mc-text">
-                      <li>Within 100 blocks of IT you can't /home, /tpa, /spawn, /back or /warp away. Ender pearls, chorus fruit and portals still work.</li>
-                      <li>The new IT can't tag their tagger straight back for 60 seconds, and is told how long is left.</li>
-                    </ul>
-                  </details>
+                  <p class="adv__text">An always-on game of tag. IT wears a sheep head and tracks the nearest player with a compass. Lowest score wins.</p>
                   <p class="adv__cmd"><span class="kbd">/tag optout</span> to sit out</p>
                 </div>
               </li>
@@ -295,27 +288,8 @@
                 <span class="frame frame--goal"><i class="ph-bold ph-shooting-star" aria-hidden="true"></i></span>
                 <div class="adv__body">
                   <p class="adv__title">Dragon Balls</p>
-                  <p class="adv__text">Three sets of 7: one in the Overworld, one in the Nether, one in the End. Each ball hides inside a structure and floats there, slowly spinning; hit it to pick it up. Gather a full set to summon a dragon and make a wish.</p>
-                  <details class="more">
-                    <summary class="mc-text"><i class="ph-bold ph-caret-right" aria-hidden="true"></i>How the hunt works</summary>
-                    <ul class="steps mc-text">
-                      <li>Overworld balls sit in rooms, on roofs and in streets of villages, towers, ruins and dungeons. Nether and End balls sit in guarded places full of mobs. The End set sleeps until the End opens.</li>
-                      <li>Carrying balls slows you down, and they can't go in any container. Die and they drop where you fell, never into your grave. Log off and they drop where you stood.</li>
-                      <li>A ball never leaves its own world: go through a portal, /home or /spawn and it stays behind.</li>
-                      <li>Each set has its own radar at the Dragon Balls station at spawn: Dragon Radar 1000, Nether Radar 5000, End Radar 20000. It points at the nearest awake ball of its set, even one someone's carrying. Its dot moves in as you get closer (Far, Getting warm, Close, Right here), and sneak + right-click switches it to the next ball.</li>
-                      <li>Place all 7 of one set within 2 blocks of each other, then hold that set's radar and right-click or hit one to choose your dragon: Shenron grants one great wish, Porunga grants three, each about half as strong. From the Nether set Shenron rises as Nuova Shenron, and deeper sets grant bigger wishes. The radar shatters when the dragon appears.</li>
-                      <li>Type your wish in chat and the dragon answers. Ask for too much and it may demand a curse before granting it.</li>
-                      <li>After a wish the set flies off within its own world and lands further away each time. Its balls turn to stone, findable but invisible to the radar and unable to summon, for 3 Minecraft days.</li>
-                      <li>Java players need the server resource pack, which shows the round balls, the radars and the dragons' looks. Bedrock players see balls as heads, a normal compass and a normal Ender Dragon.</li>
-                    </ul>
-                  </details>
-                </div>
-              </li>
-              <li class="adv">
-                <span class="frame"><i class="ph-bold ph-microphone" aria-hidden="true"></i></span>
-                <div class="adv__body">
-                  <p class="adv__title">Proximity voice</p>
-                  <p class="adv__text">Voices get quieter with distance. Java only, with the <a href="#modpack">modpack</a>.</p>
+                  <p class="adv__text">Three sets of 7 hidden across the Overworld, the Nether and the End. Gather a set to summon a dragon and make a wish.</p>
+                  <p class="adv__cmd"><a href="dragonballs/">How the hunt works</a></p>
                 </div>
               </li>
               <li class="adv">
@@ -323,13 +297,6 @@
                 <div class="adv__body">
                   <p class="adv__title">Graves</p>
                   <p class="adv__text">No keep-inventory. Your stuff waits in a grave where you died.</p>
-                </div>
-              </li>
-              <li class="adv">
-                <span class="frame frame--challenge"><i class="ph-bold ph-moon-stars" aria-hidden="true"></i></span>
-                <div class="adv__body">
-                  <p class="adv__title adv__title--challenge">Phantoms</p>
-                  <p class="adv__text">Skip sleep for 2 nights and they come, twice as often as in vanilla: bigger, faster, fireproof, and heard from twice as far. The ones trailing purple swirls poison you; the rest are tougher. A Shenron wish.</p>
                 </div>
               </li>
               <li class="adv">
@@ -346,13 +313,6 @@
                   <p class="adv__cmd"><span class="kbd">/guild</span></p>
                 </div>
               </li>
-              <li class="adv adv--locked">
-                <span class="frame frame--locked"><i class="ph-bold ph-lock" aria-hidden="true"></i></span>
-                <div class="adv__body">
-                  <p class="adv__title">The End</p>
-                  <p class="adv__text">Closed for now.</p>
-                </div>
-              </li>
             </ul>
           </div>
         </div>
@@ -363,7 +323,7 @@
       <div class="wrap">
         <h2 class="section-title mc-text" id="wishes-title">Wishes granted</h2>
         <p class="lede mc-text">Every wish a player has won from the dragons.</p>
-        <ul class="wish-list" id="wish-list"></ul>
+        <div id="wish-groups"></div>
       </div>
     </section>
 

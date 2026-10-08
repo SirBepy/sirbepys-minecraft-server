@@ -502,8 +502,11 @@ main {
 
 /* ---------- Wishes granted ---------- */
 
-.wish-list {
+.wish-group {
   margin-top: 40px;
+}
+
+.wish-list {
   list-style: none;
   padding: 0;
   display: grid;
