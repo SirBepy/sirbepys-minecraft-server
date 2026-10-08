@@ -1,16 +1,11 @@
 // ---------- Wishes granted ----------
 // Renders site/data/wishes.json (generated at publish time) as compact advancement-style
 // cards. Hidden entirely on fetch failure or an empty list: no empty widget on the live page.
-
-function el(tag, props = {}, ...children) {
-  const node = Object.assign(document.createElement(tag), props);
-  node.append(...children.filter((c) => c != null));
-  return node;
-}
+import { el } from './dom.js';
 
 const SET_LABEL = { overworld: 'Overworld set', nether: 'Nether set', end: 'End set' };
 
-// The nether Shenron is reskinned in-game as Nuova Shenron (docs/guild.md, server pack).
+// The wish log always says "Shenron"; the Nether set's Shenron is named Nuova Shenron in game.
 function dragonLabel(dragon, set) {
   return dragon === 'Shenron' && set === 'nether' ? 'Nuova Shenron' : dragon;
 }
@@ -63,7 +58,7 @@ function wishCard(w) {
   if (!section || !list) return;
 
   try {
-    const res = await fetch('data/wishes.json');
+    const res = await fetch('data/wishes.json', { cache: 'no-cache' });
     if (!res.ok) throw new Error(`wishes.json ${res.status}`);
     const data = await res.json();
     const wishes = Array.isArray(data.wishes) ? data.wishes : [];

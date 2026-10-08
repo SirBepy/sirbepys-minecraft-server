@@ -1,4 +1,5 @@
 import { loadWorld, MapView, biomeLabel } from './biome-map.js';
+import { el } from './dom.js';
 
 document.documentElement.classList.add('js');
 
@@ -8,12 +9,6 @@ const SPLASHES = [
   'The End is closed!', '100% real biomes!', 'Backpacks!', '200+ new foods!',
 ];
 document.getElementById('splash').textContent = SPLASHES[Math.floor(Math.random() * SPLASHES.length)];
-
-function el(tag, props = {}, ...children) {
-  const node = Object.assign(document.createElement(tag), props);
-  node.append(...children.filter((c) => c != null));
-  return node;
-}
 
 const icon = (name) => el('i', { className: `ph-bold ph-${name}`, ariaHidden: 'true' });
 const pageLink = (href, label) => el('a', { className: 'page-link', href }, label, icon('arrow-square-out'));
