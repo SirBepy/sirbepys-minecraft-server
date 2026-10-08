@@ -27,9 +27,9 @@ Needs Node 20+ and OpenSSH's `sftp` on the PATH (both ship with Windows 10+ / Gi
 | `npm run map:sync` / `npm run map:build` | The two halves of the refresh, separately. |
 | `npm run map:snapshot` | Appends the last built map to the `map-history` branch (see "Map history" below). The workflow runs it after every refresh. |
 | `npm run publish` | Publishes `site/` as-is (keeps the live map data if there's none locally). |
-| `npm test` | Unit tests for the NBT/region reader, biome extraction, colours and area search. |
+| `npm test` | Unit tests for the NBT/region reader, biome extraction, colours and area search, plus a check that every shipped Mojang texture is linked by the site. |
 | `npm run textures` | Regenerates the pixel textures in `site/assets/textures/` (seeded, deterministic). |
-| `python tools/extract-mc-textures.py <client.jar>` | Copies the vanilla block and GUI textures the site uses into `site/assets/textures/mc/`. Only after a Minecraft version bump. |
+| `python tools/extract-mc-textures.py <client.jar>` | Copies the vanilla GUI textures the site uses into `site/assets/textures/mc/`. Only after a Minecraft version bump. |
 | `python tools/make-recipe-icons.py <client.jar>` | Copies the item textures the recipes page uses into `site/assets/textures/items/` and draws the chest and ender chest icons. Needs Pillow. Only after a Minecraft version bump. |
 | `python tools/make-block-colors.py <client.jar>` | Regenerates `tools/data/block-colors.json` (terrain colours) from a Minecraft client jar. Needs Pillow. Only after a Minecraft version bump. |
 
@@ -124,7 +124,7 @@ the hero, gallery and join-page screenshots are hotlinked from Stardust Labs' ow
 are credited where they appear. `site/assets/og-image.png` (the Discord/link-preview card) is a
 1200x630 screenshot of the home page's title screen, so it contains a Terralith screenshot by
 Stardust Labs. Font: [Monocraft](https://github.com/IdreesInc/Monocraft) (OFL,
-license in `site/assets/fonts/`). Icons: [Phosphor](https://phosphoricons.com). Block and GUI
+license in `site/assets/fonts/`). Icons: [Phosphor](https://phosphoricons.com). GUI
 textures in `site/assets/textures/mc/` are Mojang's, copied by `tools/extract-mc-textures.py`; the
 older original pixel art from `tools/make-textures.mjs` is still used by the map's loading screen.
 Live player count from [mcsrvstat.us](https://mcsrvstat.us).
