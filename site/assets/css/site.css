@@ -1,4 +1,5 @@
-/* Layout shared by every style (A/B/C). Colour, type and chrome live in the theme files. */
+/* Layout only: positioning, sizing and structure. Colour and type (the Minecraft look) live in
+   game.css. */
 
 body {
   position: relative;
@@ -119,7 +120,6 @@ body {
 .splash span {
   display: inline-block;
   font-weight: 700;
-  font-size: clamp(16px, 2.4vw, 24px);
   color: #ffff00;
   text-shadow: var(--text-shadow);
   animation: splash 0.5s ease-in-out infinite alternate;
@@ -337,10 +337,6 @@ main {
 .footer {
   position: relative;
   z-index: 2;
-}
-
-.section-title {
-  font-size: clamp(28px, 4vw, 44px);
 }
 
 .lede {
