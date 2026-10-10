@@ -1,0 +1,904 @@
+/* Layout only: positioning, sizing and structure. Colour and type (the Minecraft look) live in
+   game.css. */
+
+body {
+  position: relative;
+}
+
+/* ---------- Hero: full-screen carousel ---------- */
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.carousel {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: #000;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  transition: opacity 1400ms var(--ease-out);
+}
+
+.slide.is-active {
+  opacity: 1;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.slide.is-active img {
+  animation: kenburns 9s var(--ease-out) forwards;
+}
+
+@keyframes kenburns {
+  from { transform: scale(1.02); }
+  to { transform: scale(1.1); }
+}
+
+.topnav {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 20px;
+}
+
+.topnav__home {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.topnav__links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.topnav__links a:not(.btn) {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.topnav__links a:not(.btn):hover {
+  color: var(--mc-yellow);
+}
+
+.btn--small {
+  min-height: 40px;
+  padding: 0 14px;
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-block: 40px 96px;
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  line-height: 1;
+}
+
+.logo__line {
+  position: relative;
+  display: block;
+}
+
+.splash {
+  position: relative;
+  pointer-events: none;
+}
+
+.splash span {
+  display: inline-block;
+  font-weight: 700;
+  color: #ffff00;
+  text-shadow: var(--text-shadow);
+  animation: splash 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes splash {
+  from { transform: scale(1); }
+  to { transform: scale(1.08); }
+}
+
+.serverlist {
+  width: min(100%, 760px);
+  margin-top: 36px;
+  display: grid;
+  gap: 12px;
+}
+
+.entry {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 12px;
+  padding: 8px;
+}
+
+.entry__icon {
+  width: 64px;
+  height: 64px;
+}
+
+.entry__body {
+  min-width: 0;
+}
+
+.entry__top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: baseline;
+}
+
+.entry__name {
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.entry__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex: none;
+  color: var(--mc-gray);
+}
+
+.entry__players,
+.entry__motd {
+  color: var(--mc-gray);
+}
+
+.entry__meta {
+  color: #8f8f8f;
+  font-size: 14px;
+}
+
+/* Five rising ping bars, green when online. */
+.ping {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 16px;
+}
+
+.ping i {
+  width: 4px;
+  background: #555;
+}
+
+.ping i:nth-child(1) { height: 4px; }
+.ping i:nth-child(2) { height: 7px; }
+.ping i:nth-child(3) { height: 10px; }
+.ping i:nth-child(4) { height: 13px; }
+.ping i:nth-child(5) { height: 16px; }
+
+.ping[data-state='online'] i {
+  background: #3ad13a;
+  box-shadow: 1px 1px 0 #0f4f0f;
+}
+
+.ping[data-state='offline'] i {
+  background: #b33;
+}
+
+.ping[data-state='unknown'] i {
+  animation: ping-scan 1.2s steps(1) infinite;
+}
+
+.ping[data-state='unknown'] i:nth-child(2) { animation-delay: 0.15s; }
+.ping[data-state='unknown'] i:nth-child(3) { animation-delay: 0.3s; }
+.ping[data-state='unknown'] i:nth-child(4) { animation-delay: 0.45s; }
+.ping[data-state='unknown'] i:nth-child(5) { animation-delay: 0.6s; }
+
+@keyframes ping-scan {
+  0% { background: #555; }
+  50% { background: #9a9a9a; }
+}
+
+.editions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.edition {
+  justify-content: flex-start;
+  gap: 14px;
+  min-height: 76px;
+  padding: 0 18px;
+  text-align: left;
+}
+
+.edition > i:first-child {
+  font-size: 28px;
+}
+
+.edition__text {
+  display: grid;
+  flex: 1;
+}
+
+.edition__meta {
+  font-size: 14px;
+  font-weight: 400;
+  opacity: 0.85;
+}
+
+.edition__go {
+  margin-left: auto;
+}
+
+.hero__menu {
+  display: none;
+}
+
+.carousel__bar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 28px;
+}
+
+.carousel__credit {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.carousel__controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.carousel__dots {
+  display: flex;
+  gap: 6px;
+}
+
+.dot {
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: 2px solid #000;
+  background: rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+}
+
+.dot[aria-current='true'] {
+  background: #fff;
+}
+
+.cbtn {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.cbtn:hover {
+  color: var(--mc-yellow);
+}
+
+/* ---------- Sections ---------- */
+
+main {
+  position: relative;
+}
+
+.layer {
+  position: relative;
+  padding: 96px 0 112px;
+}
+
+.layer > .wrap,
+.footer {
+  position: relative;
+  z-index: 2;
+}
+
+.lede {
+  margin-top: 12px;
+  max-width: 60ch;
+}
+
+.page-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Disclosure for the "more" text: less up front, the rest on click. */
+.more summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  list-style: none;
+  font-weight: 700;
+}
+
+.more summary::-webkit-details-marker {
+  display: none;
+}
+
+.more summary i {
+  transition: transform 200ms var(--ease-out);
+}
+
+.more[open] summary i {
+  transform: rotate(90deg);
+}
+
+.more > :not(summary) {
+  margin-top: 12px;
+}
+
+/* ---------- Map teaser ---------- */
+
+.teaser {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 48px;
+  align-items: center;
+}
+
+.teaser__copy {
+  display: grid;
+  gap: 16px;
+  justify-items: start;
+}
+
+.teaser__copy .lede {
+  margin: 0;
+}
+
+.teaser__stats {
+  color: var(--mc-green);
+  min-height: 3em;
+}
+
+/* A filled map in a parchment border, the in-game map item. */
+.mapitem {
+  position: relative;
+  display: block;
+  aspect-ratio: 1;
+  padding: 18px;
+  background: #e7d9b4;
+  border: var(--px) solid #3b2a18;
+  box-shadow:
+    inset 0 0 0 6px #c9b386,
+    inset 0 0 0 9px #8a6d43,
+    0 18px 36px rgba(0, 0, 0, 0.45);
+  transform: rotate(1.5deg);
+  transition: transform 300ms var(--ease-out);
+  cursor: zoom-in;
+}
+
+.mapitem:hover {
+  transform: rotate(0deg) scale(1.01);
+}
+
+.mapitem__canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: #15131a;
+}
+
+.mapitem__hover {
+  position: absolute;
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 2;
+}
+
+.mapitem__spawn {
+  position: absolute;
+  font-size: 28px;
+  color: #fff;
+  filter: drop-shadow(2px 2px 0 #000);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+/* ---------- Features tree ---------- */
+
+.tree {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px;
+}
+
+.branch__title {
+  font-size: 22px;
+  margin-bottom: 16px;
+}
+
+.adv-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 20px;
+  position: relative;
+}
+
+.adv {
+  position: relative;
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 14px;
+  align-items: start;
+}
+
+.frame {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  font-size: 28px;
+  color: #fff;
+}
+
+.adv__title {
+  font-weight: 700;
+}
+
+.adv__text {
+  margin-top: 4px;
+  font-size: 14px;
+}
+
+.adv__cmd {
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+/* ---------- Wishes granted ---------- */
+
+.wish-group {
+  margin-top: 40px;
+}
+
+.wish-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+/* ---------- Worldgen paintings ---------- */
+
+.paintings {
+  list-style: none;
+  margin: 36px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: 200px;
+  grid-auto-flow: dense;
+  gap: 16px;
+}
+
+.painting {
+  position: relative;
+  overflow: hidden;
+  background: #111;
+}
+
+.painting--big {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.painting--wide {
+  grid-column: span 2;
+}
+
+.painting img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 600ms var(--ease-out);
+}
+
+.painting:hover img {
+  transform: scale(1.04);
+}
+
+.painting__tag {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: calc(100% - 20px);
+  padding: 4px 10px;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.painting__tag span {
+  opacity: 0.8;
+}
+
+/* ---------- Datapack inventory ---------- */
+
+.inventory {
+  margin-top: 32px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 12px 24px;
+  max-width: 980px;
+}
+
+.inventory__title {
+  grid-column: 1 / -1;
+  font-weight: 700;
+}
+
+.inventory__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 72px);
+  gap: 4px;
+  align-content: start;
+}
+
+.pack-slot {
+  width: 72px;
+  height: 72px;
+  padding: 8px;
+  border: 0;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  font: inherit;
+  color: inherit;
+}
+
+.pack-slot img {
+  width: 54px;
+  height: 54px;
+}
+
+.pack-slot__text {
+  display: none;
+}
+
+/* Every card is stacked in one cell, so the panel keeps the tallest card's height. */
+.inventory__detail,
+.crafting__caption {
+  display: grid;
+  align-content: start;
+}
+
+.card {
+  grid-area: 1 / 1;
+  visibility: hidden;
+}
+
+.card.is-shown {
+  visibility: visible;
+}
+
+.inventory__detail .card {
+  display: grid;
+  gap: 8px;
+  align-content: start;
+}
+
+.inventory__detail .tooltip__title {
+  font-size: 20px;
+}
+
+.pack-kind {
+  font-style: italic;
+}
+
+.pack-shot {
+  margin-top: 4px;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.pack-shot--icon {
+  display: grid;
+  place-items: center;
+}
+
+.pack-shot--icon img {
+  width: 96px;
+  height: 96px;
+  image-rendering: pixelated;
+}
+
+.pack-credit {
+  font-size: 14px;
+}
+
+.credits {
+  margin-top: 28px;
+  max-width: 980px;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* ---------- Modpack ---------- */
+
+.modpack {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  gap: 48px;
+  align-items: center;
+}
+
+.modpack__copy {
+  display: grid;
+  gap: 20px;
+  justify-items: start;
+}
+
+.modpack__copy .lede {
+  margin: 0;
+}
+
+.steps {
+  margin: 0;
+  padding-left: 24px;
+  display: grid;
+  gap: 6px;
+  font-size: 14px;
+}
+
+.crafting {
+  display: grid;
+  gap: 12px;
+}
+
+.crafting__row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.crafting__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 64px);
+  gap: 4px;
+}
+
+.mod-slot {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+}
+
+.mod-slot img {
+  width: 44px;
+  height: 44px;
+}
+
+.crafting__arrow {
+  font-size: 44px;
+}
+
+.crafting__result {
+  width: 96px;
+  height: 96px;
+  display: grid;
+  place-items: center;
+}
+
+.crafting__caption {
+  font-size: 14px;
+  min-height: 4.5em;
+}
+
+.crafting__caption div.card {
+  display: grid;
+  gap: 4px;
+  align-content: start;
+  justify-items: start;
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  padding: 96px 0 40px;
+}
+
+.footer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: 32px;
+  font-size: 14px;
+}
+
+.footer__title {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.footer__credits {
+  display: grid;
+  gap: 8px;
+}
+
+.footer__legal {
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 900px) {
+  .teaser,
+  .modpack,
+  .footer {
+    grid-template-columns: 1fr;
+  }
+
+  .tree {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .wish-list {
+    grid-template-columns: 1fr;
+  }
+
+  .paintings {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: 150px;
+  }
+
+  .inventory {
+    grid-template-columns: 1fr;
+  }
+
+  .inventory__grid {
+    grid-template-columns: repeat(auto-fill, 64px);
+  }
+
+  .pack-slot {
+    width: 64px;
+    height: 64px;
+  }
+
+  .pack-slot img {
+    width: 46px;
+    height: 46px;
+  }
+}
+
+@media (max-width: 600px) {
+  :root {
+    --px: 2px;
+  }
+
+  .topnav__links a:not(.btn) {
+    display: none;
+  }
+
+  .entry {
+    grid-template-columns: 48px 1fr;
+  }
+
+  .entry__icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .entry__top {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .editions {
+    grid-template-columns: 1fr;
+  }
+
+  .carousel__credit {
+    font-size: 12px;
+  }
+
+  .carousel__dots {
+    display: none;
+  }
+
+  .paintings {
+    grid-auto-rows: 120px;
+    gap: 10px;
+  }
+
+  .painting:nth-child(n + 9) {
+    display: none;
+  }
+
+  .painting__tag span {
+    display: none;
+  }
+
+  .crafting__grid {
+    grid-template-columns: repeat(3, 52px);
+  }
+
+  .mod-slot {
+    width: 52px;
+    height: 52px;
+  }
+
+  .mod-slot img {
+    width: 36px;
+    height: 36px;
+  }
+
+  .crafting__result {
+    width: 72px;
+    height: 72px;
+  }
+
+  .crafting__arrow {
+    font-size: 32px;
+  }
+
+  .layer {
+    padding: 72px 0 80px;
+  }
+}

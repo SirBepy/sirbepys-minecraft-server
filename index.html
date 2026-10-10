@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Claude SMP</title>
+  <meta name="description" content="The Claude SMP: a friends survival server for Java and Bedrock. How to join, live biome map of our real world, datapacks and the optional modpack.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="The Claude SMP">
+  <meta property="og:title" content="The Claude SMP">
+  <meta property="og:description" content="Friends survival for Java and Bedrock. Join with sirbepy.mcserver.host">
+  <meta property="og:url" content="https://sirbepy.github.io/sirbepys-minecraft-server/">
+  <meta property="og:image" content="https://sirbepy.github.io/sirbepys-minecraft-server/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="The Claude SMP title screen">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="color-scheme" content="dark">
+  <meta name="darkreader-lock">
+  <meta name="theme-color" content="#55ff55">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="preload" href="assets/fonts/Monocraft.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/Monocraft-Bold.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preconnect" href="https://images.squarespace-cdn.com">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.2/src/bold/style.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <link rel="stylesheet" href="assets/css/game.css">
+  <script type="module" src="assets/js/home.js"></script>
+  <script type="module" src="assets/js/wishes.js"></script>
+</head>
+<body>
+  <!-- impeccable seed 7b74c4f6, contract in DESIGN.md -->
+  <a class="skip-link" href="#join">Skip to joining</a>
+
+  <header class="hero" id="top">
+    <section class="carousel" id="carousel" aria-roledescription="carousel" aria-label="Screenshots of the world generation datapacks">
+      <div class="carousel__slides" aria-live="off">
+        <figure class="slide is-active" aria-roledescription="slide" aria-label="1 of 6"
+          data-pack="Terralith" data-url="https://www.stardustlabs.net/terralith">
+          <img src="https://images.squarespace-cdn.com/content/v1/6240c1f3e10b50416d969a84/45c5d625-285c-4477-974e-771012c8e23a/2022-05-27_23.40.23.jpg?format=1500w"
+            srcset="https://images.squarespace-cdn.com/content/v1/6240c1f3e10b50416d969a84/45c5d625-285c-4477-974e-771012c8e23a/2022-05-27_23.40.23.jpg?format=1000w 1000w, https://images.squarespace-cdn.com/content/v1/6240c1f3e10b50416d969a84/45c5d625-285c-4477-974e-771012c8e23a/2022-05-27_23.40.23.jpg?format=1500w 1500w, https://images.squarespace-cdn.com/content/v1/6240c1f3e10b50416d969a84/45c5d625-285c-4477-974e-771012c8e23a/2022-05-27_23.40.23.jpg?format=2500w 2500w"
+            sizes="100vw"
+            data-src="https://images.squarespace-cdn.com/content/v1/6240c1f3e10b50416d969a84/45c5d625-285c-4477-974e-771012c8e23a/2022-05-27_23.40.23.jpg"
+            alt="A huge Terralith rock arch over red and yellow badlands" fetchpriority="high" decoding="async">
+        </figure>
+        <figure class="slide" aria-roledescription="slide" aria-label="2 of 6"
+          data-pack="Structory" data-url="https://www.stardustlabs.net/structory">
+          <img data-src="https://images.squarespace-cdn.com/content/v1/6240c1f3e10b50416d969a84/e3f92201-525f-4bd4-b0df-13488a6d62a0/2022-06-23_14.04.54.png"
+            alt="Structory ruins in a sunlit valley" decoding="async">
+        </figure>
+        <figure class="slide" aria-roledescription="slide" aria-label="3 of 6"
+          data-pack="Incendium" data-url="https://www.stardustlabs.net/incendium">
+          <img data-src="https://images.squarespace-cdn.com/content/v1/6240c1f3e10b50416d969a84/0ed2d733-4ccd-4114-9a4f-07f94d3e0159/forbidden_castle_tera_8.png"
+            alt="Incendium's Forbidden Castle rising over a lava sea in the Nether" decoding="async">
+        </figure>
+        <figure class="slide" aria-roledescription="slide" aria-label="4 of 6"
+          data-pack="Terralith" data-url="https://www.stardustlabs.net/terralith">
+          <img data-src="https://images.squarespace-cdn.com/content/v1/6240c1f3e10b50416d969a84/9fdb5205-8374-49ca-b63b-a79a244ccc17/2021-11-20_22.46.23.png"
+            alt="Red-leaved trees below jagged snowy Terralith peaks" decoding="async">
+        </figure>
+        <figure class="slide" aria-roledescription="slide" aria-label="5 of 6"
+          data-pack="Nullscape" data-url="https://www.stardustlabs.net/nullscape">
+          <img data-src="https://images.squarespace-cdn.com/content/v1/6240c1f3e10b50416d969a84/202ea09c-0ba5-4e63-91a4-38c9ac3f4db7/kIrVP9w.jpg"
+            alt="A glowing Nullscape island floating in the purple End sky" decoding="async">
+        </figure>
+        <figure class="slide" aria-roledescription="slide" aria-label="6 of 6"
+          data-pack="Structory" data-url="https://www.stardustlabs.net/structory">
+          <img data-src="https://images.squarespace-cdn.com/content/v1/6240c1f3e10b50416d969a84/9c471519-dc7b-4399-8be1-6a9d2de09ec4/2022-06-16_15.48.10.png"
+            alt="A Structory lookout tower above an autumn forest at sunset" decoding="async">
+        </figure>
+      </div>
+    </section>
+
+    <nav class="topnav wrap" aria-label="Main">
+      <a class="topnav__home mc-text" href="#top">
+        <img class="pixel" src="assets/server-icon.png" alt="" width="32" height="32">
+        SirBepys
+      </a>
+      <div class="topnav__links">
+        <a class="mc-text" href="#features">Features</a>
+        <a class="mc-text" href="#worldgen">World</a>
+        <a class="mc-text" href="#datapacks">Datapacks</a>
+        <a class="mc-text" href="#modpack">Modpack</a>
+        <a class="mc-text" href="recipes/">Recipes</a>
+        <a class="btn btn--small" href="map/"><i class="ph-bold ph-map-trifold" aria-hidden="true"></i>Map</a>
+      </div>
+    </nav>
+
+    <div class="hero__inner wrap">
+      <h1 class="logo">
+        <span class="logo__line logo__line--big" data-text="Claude">Claude</span>
+        <span class="logo__line" data-text="SMP">SMP</span>
+      </h1>
+      <p class="splash" aria-hidden="true"><span id="splash">The Claude SMP!</span></p>
+
+      <section class="serverlist" id="join" aria-labelledby="join-title">
+        <div class="entry">
+          <img class="entry__icon pixel" src="assets/server-icon.png" alt="Server icon" width="64" height="64">
+          <div class="entry__body">
+            <div class="entry__top">
+              <span class="entry__name mc-text">The Claude SMP</span>
+              <span class="entry__status" id="status" aria-live="polite">
+                <span class="entry__players mc-text" id="players">26.3</span>
+                <span class="ping" id="ping" data-state="unknown" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+              </span>
+            </div>
+            <p class="entry__motd mc-text" id="motd">The Claude SMP</p>
+            <p class="entry__meta">Friends survival &middot; Minecraft 26.3</p>
+          </div>
+        </div>
+
+        <h2 class="sr-only" id="join-title">Join the server</h2>
+        <div class="editions">
+          <a class="edition btn btn--green" href="java/">
+            <i class="ph-bold ph-desktop-tower" aria-hidden="true"></i>
+            <span class="edition__text">
+              <span class="edition__name">Join on Java Edition</span>
+              <span class="edition__meta">PC, Mac, Linux</span>
+            </span>
+            <i class="ph-bold ph-caret-right edition__go" aria-hidden="true"></i>
+          </a>
+          <a class="edition btn" href="bedrock/">
+            <i class="ph-bold ph-device-mobile" aria-hidden="true"></i>
+            <span class="edition__text">
+              <span class="edition__name">Join on Bedrock Edition</span>
+              <span class="edition__meta">Phone, tablet, Windows</span>
+            </span>
+            <i class="ph-bold ph-caret-right edition__go" aria-hidden="true"></i>
+          </a>
+        </div>
+        <nav class="hero__menu" aria-label="More">
+          <a class="btn" href="map/"><i class="ph-bold ph-map-trifold" aria-hidden="true"></i>World Map</a>
+          <a class="btn" href="#datapacks">Datapacks</a>
+          <a class="btn" href="#modpack">Modpack</a>
+        </nav>
+      </section>
+    </div>
+
+    <div class="carousel__bar wrap">
+      <p class="carousel__credit mc-text">
+        <i class="ph-bold ph-camera" aria-hidden="true"></i>
+        <a id="slide-credit" href="https://www.stardustlabs.net/terralith">Terralith</a>
+        <span>by Stardust Labs</span>
+      </p>
+      <div class="carousel__controls" role="group" aria-label="Slideshow controls">
+        <button class="cbtn" type="button" id="slide-prev" aria-label="Previous screenshot" aria-controls="carousel"><i class="ph-bold ph-caret-left" aria-hidden="true"></i></button>
+        <div class="carousel__dots" id="slide-dots"></div>
+        <button class="cbtn" type="button" id="slide-next" aria-label="Next screenshot" aria-controls="carousel"><i class="ph-bold ph-caret-right" aria-hidden="true"></i></button>
+        <button class="cbtn" type="button" id="slide-pause" aria-label="Pause slideshow"><i class="ph-bold ph-pause" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="layer layer--grass" aria-labelledby="map-title">
+      <div class="wrap">
+        <div class="teaser">
+          <div class="teaser__copy">
+            <h2 class="section-title mc-text" id="map-title">Our real world, mapped</h2>
+            <p class="lede mc-text">Every biome and every build, read from the server's own world files. Seed maps get it wrong: Terralith reshapes everything.</p>
+            <p class="teaser__stats" id="map-stats">Loading the map&hellip;</p>
+            <a class="btn btn--green" href="map/"><i class="ph-bold ph-map-trifold" aria-hidden="true"></i>Open the full map</a>
+          </div>
+          <a class="mapitem" href="map/" aria-label="Open the full biome map">
+            <canvas class="mapitem__canvas" id="teaser-map" aria-hidden="true"></canvas>
+            <span class="mapitem__hover tooltip" id="teaser-hover" hidden></span>
+            <i class="ph-bold ph-house-line mapitem__spawn" id="teaser-spawn" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="layer layer--dirt" id="features" aria-labelledby="features-title">
+      <div class="wrap">
+        <h2 class="section-title mc-text" id="features-title">What's different</h2>
+        <p class="lede mc-text">Survival like you know it, plus a few friendly extras.</p>
+
+        <div class="tree">
+          <div class="branch">
+            <h3 class="branch__title mc-text">Settle</h3>
+            <ul class="adv-list">
+              <li class="adv">
+                <span class="frame frame--goal"><i class="ph-bold ph-castle-turret" aria-hidden="true"></i></span>
+                <div class="adv__body">
+                  <p class="adv__title">Towns</p>
+                  <p class="adv__text">Found a town and claim land: 8 chunks per resident, no fees, no upkeep.</p>
+                  <details class="more">
+                    <summary class="mc-text"><i class="ph-bold ph-caret-right" aria-hidden="true"></i>More land</summary>
+                    <ul class="steps mc-text">
+                      <li>The mayor can buy up to 64 extra chunks per town with <span class="kbd">/t buy bonus</span>, $25 each, paid from the town bank.</li>
+                    </ul>
+                  </details>
+                  <p class="adv__cmd"><span class="kbd">/town new</span></p>
+                </div>
+              </li>
+              <li class="adv">
+                <span class="frame"><i class="ph-bold ph-house-line" aria-hidden="true"></i></span>
+                <div class="adv__body">
+                  <p class="adv__title">Homes &amp; teleports</p>
+                  <p class="adv__text">Save 3 homes. Ask a friend to teleport over.</p>
+                  <p class="adv__cmd"><span class="kbd">/sethome</span> <span class="kbd">/home</span> <span class="kbd">/tpa</span></p>
+                </div>
+              </li>
+              <li class="adv">
+                <span class="frame"><i class="ph-bold ph-lock-key" aria-hidden="true"></i></span>
+                <div class="adv__body">
+                  <p class="adv__title">Locked chests</p>
+                  <p class="adv__text">Chests lock to whoever placed them. Others can ask for access.</p>
+                </div>
+              </li>
+              <li class="adv">
+                <span class="frame"><i class="ph-bold ph-hand-grabbing" aria-hidden="true"></i></span>
+                <div class="adv__body">
+                  <p class="adv__title">Carry</p>
+                  <p class="adv__text">Sneak + right-click a passive or friendly mob with an empty hand to carry it on your head, Java and Bedrock alike. Right-click a block to set it down, sneak + left-click to throw it.</p>
+                  <details class="more">
+                    <summary class="mc-text"><i class="ph-bold ph-caret-right" aria-hidden="true"></i>Rules</summary>
+                    <ul class="steps mc-text">
+                      <li>Carrying slows you down and locks your hands: no items, no attacking.</li>
+                      <li>Teleporting, logging out or dying sets the mob down where you were.</li>
+                      <li>Refused in someone else's town, or on a locked mob without access.</li>
+                      <li>A tamed pet can only be carried by its owner.</li>
+                    </ul>
+                  </details>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="branch">
+            <h3 class="branch__title mc-text">Grow</h3>
+            <ul class="adv-list">
+              <li class="adv">
+                <span class="frame frame--goal"><i class="ph-bold ph-chart-line-up" aria-hidden="true"></i></span>
+                <div class="adv__body">
+                  <p class="adv__title">Skills</p>
+                  <p class="adv__text">Mining, farming, fighting: level skills just by playing.</p>
+                  <p class="adv__cmd"><span class="kbd">/skills</span></p>
+                </div>
+              </li>
+              <li class="adv">
+                <span class="frame"><i class="ph-bold ph-storefront" aria-hidden="true"></i></span>
+                <div class="adv__body">
+                  <p class="adv__title">Chest shops</p>
+                  <p class="adv__text">Turn a chest into a shop and trade with everyone.</p>
+                </div>
+              </li>
+              <li class="adv">
+                <span class="frame"><i class="ph-bold ph-palette" aria-hidden="true"></i></span>
+                <div class="adv__body">
+                  <p class="adv__title">Name colors</p>
+                  <p class="adv__text">Pick a color or gradient for your name.</p>
+                  <p class="adv__cmd"><span class="kbd">/color</span></p>
+                </div>
+              </li>
+              <li class="adv">
+                <span class="frame frame--goal"><i class="ph-bold ph-coins" aria-hidden="true"></i></span>
+                <div class="adv__body">
+                  <p class="adv__title">Market</p>
+                  <p class="adv__text">Six stalls at spawn pick 3 items to buy every sunrise, prices drifting up to 20% either way with a chat announcement. The server buys as little as possible, so farmable items go cheap and hand-gathered ones pay properly.</p>
+                  <details class="more">
+                    <summary class="mc-text"><i class="ph-bold ph-caret-right" aria-hidden="true"></i>Pricing your own shop</summary>
+                    <ul class="steps mc-text">
+                      <li>A Prices book on the Guide stall's lectern lists every stall's base prices.</li>
+                    </ul>
+                  </details>
+                  <p class="adv__cmd"><span class="kbd">/market</span> today's buys <span class="kbd">/price</span> to suggest one</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="branch">
+            <h3 class="branch__title mc-text">Play</h3>
+            <ul class="adv-list">
+              <li class="adv">
+                <span class="frame frame--challenge"><i class="ph-bold ph-sneaker-move" aria-hidden="true"></i></span>
+                <div class="adv__body">
+                  <p class="adv__title adv__title--challenge">Tag, you're it</p>
+                  <p class="adv__text">An always-on game of tag. IT wears a sheep head and tracks the nearest player with a compass. Lowest score wins.</p>
+                  <details class="more">
+                    <summary class="mc-text"><i class="ph-bold ph-caret-right" aria-hidden="true"></i>No escaping</summary>
+                    <ul class="steps mc-text">
+                      <li>Within 100 blocks of IT you can't /home, /tpa, /spawn, /back or /warp away. Ender pearls, chorus fruit and portals still work.</li>
+                      <li>The new IT can't tag their tagger straight back for 60 seconds, and is told how long is left.</li>
+                    </ul>
+                  </details>
+                  <p class="adv__cmd"><span class="kbd">/tag optout</span> to sit out</p>
+                </div>
+              </li>
+              <li class="adv">
+                <span class="frame frame--goal"><i class="ph-bold ph-shooting-star" aria-hidden="true"></i></span>
+                <div class="adv__body">
+                  <p class="adv__title">Dragon Balls</p>
+                  <p class="adv__text">Three sets of 7 hidden across the Overworld, the Nether and the End. Gather a set to summon a dragon and make a wish.</p>
+                  <p class="adv__cmd"><a href="dragonballs/">How the hunt works</a></p>
+                </div>
+              </li>
+              <li class="adv">
+                <span class="frame"><i class="ph-bold ph-skull" aria-hidden="true"></i></span>
+                <div class="adv__body">
+                  <p class="adv__title">Graves</p>
+                  <p class="adv__text">No keep-inventory. Your stuff waits in a grave where you died.</p>
+                </div>
+              </li>
+              <li class="adv">
+                <span class="frame frame--goal"><i class="ph-bold ph-scroll" aria-hidden="true"></i></span>
+                <div class="adv__body">
+                  <p class="adv__title">Adventurer's Guild</p>
+                  <p class="adv__text">Register for 500 coins and climb ranks E through S with contracts and Promotion Trials. Daily and weekly contracts pay out, alongside server-wide bounties, Grand Quests the whole server tackles together, and a Hall of Fame with titles to earn.</p>
+                  <details class="more">
+                    <summary class="mc-text"><i class="ph-bold ph-caret-right" aria-hidden="true"></i>The Guild Hall</summary>
+                    <ul class="steps mc-text">
+                      <li>ImMijo is the Guildmaster and builds the Guild Hall himself.</li>
+                    </ul>
+                  </details>
+                  <p class="adv__cmd"><span class="kbd">/guild</span></p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="layer layer--stone" id="wishes" aria-labelledby="wishes-title" hidden>
+      <div class="wrap">
+        <h2 class="section-title mc-text" id="wishes-title">Wishes granted</h2>
+        <p class="lede mc-text">Every wish a player has won from the dragons.</p>
+        <div id="wish-groups"></div>
+      </div>
+    </section>
+
+    <section class="layer layer--stone" id="worldgen" aria-labelledby="worldgen-title">
+      <div class="wrap">
+        <h2 class="section-title mc-text" id="worldgen-title">A world you haven't seen</h2>
+        <p class="lede mc-text">New biomes, towers, ruins, dungeons and taverns, in all three dimensions, built from vanilla blocks.</p>
+        <ul class="paintings" id="paintings"></ul>
+      </div>
+    </section>
+
+    <section class="layer layer--stone layer--stone-deep" id="datapacks" aria-labelledby="datapacks-title">
+      <div class="wrap">
+        <h2 class="section-title mc-text" id="datapacks-title">Datapacks</h2>
+        <p class="lede mc-text">Everything the server runs on top of vanilla. <a href="recipes/">How to craft the new stuff</a></p>
+
+        <div class="inventory gui-panel">
+          <p class="inventory__title">Installed</p>
+          <div class="inventory__grid" role="group" aria-label="Datapacks" id="pack-grid"></div>
+          <div class="inventory__detail tooltip" id="pack-detail" aria-live="polite"></div>
+        </div>
+
+        <p class="credits mc-text">
+          Made by
+          <b>Stardust Labs</b> (<a href="https://www.stardustlabs.net/terralith">Terralith</a>,
+          <a href="https://www.stardustlabs.net/incendium">Incendium</a>,
+          <a href="https://www.stardustlabs.net/nullscape">Nullscape</a>,
+          <a href="https://www.stardustlabs.net/structory">Structory</a>,
+          <a href="https://modrinth.com/datapack/structory-towers">Structory: Towers</a>,
+          <a href="https://modrinth.com/datapack/amplified-nether">Amplified Nether</a>),
+          <b>NovaWostra</b> (<a href="https://modrinth.com/datapack/dungeons-and-taverns">Dungeons and Taverns</a>),
+          <b>Eclipse Studios</b> (<a href="https://modrinth.com/datapack/vanilla-backpacks">Backpacks!</a>),
+          <b>regfunkid</b> (<a href="https://modrinth.com/datapack/reg-more-foods">Reg's More Foods</a>),
+          <b>Nico4play</b> (<a href="https://modrinth.com/datapack/mastercutter">MasterCutter</a>)
+          and <a href="https://vanillatweaks.net/picker/datapacks/">Vanilla Tweaks</a>.
+          Screenshots by their makers.
+        </p>
+      </div>
+    </section>
+
+    <section class="layer layer--deepslate" id="modpack" aria-labelledby="modpack-title">
+      <div class="wrap modpack">
+        <div class="modpack__copy">
+          <h2 class="section-title mc-text" id="modpack-title">The optional modpack</h2>
+          <p class="lede mc-text">Plain Minecraft works fine. Java players get voice chat, more FPS and nicer looks in one import.</p>
+          <a class="btn btn--green" href="downloads/Claude-SMP-26.3.mrpack" download>
+            <i class="ph-bold ph-download-simple" aria-hidden="true"></i>Download modpack
+          </a>
+          <details class="more">
+            <summary class="mc-text"><i class="ph-bold ph-caret-right" aria-hidden="true"></i>How to install</summary>
+            <ol class="steps mc-text">
+              <li>Install the free <a href="https://modrinth.com/app">Modrinth App</a> or <a href="https://prismlauncher.org">Prism Launcher</a>.</li>
+              <li>Import the <span class="kbd">.mrpack</span> file.</li>
+              <li>Play. Fabric, Minecraft 26.3.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="crafting gui-panel" aria-label="Mods in the pack, shown as a crafting recipe">
+          <p class="inventory__title">Crafting</p>
+          <div class="crafting__row">
+            <ul class="crafting__grid" id="mod-grid"></ul>
+            <i class="ph-bold ph-arrow-fat-right crafting__arrow" aria-hidden="true"></i>
+            <a class="crafting__result slot" href="downloads/Claude-SMP-26.3.mrpack" download title="The Claude SMP modpack">
+              <img class="pixel" src="assets/server-icon.png" alt="Download the modpack" width="64" height="64">
+            </a>
+          </div>
+          <div class="crafting__caption" id="mod-caption" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer">
+      <div>
+        <p class="footer__title mc-text">The Claude SMP</p>
+        <p class="footer__text"><a href="https://github.com/SirBepy/sirbepys-minecraft-server">Source</a></p>
+      </div>
+      <div class="footer__credits">
+        <p>Font <a href="https://github.com/IdreesInc/Monocraft">Monocraft</a> (OFL). Icons <a href="https://phosphoricons.com">Phosphor</a>. Live status <a href="https://mcsrvstat.us">mcsrvstat.us</a>.</p>
+        <p class="footer__legal">Not an official Minecraft product. Not approved by or associated with Mojang or Microsoft.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
