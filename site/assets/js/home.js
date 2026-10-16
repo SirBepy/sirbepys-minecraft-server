@@ -280,7 +280,7 @@ const extras = [];
 EXTRAS.forEach(([name, slug], i) => {
   extras.push(el('a', { href: `${MOD}${slug}` }, name), i < EXTRAS.length - 2 ? ', ' : i === EXTRAS.length - 2 ? ' and ' : '');
 });
-const modFallback = el('p', { className: 'card' }, 'Plus ', ...extras, ', and the food and dungeon textures.');
+const modFallback = el('p', { className: 'card' }, 'Plus ', ...extras, ', the food and dungeon textures, and our own clickable class talent tree (/class tree or J).');
 const modCards = MODS.map(([name, what, , url]) => el('div', { className: 'card' },
   el('p', {}, el('b', {}, name), ` · ${what}`),
   pageLink(url, 'Modrinth page'),
