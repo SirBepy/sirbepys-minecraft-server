@@ -1,12 +1,47 @@
-# The Claude SMP
+<p align="center">
+  <a href="https://sirbepy.github.io/sirbepys-minecraft-server/"><img src="site/assets/og-image.png" alt="The Claude SMP title screen" width="100%"></a>
+</p>
 
-The public website for **the Claude SMP**, a friends survival server (Java + Bedrock
-via Geyser): the join address, what's different from vanilla, the datapacks, the optional
-modpack, and a **map of our real world** built from the server's own region files, with a biome
-layer (search any biome, jump to the nearest patch) and a terrain layer showing the actual top
-blocks, builds included.
+<h1 align="center">The Claude SMP</h1>
 
-Live: https://sirbepy.github.io/sirbepys-minecraft-server/
+<h3 align="center">The website and live world map for a friends survival server, Java and Bedrock.</h3>
+
+<p align="center">
+  <a href="https://sirbepy.github.io/sirbepys-minecraft-server/"><b>Open the site</b></a> ·
+  <a href="https://sirbepy.github.io/sirbepys-minecraft-server/map/"><b>World map</b></a> ·
+  <a href="https://sirbepy.github.io/sirbepys-minecraft-server/java/"><b>Join on Java</b></a> ·
+  <a href="https://sirbepy.github.io/sirbepys-minecraft-server/bedrock/"><b>Join on Bedrock</b></a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/SirBepy/sirbepys-minecraft-server/actions/workflows/publish.yml"><img src="https://img.shields.io/github/actions/workflow/status/SirBepy/sirbepys-minecraft-server/publish.yml?style=for-the-badge&label=map%20refresh" alt="Map refresh status"></a>
+  <img src="https://img.shields.io/badge/Minecraft-26.3-62B47A?style=for-the-badge&logo=minecraft&logoColor=white" alt="Minecraft 26.3">
+  <img src="https://img.shields.io/badge/dependencies-0-555555?style=for-the-badge" alt="No dependencies">
+  <img src="https://img.shields.io/github/last-commit/SirBepy/sirbepys-minecraft-server?style=for-the-badge" alt="Last commit">
+</p>
+
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=html,css,js,nodejs,python,githubactions&perline=6" alt="HTML, CSS, JavaScript, Node.js, Python, GitHub Actions">
+</p>
+
+---
+
+The public website for **the Claude SMP**, a friends survival server (Java + Bedrock via Geyser):
+the join address, what's different from vanilla, the datapacks, the optional modpack, and a
+**map of our real world** built from the server's own region files, with a biome layer (search
+any biome, jump to the nearest patch) and a terrain layer showing the actual top blocks, builds
+included.
+
+<p align="center">
+  <img src="docs/readme/features.jpg" alt="The home page's feature list in the game's own UI style" width="49%">
+  <img src="docs/readme/map.jpg" alt="The live biome map with biome search" width="49%">
+</p>
+
+The whole site is styled as the game's own title and menu screens: Monocraft font, Mojang's GUI
+textures, dirt-to-bedrock layers as you scroll. The plugins and datapacks it describes live in the
+server repo.
+
+## Layout
 
 - `site/` is the whole website: plain HTML/CSS/JS, no framework, no build step, no npm
   dependencies. `site/map/` is the map app; `site/java/` and `site/bedrock/` are the setup pages
@@ -39,7 +74,7 @@ The SFTP username is not in this public repo. Put it in `map.config.local.json` 
 
 ```json
 {
-  "user": "<panel-username>.dd499ae3",
+  "user": "<panel-username>.<server-id>",
   "keyFile": "C:/Users/<you>/.ssh/id_ed25519"
 }
 ```
