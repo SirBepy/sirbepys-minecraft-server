@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dragon Balls &middot; The Claude SMP</title>
+  <meta name="description" content="How the Claude SMP's Dragon Ball hunt works: three sets of 7 across the Overworld, the Nether and the End, their radars, and summoning a dragon for a wish.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="The Claude SMP">
+  <meta property="og:title" content="Dragon Balls · The Claude SMP">
+  <meta property="og:description" content="How the Claude SMP's Dragon Ball hunt works: three sets of 7 across the Overworld, the Nether and the End, their radars, and summoning a dragon for a wish.">
+  <meta property="og:url" content="https://sirbepy.github.io/sirbepys-minecraft-server/dragonballs/">
+  <meta property="og:image" content="https://sirbepy.github.io/sirbepys-minecraft-server/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="The Claude SMP title screen">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="color-scheme" content="dark">
+  <meta name="darkreader-lock">
+  <meta name="theme-color" content="#55ff55">
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <link rel="preload" href="../assets/fonts/Monocraft.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/Monocraft-Bold.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.2/src/bold/style.css">
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/site.css">
+  <link rel="stylesheet" href="../assets/css/game.css">
+  <link rel="stylesheet" href="../assets/css/join.css">
+  <link rel="stylesheet" href="../assets/css/recipes.css">
+</head>
+<body class="join">
+  <a class="skip-link" href="#find">Skip to the rules</a>
+
+  <header class="join-hero">
+    <img class="join-hero__img" alt="" fetchpriority="high"
+      src="https://images.squarespace-cdn.com/content/v1/6240c1f3e10b50416d969a84/0ed2d733-4ccd-4114-9a4f-07f94d3e0159/forbidden_castle_tera_8.png?format=1500w">
+    <nav class="topnav wrap" aria-label="Main">
+      <a class="topnav__home mc-text" href="../">
+        <i class="ph-bold ph-caret-left" aria-hidden="true"></i>
+        <img class="pixel" src="../assets/server-icon.png" alt="" width="32" height="32">
+        SirBepys
+      </a>
+      <div class="topnav__links">
+        <a class="btn btn--small" href="../map/"><i class="ph-bold ph-map-trifold" aria-hidden="true"></i>Map</a>
+      </div>
+    </nav>
+    <div class="join-hero__inner wrap">
+      <h1 class="join-title mc-text"><i class="ph-bold ph-shooting-star" aria-hidden="true"></i>Dragon Balls</h1>
+      <p class="join-sub mc-text">Three sets of 7 &middot; find a set, summon a dragon, make a wish</p>
+    </div>
+    <p class="join-hero__credit wrap mc-text"><i class="ph-bold ph-camera" aria-hidden="true"></i> <a href="https://www.stardustlabs.net/incendium">Incendium</a> by Stardust Labs</p>
+  </header>
+
+  <main class="join-main wrap">
+    <section class="extra rgroup" id="find" aria-labelledby="find-title">
+      <h2 class="rgroup__title mc-text" id="find-title"><i class="ph-bold ph-magnifying-glass" aria-hidden="true"></i>Finding them</h2>
+      <p>One set in the Overworld, one in the Nether, one in the End. Each ball hides inside a structure and floats there, slowly spinning; hit it to pick it up.</p>
+      <ul class="steps">
+        <li>Overworld balls sit in rooms, on roofs and in streets of villages, towers, ruins and dungeons. Nether and End balls sit in guarded places full of mobs. The End set sleeps until the End opens.</li>
+      </ul>
+    </section>
+
+    <section class="extra rgroup" id="radars" aria-labelledby="radars-title">
+      <h2 class="rgroup__title mc-text" id="radars-title"><i class="ph-bold ph-compass" aria-hidden="true"></i>Radars</h2>
+      <p>Each set has its own radar at the Dragon Balls station at spawn: Dragon Radar 1000, Nether Radar 5000, End Radar 20000.</p>
+      <ul class="steps">
+        <li>It points at the nearest awake ball of its set, even one someone's carrying.</li>
+        <li>Its dot moves in as you get closer (Far, Getting warm, Close, Right here), and sneak + right-click switches it to the next ball.</li>
+      </ul>
+    </section>
+
+    <section class="extra rgroup" id="carry" aria-labelledby="carry-title">
+      <h2 class="rgroup__title mc-text" id="carry-title"><i class="ph-bold ph-backpack" aria-hidden="true"></i>Carrying them</h2>
+      <ul class="steps">
+        <li>Carrying balls slows you down, and they can't go in any container.</li>
+        <li>Die and they drop where you fell, never into your grave. Log off and they drop where you stood.</li>
+        <li>A ball never leaves its own world: go through a portal, /home or /spawn and it stays behind.</li>
+      </ul>
+    </section>
+
+    <section class="extra rgroup" id="wish" aria-labelledby="wish-title">
+      <h2 class="rgroup__title mc-text" id="wish-title"><i class="ph-bold ph-sparkle" aria-hidden="true"></i>Making a wish</h2>
+      <ul class="steps">
+        <li>Place all 7 of one set within 2 blocks of each other, then hold that set's radar and right-click or hit one to choose your dragon.</li>
+        <li>Shenron grants one great wish, Porunga grants three, each about half as strong. From the Nether set Shenron rises as Nuova Shenron, and deeper sets grant bigger wishes. The radar shatters when the dragon appears.</li>
+        <li>Type your wish in chat and the dragon answers. Ask for too much and it may demand a curse before granting it.</li>
+        <li>After a wish the set flies off and lands somewhere else in its own world. Its balls turn to stone, findable but invisible to the radar and unable to summon, for 3 Minecraft days.</li>
+      </ul>
+      <p class="rlink"><a href="../#wishes">Every wish granted so far</a></p>
+    </section>
+
+    <section class="extra rgroup" aria-labelledby="look-title">
+      <h2 class="rgroup__title mc-text" id="look-title"><i class="ph-bold ph-eye" aria-hidden="true"></i>Java and Bedrock</h2>
+      <p>Java players need the server resource pack, which shows the round balls, the radars and the dragons' looks. Bedrock players see balls as heads, a normal compass and a normal Ender Dragon.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer">
+      <div>
+        <p class="footer__title mc-text">The Claude SMP</p>
+        <p class="footer__text"><a href="https://github.com/SirBepy/sirbepys-minecraft-server">Source</a></p>
+      </div>
+      <div class="footer__credits">
+        <p>Font <a href="https://github.com/IdreesInc/Monocraft">Monocraft</a> (OFL). Icons <a href="https://phosphoricons.com">Phosphor</a>.</p>
+        <p class="footer__legal">Not an official Minecraft product. Not approved by or associated with Mojang or Microsoft.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
