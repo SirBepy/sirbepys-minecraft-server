@@ -1,10 +1,11 @@
 name: Publish site and map
 
 on:
-  schedule:
-    # Every 8 hours: 03:17, 11:17 and 19:17 UTC. Off the hour: GitHub delays top-of-the-hour
-    # cron runs the most.
-    - cron: '17 3,11,19 * * *'
+  # Scheduled refresh paused: the server is down until 2026-11-27, so there is nothing new to
+  # pull. To resume, restore the block below (every 8 hours: 03:17, 11:17 and 19:17 UTC, off the
+  # hour because GitHub delays top-of-the-hour cron runs the most).
+  # schedule:
+  #   - cron: '17 3,11,19 * * *'
   workflow_dispatch:
   push:
     branches: [main]
